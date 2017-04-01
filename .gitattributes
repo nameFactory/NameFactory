@@ -4,4 +4,6 @@
 *.xml text
 *.gradle text
 
+*.bat eol=crlf
+
 *.png binary
