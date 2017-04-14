@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="pl.edu.pw.mini.namefactory">
 
     <application
@@ -9,7 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".RankingList"
+            android:label="@string/title_activity_ranking_list"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NameCard"
+            android:label="@string/title_activity_name_card"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Evaluation" />
+        <activity android:name=".RankingView" />
+        <activity
+            android:name=".Filters"
+            android:label="@string/title_activity_filters" />
+        <activity android:name=".RankingsJoiningRequest" />
+        <activity android:name=".NewRanking" />
+        <activity android:name=".RankingsJoiningAccept"></activity>
     </application>
 
 </manifest>
