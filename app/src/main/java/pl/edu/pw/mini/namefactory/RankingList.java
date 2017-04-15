@@ -75,8 +75,17 @@ public class RankingList extends AppCompatActivity
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
+
+                // Creating Bundle object
+                Bundle bundel = new Bundle();
+
+                // Storing data into bundle
+                Ranking element = rankingsList.get(position);
+                bundel.putString("rankingName", element.getRankingName());
+
                 //przejdz do aktywnosci avaluation
                 Intent in = new Intent(getApplicationContext(), Evaluation.class);
+                in.putExtras(bundel);
                 startActivity(in);
 
             }
@@ -177,8 +186,16 @@ public class RankingList extends AppCompatActivity
 
         if (id == R.id.nav_name) {
             // wybierz najpierw imie do wyszukania - dialog - wprowadzania tekstu
+            // Creating Bundle object
+            Bundle bundel = new Bundle();
+
+            // Storing data into bundle
+            Name element = new Name("Marta");
+            bundel.putString("name", element.getName());
+
             //przejdz do aktywnosci namecard
             Intent in = new Intent(getApplicationContext(), NameCard.class);
+            in.putExtras(bundel);
             startActivity(in);
 
 
@@ -191,15 +208,32 @@ public class RankingList extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
             //wybierz najpierw ktory ranking - dialog - lista
+
+            // Creating Bundle object
+            Bundle bundel = new Bundle();
+
+            // Storing data into bundle
+            Ranking element = rankingsList.get(0); //ZMIEN - w zaleznosci od dialogu
+            bundel.putString("rankingName", element.getRankingName());
+
             //przejdz do aktywnosci rankingjoiningrequest
             Intent in = new Intent(getApplicationContext(), RankingsJoiningRequest.class);
+            in.putExtras(bundel);
             startActivity(in);
 
         } else if (id == R.id.nav_work_on) {
 
             //wybierz najpierw ktory ranking - dialog - lista
-            //przejdz do aktywnosci evaluation
+            // Creating Bundle object
+            Bundle bundel = new Bundle();
+
+            // Storing data into bundle
+            Ranking element = rankingsList.get(0); //ZMIEN - w zaleznosci od dialogu
+            bundel.putString("rankingName", element.getRankingName());
+
+            //przejdz do aktywnosci avaluation
             Intent in = new Intent(getApplicationContext(), Evaluation.class);
+            in.putExtras(bundel);
             startActivity(in);
         }
 

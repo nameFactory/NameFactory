@@ -10,16 +10,18 @@
 
     <TextSwitcher
         android:id="@+id/name1"
+        android:textAlignment="center"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:onClick="switchNames"
         android:background="@color/colorGirl"/>
 
     <TextSwitcher
         android:id="@+id/name2"
+        android:textAlignment="center"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:onClick="switchNames"
         android:background="@color/colorGirlDark"/>

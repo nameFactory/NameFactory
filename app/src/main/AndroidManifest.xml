@@ -23,14 +23,16 @@
             android:name=".NameCard"
             android:label="@string/title_activity_name_card"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Evaluation" />
+        <activity android:name=".Evaluation"
+            android:label="@string/title_activity_evaluation" />
         <activity android:name=".RankingView"
             android:label="@string/title_activity_ranking_view"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Filters"
             android:label="@string/title_activity_filters" />
-        <activity android:name=".RankingsJoiningRequest" />
+        <activity android:name=".RankingsJoiningRequest"
+            android:label="@string/title_activity_ranking_joining" />
         <activity android:name=".NewRanking" />
         <activity android:name=".RankingsJoiningAccept"></activity>
     </application>
