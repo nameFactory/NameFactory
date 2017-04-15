@@ -33,7 +33,8 @@
             android:label="@string/title_activity_filters" />
         <activity android:name=".RankingsJoiningRequest"
             android:label="@string/title_activity_ranking_joining" />
-        <activity android:name=".NewRanking" />
+        <activity android:name=".NewRanking"
+            android:label="@string/title_activity_new_ranking"/>
         <activity android:name=".RankingsJoiningAccept"></activity>
     </application>
 
