@@ -1,5 +1,6 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -41,9 +42,9 @@ public class RankingView extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                //przejdz do aktywnosci rankingview
-                //Intent in = new Intent(getApplicationContext(), RankingView.class);
-                //startActivity(in);
+                //przejdz do aktywnosci namecard
+                Intent in = new Intent(getApplicationContext(), NameCard.class);
+                startActivity(in);
 
             }
 

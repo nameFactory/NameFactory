@@ -40,7 +40,7 @@ public class RankingList extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(getApplicationContext(), NewRanking.class);
+                Intent in = new Intent(getApplicationContext(), Filters.class);
                 startActivity(in);
             }
         });
