@@ -36,6 +36,7 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="Send request"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:onClick="sendRequest"/>
 
 </LinearLayout>

@@ -42,4 +42,12 @@ public class Ranking {
     public void setNamesString(String namesToShow) {
         this.namesString = namesToShow;
     }
+
+    public List<Name> getNames() {
+        return names;
+    }
+
+    public void setNames(List<Name> names) {
+        this.names = names;
+    }
 }

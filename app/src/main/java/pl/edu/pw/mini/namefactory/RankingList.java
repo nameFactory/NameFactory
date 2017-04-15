@@ -84,8 +84,16 @@ public class RankingList extends AppCompatActivity
             @Override
             public void onLongClick(View view, int position) {
 
+                // Creating Bundle object
+                Bundle bundel = new Bundle();
+
+                // Storing data into bundle
+                Ranking element = rankingsList.get(position);
+                bundel.putString("rankingName", element.getRankingName());
+
                 //przejdz do aktywnosci rankingview
                 Intent in = new Intent(getApplicationContext(), RankingView.class);
+                in.putExtras(bundel);
                 startActivity(in);
                 /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 editProductsOn = sharedPref.getBoolean("checkbox_edit_preference", true);
