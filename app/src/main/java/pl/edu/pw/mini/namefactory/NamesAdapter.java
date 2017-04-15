@@ -3,10 +3,12 @@ package pl.edu.pw.mini.namefactory;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,11 +50,13 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
+        public ImageView img;
 
         public ViewHolder(View view) {
             super(view);
 
             name = (TextView) view.findViewById(R.id.name);
+            img = (ImageView) view.findViewById(R.id.winner);
         }
     }
 
@@ -94,6 +98,11 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
 
         Name name = namesList.get(position);
         holder.name.setText(name.getName());
+        if(position==0)
+        {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGirl));
+            holder.img.setImageResource(R.drawable.trophy_48);
+        }
     }
 
     @Override

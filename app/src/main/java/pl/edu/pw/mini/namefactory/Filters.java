@@ -153,8 +153,6 @@ public class Filters extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("origin"));
-            //bindPreferenceSummaryToValue(findPreference("popularity"));
-           // bindPreferenceSummaryToValue(findPreference("religion"));
             bindPreferenceSummaryToValue(findPreference("time_period"));
         }
 
