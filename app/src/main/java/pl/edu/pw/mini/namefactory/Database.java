@@ -122,7 +122,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public Cursor getNamesFromRanking(int rankingID){
-        Cursor res = db.rawQuery("SELECT n.name, nr.score from NAMES n JOIN NAMES2RANKING nr ON n.id = nr.id_name WHERE nr.id_ranking = ? ORDER BY nr.score DESC", new String[] {Integer.toString(rankingID)});
+        Cursor res = db.rawQuery("SELECT n.name, n.id, nr.score from NAMES n JOIN NAMES2RANKING nr ON n.id = nr.id_name WHERE nr.id_ranking = ? ORDER BY nr.score DESC", new String[] {Integer.toString(rankingID)});
         return res;
     }
 

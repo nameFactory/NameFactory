@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RankingView extends AppCompatActivity {
 
-    private List<String> namesList = new ArrayList<>();
+    private List<Name> namesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private NamesAdapter nAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -99,7 +99,7 @@ public class RankingView extends AppCompatActivity {
     //zczytywanie listy elementow z bazydanych LUB czegos innego
     private void prepareNamesList() {
 
-        namesList = dbh.getNamesList(rankingID);
+        namesList = dbh.getNameList(rankingID);
 
 
 //        Name n1 = new Name("Kinga");

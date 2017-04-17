@@ -88,8 +88,8 @@ public class DatabaseHandler {
         myDb.updateNamesScore(nameID, rankingID, newScore);
     }
 
-    //wypisywanie imion i punktów z danego rankingu
-    public List<String> getNamesList(int rankingID){
+    //wypisywanie imion z danego rankingu
+    public List<String> getNamesListAsString(int rankingID){
         Cursor c = myDb.getNamesFromRanking(rankingID);
         List<String> results = new ArrayList<String>();
         if (c != null) {
@@ -97,6 +97,22 @@ public class DatabaseHandler {
                 do {
                     String name = c.getString(c.getColumnIndex("name"));
                     results.add(name);
+                } while (c.moveToNext());
+            }
+        }
+        return results;
+    }
+
+    //wypisywanie obiektów Name z danego rankingu
+    public List<Name> getNameList(int rankingID){
+        Cursor c = myDb.getNamesFromRanking(rankingID);
+        List<Name> results = new ArrayList<Name>();
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    int id = c.getInt(c.getColumnIndex("id"));
+                    String name = c.getString(c.getColumnIndex("name"));
+                    results.add(new Name(id, name));
                 } while (c.moveToNext());
             }
         }

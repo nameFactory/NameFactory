@@ -9,14 +9,13 @@ public class Name {
     private String name;
     private int ID;
 
-    public Name() {
+    public Name(int id, String name) {
+        this.name = name;
+        this.ID = id;
     }
 
     public int getID() {return ID;}
 
-    public Name(String name) {
-        this.name = name;
-    }
 
     public String getName() {
         return name;

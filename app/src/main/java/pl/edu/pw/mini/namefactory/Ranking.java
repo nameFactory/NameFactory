@@ -37,7 +37,7 @@ public class Ranking {
         this.name = name;
     }
 
-    public String getNamesString(int number) {
-        return dbh.getNamesList(ID).subList(0, number).toString();
+    public String getNamesString() {
+        return dbh.getNamesListAsString(ID).subList(0, 15).toString();
     }
 }
