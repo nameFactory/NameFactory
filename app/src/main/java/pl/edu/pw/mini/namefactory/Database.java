@@ -126,8 +126,13 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getNamesDesc(int nameID){
-        Cursor res = db.rawQuery("SELECT desc FROM NAMES WHERE id = ?", new String[] {Integer.toString(nameID)});
+    public Cursor getNamesDetails(int nameID){
+        Cursor res = db.rawQuery("SELECT name, desc, male FROM NAMES WHERE id = ?", new String[] {Integer.toString(nameID)});
+        return res;
+    }
+
+    public Cursor getRankingName(int rankingID){
+        Cursor res = db.rawQuery("SELECT name FROM RANKINGS WHERE id = ?", new String[] {Integer.toString(rankingID)});
         return res;
     }
 

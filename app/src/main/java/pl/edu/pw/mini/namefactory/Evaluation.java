@@ -18,11 +18,13 @@ public class Evaluation extends AppCompatActivity {
     private TextSwitcher n1Switcher;
     private TextSwitcher n2Switcher;
 
-    String rankingName;
+    private String rankingName;
+    private int rankingID;
+    private DatabaseHandler dbh;
 
     // Array of String to Show In TextSwitcher
     //ZMIANA - pobierz z bazy -------------------------------------------------------------
-    String namesToShow[]={"Kinga", "Monika", "Marcelina", "Magda", "Milena", "Marysia", "Maria", "Marta"};
+    private String[] namesToShow;
     int messageCount=namesToShow.length;
     // to keep current Index of text
     int currentIndex=-1;
@@ -37,10 +39,12 @@ public class Evaluation extends AppCompatActivity {
 
         // get the Bundle that stores the data of this Activity
         Bundle b = intent.getExtras();
-        rankingName =(String) b.get("rankingName");
+        rankingID = b.getInt("rankingName");
+        rankingName = dbh.getRankingName(rankingID);
+
         setTitle((CharSequence)rankingName );
 
-        //wczytanei imion dla danego rankingu z bazy-----------------------------------------------------------
+        namesToShow = (String[])dbh.getNamesListAsString(rankingID).toArray();
 
         // get The references
         n1Switcher = (TextSwitcher) findViewById(R.id.name1);

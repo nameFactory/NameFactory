@@ -210,10 +210,7 @@ public class RankingList extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            //zmiana pobierz nazwy z bazy -----------------------------------------------------
-            ArrayList<String> rankingsNames = new ArrayList<>(rankingsList.size());
-            rankingsNames.add("Pierwszy");
-            rankingsNames.add("Chlopcy");
+            ArrayList<String> rankingsNames = dbh.getRankingsNames();
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
@@ -230,10 +227,7 @@ public class RankingList extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            //zmiana pobierz nazwy z bazy -----------------------------------------------------
-            ArrayList<String> rankingsNames = new ArrayList<>(rankingsList.size());
-            rankingsNames.add("Pierwszy");
-            rankingsNames.add("Chlopcy");
+            ArrayList<String> rankingsNames = dbh.getRankingsNames();
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);

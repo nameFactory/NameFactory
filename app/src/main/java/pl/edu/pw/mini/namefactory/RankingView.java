@@ -37,9 +37,9 @@ public class RankingView extends AppCompatActivity {
 
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
-        rankingID=(int) b.get("rankingName");
-        //zmienc-------------------------------------------------------------------------------------
-        rankingName = "pierwszy" ;
+        rankingID=(int)b.get("rankingName");
+
+        rankingName = dbh.getRankingName(rankingID);
         setTitle((CharSequence)rankingName );
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_for_names);

@@ -32,13 +32,15 @@ public class DatabaseHandler {
             myDb.insertData("NAMES", new String[]{namesFromServer.get(i), descFromServer.get(i), boolsFromServer.get(i).toString()});
     }
 
-    //wypisywanie opisu danego imienia
-    public String getDesc(int nameID){
-        Cursor c = myDb.getNamesDesc(nameID);
-        String result = null;
+    //wypisywanie opisu i nazwy danego imienia
+    public String[] getNameDetails(int nameID){
+        Cursor c = myDb.getNamesDetails(nameID);
+        String[] result = null;
         if (c != null) {
             if (c.moveToFirst()) {
-                result = c.getString(c.getColumnIndex("desc"));
+                result[0] = c.getString(c.getColumnIndex("name"));
+                result[1] = c.getString(c.getColumnIndex("desc"));
+                result[2] = c.getString(c.getColumnIndex("male"));
             }
         }
         return result;
@@ -47,6 +49,18 @@ public class DatabaseHandler {
     //tworzenie nowego rankingu
     public int createRanking(String rankingName){
         return myDb.insertData("RANKINGS", new String[]{rankingName});
+    }
+
+    //wypisywanie nazwy danego rankingu
+    public String getRankingName(int nameID){
+        Cursor c = myDb.getRankingName(nameID);
+        String result = null;
+        if (c != null) {
+            if (c.moveToFirst()) {
+                result = c.getString(c.getColumnIndex("name"));
+            }
+        }
+        return result;
     }
 
     //zmiana nazwy rankingu
@@ -65,6 +79,24 @@ public class DatabaseHandler {
     public void deleteRanking(int rankingID){
         myDb.deleteRanking(rankingID);
     }
+
+
+    //wypisywanie listy rankingów jako stringi
+    public ArrayList<String> getRankingsNames(){
+        Cursor c = myDb.getData("RANKINGS", new String[]{"name"});
+        ArrayList<String> results = new ArrayList<String>();
+
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    String name = c.getString(c.getColumnIndex("name"));
+                    results.add(name);
+                } while (c.moveToNext());
+            }
+        }
+        return results;
+    }
+
 
     //wypisywanie listy rankingów
     public List<Ranking> getRankingList(){

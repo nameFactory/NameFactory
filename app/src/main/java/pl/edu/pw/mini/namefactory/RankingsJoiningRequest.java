@@ -10,6 +10,8 @@ public class RankingsJoiningRequest extends AppCompatActivity {
 
     private String rankingName;
     private int rankingID;
+    private DatabaseHandler dbh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +23,7 @@ public class RankingsJoiningRequest extends AppCompatActivity {
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
         rankingID = b.getInt("rankingName");
-        //ZMIEN----------------------------------------------------------------------------
-        rankingName = "pierwszy" ;
+        rankingName = dbh.getRankingName(rankingID);
 
         TextView textV = (TextView) findViewById(R.id.rankingNameText);
         textV.setText(rankingName);

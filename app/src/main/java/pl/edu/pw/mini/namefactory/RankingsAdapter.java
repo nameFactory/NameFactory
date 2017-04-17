@@ -21,6 +21,7 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
 
     private List<Ranking> rankingsList;
     private final Context context;
+    private DatabaseHandler dbh;
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
@@ -110,9 +111,9 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
 
     // Remove a RecyclerView item containing a specified Data object
     public void remove(Ranking data) {
-        //ZMIEN-------------------------------------------------------------------------
         int position = rankingsList.indexOf(data);
         rankingsList.remove(position);
+        dbh.deleteRanking(data.getID());
         notifyItemRemoved(position);
     }
 }
