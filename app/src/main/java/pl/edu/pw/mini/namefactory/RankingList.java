@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +19,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RankingList extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ChooseNameFragment.ChooseNameDialogListener,
+        ChooseRankingFragment.ChooseNameDialogListener{
 
     private List<Ranking> rankingsList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -186,17 +189,11 @@ public class RankingList extends AppCompatActivity
 
         if (id == R.id.nav_name) {
             // wybierz najpierw imie do wyszukania - dialog - wprowadzania tekstu
-            // Creating Bundle object
-            Bundle bundel = new Bundle();
 
-            // Storing data into bundle
-            Name element = new Name("Marta");
-            bundel.putString("name", element.getName());
 
-            //przejdz do aktywnosci namecard
-            Intent in = new Intent(getApplicationContext(), NameCard.class);
-            in.putExtras(bundel);
-            startActivity(in);
+            // Create an instance of the dialog fragment and show it
+            DialogFragment dialog = new ChooseNameFragment();
+            dialog.show(getSupportFragmentManager(), "ChooseNameFragment");
 
 
         } else if (id == R.id.nav_new_ranking) {
@@ -208,37 +205,91 @@ public class RankingList extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
             //wybierz najpierw ktory ranking - dialog - lista
-
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            // Storing data into bundle
-            Ranking element = rankingsList.get(0); //ZMIEN - w zaleznosci od dialogu
-            bundel.putString("rankingName", element.getRankingName());
+            ArrayList<CharSequence> rankingsNames = new ArrayList<>(rankingsList.size());
+            rankingsNames.add("Pierwszy");
+            rankingsNames.add("Chlopcy");
 
-            //przejdz do aktywnosci rankingjoiningrequest
-            Intent in = new Intent(getApplicationContext(), RankingsJoiningRequest.class);
-            in.putExtras(bundel);
-            startActivity(in);
+            // Storing data into bundle
+            bundel.putCharSequenceArrayList("rankings", rankingsNames);
+
+            //wybierz najpierw ktory ranking - dialog - lista
+            // Create an instance of the dialog fragment and show it
+            DialogFragment dialog = new ChooseRankingFragment();
+            dialog.setArguments(bundel);
+            dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
+
+
 
         } else if (id == R.id.nav_work_on) {
 
-            //wybierz najpierw ktory ranking - dialog - lista
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            // Storing data into bundle
-            Ranking element = rankingsList.get(0); //ZMIEN - w zaleznosci od dialogu
-            bundel.putString("rankingName", element.getRankingName());
+            ArrayList<String> rankingsNames = new ArrayList<>(rankingsList.size());
+            rankingsNames.add("Pierwszy");
+            rankingsNames.add("Chlopcy");
 
-            //przejdz do aktywnosci avaluation
-            Intent in = new Intent(getApplicationContext(), Evaluation.class);
-            in.putExtras(bundel);
-            startActivity(in);
+            // Storing data into bundle
+            bundel.putStringArrayList("rankings", rankingsNames);
+
+            //wybierz najpierw ktory ranking - dialog - lista
+            // Create an instance of the dialog fragment and show it
+            DialogFragment dialog = new ChooseRankingFragment();
+            dialog.setArguments(bundel);
+            dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDialogNamePositiveClick(DialogFragment dialog, String name) {
+
+        // Creating Bundle object
+        Bundle bundel = new Bundle();
+
+        // Storing data into bundle
+        Name element = new Name(name);
+        bundel.putString("name", element.getName());
+
+        //przejdz do aktywnosci namecard
+        Intent in = new Intent(getApplicationContext(), NameCard.class);
+        in.putExtras(bundel);
+        startActivity(in);
+
+    }
+
+    //zamknij dialog jesli nacisniety zostanie negatywny przycisk
+    @Override
+    public void onDialogNameNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDialogRankingPositiveClick(DialogFragment dialog, String name) {
+
+        // Creating Bundle object
+        Bundle bundel = new Bundle();
+
+        // Storing data into bundle
+        //Ranking element = rankingsList.get(0); //ZMIEN - w zaleznosci od dialogu
+        bundel.putString("rankingName", name);
+
+        //przejdz do aktywnosci rankingjoiningrequest
+        Intent in = new Intent(getApplicationContext(), RankingsJoiningRequest.class);
+        in.putExtras(bundel);
+        startActivity(in);
+
+    }
+
+    //zamknij dialog jesli nacisniety zostanie negatywny przycisk
+    @Override
+    public void onDialogRankingNegativeClick(DialogFragment dialog) {
+        dialog.dismiss();
     }
 }

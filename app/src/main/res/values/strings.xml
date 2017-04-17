@@ -24,6 +24,12 @@
     <string name="section_meaning">Meaning</string>
     <string name="section_people">Famous people</string>
 
+    <string name="choose_name_dialog">Find name meaning</string>
+    <string name="choose_ranking_dialog">Give ranking name</string>
+    <string name="check">Check</string>
+    <string name="choose">Choose</string>
+    <string name="cancel">Cancel</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
