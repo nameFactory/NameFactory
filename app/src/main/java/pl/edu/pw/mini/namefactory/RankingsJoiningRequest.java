@@ -10,6 +10,7 @@ public class RankingsJoiningRequest extends AppCompatActivity {
 
     private String rankingName;
     private int rankingID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
