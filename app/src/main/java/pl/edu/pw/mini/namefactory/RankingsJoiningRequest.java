@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class RankingsJoiningRequest extends AppCompatActivity {
 
     private String rankingName;
+    private int rankingID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +20,9 @@ public class RankingsJoiningRequest extends AppCompatActivity {
 
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
-        rankingName = b.getString("rankingName");
+        rankingID = b.getInt("rankingName");
+        //ZMIEN----------------------------------------------------------------------------
+        rankingName = "pierwszy" ;
 
         TextView textV = (TextView) findViewById(R.id.rankingNameText);
         textV.setText(rankingName);

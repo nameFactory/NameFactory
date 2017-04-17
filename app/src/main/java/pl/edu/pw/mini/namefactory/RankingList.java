@@ -84,7 +84,7 @@ public class RankingList extends AppCompatActivity
 
                 // Storing data into bundle
                 Ranking element = rankingsList.get(position);
-                bundel.putString("rankingName", element.getRankingName());
+                bundel.putInt("rankingName", element.getID());
 
                 //przejdz do aktywnosci avaluation
                 Intent in = new Intent(getApplicationContext(), Evaluation.class);
@@ -101,7 +101,7 @@ public class RankingList extends AppCompatActivity
 
                 // Storing data into bundle
                 Ranking element = rankingsList.get(position);
-                bundel.putString("rankingName", element.getRankingName());
+                bundel.putInt("rankingName", element.getID());
 
                 //przejdz do aktywnosci rankingview
                 Intent in = new Intent(getApplicationContext(), RankingView.class);
@@ -129,6 +129,7 @@ public class RankingList extends AppCompatActivity
     //zczytywanie listy elementow z bazydanych LUB czegos innego
     private void prepareRankingsList() {
 
+        //pobranie z bazy danych -----------------------------------------------------------------
         Ranking r1 = new Ranking();
         r1.setRankingName("Moj pierwszy ranking");
         rankingsList.add(r1);
@@ -190,7 +191,6 @@ public class RankingList extends AppCompatActivity
         if (id == R.id.nav_name) {
             // wybierz najpierw imie do wyszukania - dialog - wprowadzania tekstu
 
-
             // Create an instance of the dialog fragment and show it
             DialogFragment dialog = new ChooseNameFragment();
             dialog.show(getSupportFragmentManager(), "ChooseNameFragment");
@@ -208,12 +208,13 @@ public class RankingList extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            ArrayList<CharSequence> rankingsNames = new ArrayList<>(rankingsList.size());
+            //zmiana pobierz nazwy z bazy -----------------------------------------------------
+            ArrayList<String> rankingsNames = new ArrayList<>(rankingsList.size());
             rankingsNames.add("Pierwszy");
             rankingsNames.add("Chlopcy");
 
             // Storing data into bundle
-            bundel.putCharSequenceArrayList("rankings", rankingsNames);
+            bundel.putStringArrayList("rankings", rankingsNames);
 
             //wybierz najpierw ktory ranking - dialog - lista
             // Create an instance of the dialog fragment and show it
@@ -222,12 +223,12 @@ public class RankingList extends AppCompatActivity
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
 
 
-
         } else if (id == R.id.nav_work_on) {
 
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
+            //zmiana pobierz nazwy z bazy -----------------------------------------------------
             ArrayList<String> rankingsNames = new ArrayList<>(rankingsList.size());
             rankingsNames.add("Pierwszy");
             rankingsNames.add("Chlopcy");
@@ -254,8 +255,7 @@ public class RankingList extends AppCompatActivity
         Bundle bundel = new Bundle();
 
         // Storing data into bundle
-        Name element = new Name(name);
-        bundel.putString("name", element.getName());
+        bundel.putString("name", name);
 
         //przejdz do aktywnosci namecard
         Intent in = new Intent(getApplicationContext(), NameCard.class);
@@ -277,7 +277,6 @@ public class RankingList extends AppCompatActivity
         Bundle bundel = new Bundle();
 
         // Storing data into bundle
-        //Ranking element = rankingsList.get(0); //ZMIEN - w zaleznosci od dialogu
         bundel.putString("rankingName", name);
 
         //przejdz do aktywnosci rankingjoiningrequest

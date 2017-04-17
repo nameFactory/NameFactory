@@ -111,13 +111,15 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
     }
 
     // Insert a new item to the RecyclerView on a predefined position
-    public void insert(Name data) {
+/*    public void insert(Name data) {
+        //ZMIEN -----------------------------------------------------------------------------------------
         namesList.add(data);
         notifyItemInserted(getItemCount());
-    }
+    }*/
 
     // Remove a RecyclerView item containing a specified Data object
     public void remove(Name data) {
+        //ZMIEN-----------------------------------------------------------------------------------------
         int position = namesList.indexOf(data);
         namesList.remove(position);
         notifyItemRemoved(position);

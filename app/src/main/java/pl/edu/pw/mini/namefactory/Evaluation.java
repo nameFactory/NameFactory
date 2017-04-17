@@ -21,6 +21,7 @@ public class Evaluation extends AppCompatActivity {
     String rankingName;
 
     // Array of String to Show In TextSwitcher
+    //ZMIANA - pobierz z bazy -------------------------------------------------------------
     String namesToShow[]={"Kinga", "Monika", "Marcelina", "Magda", "Milena", "Marysia", "Maria", "Marta"};
     int messageCount=namesToShow.length;
     // to keep current Index of text
@@ -39,7 +40,7 @@ public class Evaluation extends AppCompatActivity {
         rankingName =(String) b.get("rankingName");
         setTitle((CharSequence)rankingName );
 
-        //wczytanei imion dla danego rankingu-------------------------------------
+        //wczytanei imion dla danego rankingu z bazy-----------------------------------------------------------
 
         // get The references
         n1Switcher = (TextSwitcher) findViewById(R.id.name1);
@@ -82,6 +83,8 @@ public class Evaluation extends AppCompatActivity {
         n1Switcher.setOutAnimation(out);
         n2Switcher.setInAnimation(in);
         n2Switcher.setOutAnimation(out);
+
+        switchNames(n1Switcher);
 
 /*        // ClickListener for NEXT button
         // When clicked on Button TextSwitcher will switch between texts

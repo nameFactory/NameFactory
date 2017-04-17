@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class Ranking {
+    private int ID;
     private String rankingName;
     private String namesString;
     private List<Name> names;
@@ -26,6 +27,8 @@ public class Ranking {
         this.names = null;
         namesString = "Kinga, Monika, Marcelina, Magda, Milena, Marysia, Maria";
     }
+
+    public int getID() {return ID;}
 
     public String getRankingName() {
         return rankingName;

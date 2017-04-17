@@ -7,9 +7,12 @@ package pl.edu.pw.mini.namefactory;
 public class Name {
 
     private String name;
+    private int ID;
 
     public Name() {
     }
+
+    public int getID() {return ID;}
 
     public Name(String name) {
         this.name = name;

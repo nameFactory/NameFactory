@@ -22,6 +22,7 @@ public class RankingView extends AppCompatActivity {
     private NamesAdapter nAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String rankingName;
+    private int rankingID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,9 @@ public class RankingView extends AppCompatActivity {
 
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
-        rankingName =(String) b.get("rankingName");
+        rankingID=(int) b.get("rankingName");
+        //zmienc-------------------------------------------------------------------------------------
+        rankingName = "pierwszy" ;
         setTitle((CharSequence)rankingName );
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_for_names);
@@ -62,7 +65,7 @@ public class RankingView extends AppCompatActivity {
 
                 // Storing data into bundle
                 Name element = namesList.get(position);
-                bundel.putString("name", element.getName());
+                bundel.putInt("name", element.getID());
 
                 //przejdz do aktywnosci namecard
                 Intent in = new Intent(getApplicationContext(), NameCard.class);
@@ -95,6 +98,7 @@ public class RankingView extends AppCompatActivity {
     //zczytywanie listy elementow z bazydanych LUB czegos innego
     private void prepareNamesList() {
 
+        //zmien-----------------------------------------------------------------------------------
         Name n1 = new Name("Kinga");
         namesList.add(n1);
         Name n2 = new Name("Monika");
@@ -134,7 +138,7 @@ public class RankingView extends AppCompatActivity {
 
             // Creating Bundle object
             Bundle bundel = new Bundle();
-            bundel.putString("rankingName", rankingName);
+            bundel.putInt("rankingName", rankingID);
 
             Intent in = new Intent(getApplicationContext(), RankingsJoiningRequest.class);
             in.putExtras(bundel);

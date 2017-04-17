@@ -11,7 +11,7 @@ import android.view.View;
 
 public class NameCard extends AppCompatActivity {
 
-    private String name;
+    private int nameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,9 @@ public class NameCard extends AppCompatActivity {
 
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
-        name =(String) b.get("name");
-        setTitle((CharSequence)name );
+        nameID =(int) b.get("name");
+        //pobierz imie na podstawie ID-----------------------------------------------------------------
+        setTitle((CharSequence)"marta");
 
         CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         colToolbar.setBackgroundColor(getResources().getColor(R.color.colorGirl));

@@ -14,6 +14,6 @@ public class NewRanking extends AppCompatActivity {
 
     public void add(View v)
     {
-        //dodanie nowego rankingu
+        //dodanie nowego rankingu-----------------------------------------------------
     }
 }

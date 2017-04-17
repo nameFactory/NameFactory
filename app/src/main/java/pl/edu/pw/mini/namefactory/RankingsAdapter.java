@@ -102,14 +102,15 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
         return rankingsList.size();
     }
 
-    // Insert a new item to the RecyclerView on a predefined position
+/*    // Insert a new item to the RecyclerView on a predefined position
     public void insert(Ranking data) {
         rankingsList.add(data);
         notifyItemInserted(getItemCount());
-    }
+    }*/
 
     // Remove a RecyclerView item containing a specified Data object
     public void remove(Ranking data) {
+        //ZMIEN-------------------------------------------------------------------------
         int position = rankingsList.indexOf(data);
         rankingsList.remove(position);
         notifyItemRemoved(position);
