@@ -11,20 +11,16 @@ public class Ranking {
     private int ID;
     private String rankingName;
     private String namesString;
-    private List<Name> names;
-    private List<String> tags;
 
     public Ranking() {
         //to nalezy potem USUNAC
         namesString = "Kinga, Monika, Marcelina, Magda, Milena, Marysia, Maria, Marta";
     }
 
-    public Ranking(String name, List<String> tags) {
+    public Ranking(String name) {
         this.rankingName = name;
-        Collections.copy(this.tags,tags);
 
         //uzupelnienie listy imion na podstawie bazy
-        this.names = null;
         namesString = "Kinga, Monika, Marcelina, Magda, Milena, Marysia, Maria";
     }
 
@@ -46,11 +42,4 @@ public class Ranking {
         this.namesString = namesToShow;
     }
 
-    public List<Name> getNames() {
-        return names;
-    }
-
-    public void setNames(List<Name> names) {
-        this.names = names;
-    }
 }
