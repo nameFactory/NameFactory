@@ -29,6 +29,7 @@ public class RankingList extends AppCompatActivity
         ChooseRankingFragment.ChooseNameDialogListener{
 
     private List<Ranking> rankingsList = new ArrayList<>();
+    private DatabaseHandler dbh;
     private RecyclerView recyclerView;
     private RankingsAdapter rAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -130,22 +131,23 @@ public class RankingList extends AppCompatActivity
     private void prepareRankingsList() {
 
         //pobranie z bazy danych -----------------------------------------------------------------
-        Ranking r1 = new Ranking();
-        r1.setRankingName("Moj pierwszy ranking");
-        rankingsList.add(r1);
-        Ranking r2 = new Ranking();
-        r2.setRankingName("Moj drugi ranking");
-        rankingsList.add(r2);
-        Ranking r3 = new Ranking();
-        r3.setRankingName("Ranking probny");
-        rankingsList.add(r3);
-        Ranking r4 = new Ranking();
-        r4.setRankingName("Wybor chlopca");
-        rankingsList.add(r4);
-        Ranking r5 = new Ranking();
-        r5.setRankingName("Wybor dziewczynki");
-        rankingsList.add(r5);
-
+        rankingsList = dbh.getRankingList();
+//        rankingsList = dbh.
+//        Ranking r1 = new Ranking();
+//        r1.setRankingName("Moj pierwszy ranking");
+//        rankingsList.add(r1);
+//        Ranking r2 = new Ranking();
+//        r2.setRankingName("Moj drugi ranking");
+//        rankingsList.add(r2);
+//        Ranking r3 = new Ranking();
+//        r3.setRankingName("Ranking probny");
+//        rankingsList.add(r3);
+//        Ranking r4 = new Ranking();
+//        r4.setRankingName("Wybor chlopca");
+//        rankingsList.add(r4);
+//        Ranking r5 = new Ranking();
+//        r5.setRankingName("Wybor dziewczynki");
+//        rankingsList.add(r5);
 
         rAdapter.notifyDataSetChanged();
     }

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> implements SwipeHelperAdapter  {
 
-    private List<Name> namesList;
+    private List<String> namesList;
     private final Context context;
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 

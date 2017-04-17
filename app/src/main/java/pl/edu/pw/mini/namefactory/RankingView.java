@@ -17,12 +17,13 @@ import java.util.List;
 
 public class RankingView extends AppCompatActivity {
 
-    private List<Name> namesList = new ArrayList<>();
+    private List<String> namesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private NamesAdapter nAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String rankingName;
     private int rankingID;
+    private DatabaseHandler dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,23 +99,25 @@ public class RankingView extends AppCompatActivity {
     //zczytywanie listy elementow z bazydanych LUB czegos innego
     private void prepareNamesList() {
 
-        //zmien-----------------------------------------------------------------------------------
-        Name n1 = new Name("Kinga");
-        namesList.add(n1);
-        Name n2 = new Name("Monika");
-        namesList.add(n2);
-        Name n3 = new Name("Marcelina");
-        namesList.add(n3);
-        Name n4 = new Name("Magda");
-        namesList.add(n4);
-        Name n5 = new Name("Milena");
-        namesList.add(n5);
-        Name n6 = new Name("Marysia");
-        namesList.add(n6);
-        Name n7 = new Name("Maria");
-        namesList.add(n7);
-        Name n8 = new Name("Marta");
-        namesList.add(n8);
+        namesList = dbh.getNamesList(rankingID);
+
+
+//        Name n1 = new Name("Kinga");
+//        namesList.add(n1);
+//        Name n2 = new Name("Monika");
+//        namesList.add(n2);
+//        Name n3 = new Name("Marcelina");
+//        namesList.add(n3);
+//        Name n4 = new Name("Magda");
+//        namesList.add(n4);
+//        Name n5 = new Name("Milena");
+//        namesList.add(n5);
+//        Name n6 = new Name("Marysia");
+//        namesList.add(n6);
+//        Name n7 = new Name("Maria");
+//        namesList.add(n7);
+//        Name n8 = new Name("Marta");
+//        namesList.add(n8);
 
         nAdapter.notifyDataSetChanged();
     }

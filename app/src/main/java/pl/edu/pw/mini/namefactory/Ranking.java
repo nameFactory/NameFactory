@@ -9,37 +9,35 @@ import java.util.List;
 
 public class Ranking {
     private int ID;
-    private String rankingName;
-    private String namesString;
+    private String name;
+    private DatabaseHandler dbh;
 
-    public Ranking() {
-        //to nalezy potem USUNAC
-        namesString = "Kinga, Monika, Marcelina, Magda, Milena, Marysia, Maria, Marta";
+    //konstruktor do tworzenia faktycznego obiektu i rekordu w tabeli
+    public Ranking(DatabaseHandler dbh, String name) {
+        this.dbh = dbh;
+        this.name = name;
+        this.ID = dbh.createRanking(name);
     }
 
-    public Ranking(String name) {
-        this.rankingName = name;
-
-        //uzupelnienie listy imion na podstawie bazy
-        namesString = "Kinga, Monika, Marcelina, Magda, Milena, Marysia, Maria";
+    //konstruktor do tworzenia obiektu z rekordu w tabeli (na potrzeby recyclingView)
+    public Ranking(DatabaseHandler dbh, String name, int id) {
+        this.dbh = dbh;
+        this.name = name;
+        this.ID = id;
     }
 
     public int getID() {return ID;}
 
     public String getRankingName() {
-        return rankingName;
+        return name;
     }
 
     public void setRankingName(String name) {
-        this.rankingName = name;
+        dbh.editRankingName(ID, name);
+        this.name = name;
     }
 
-    public String getNamesString() {
-        return namesString;
+    public String getNamesString(int number) {
+        return dbh.getNamesList(ID).subList(0, number).toString();
     }
-
-    public void setNamesString(String namesToShow) {
-        this.namesString = namesToShow;
-    }
-
 }

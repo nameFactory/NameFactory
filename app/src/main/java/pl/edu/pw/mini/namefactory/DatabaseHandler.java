@@ -67,15 +67,16 @@ public class DatabaseHandler {
     }
 
     //wypisywanie listy rankingów
-    public List<String> getRankingsNames(){
-        Cursor c = myDb.getData("RANKINGS", new String[]{"name"});
-        List<String> results = new ArrayList<String>();
+    public List<Ranking> getRankingList(){
+        Cursor c = myDb.getData("RANKINGS", new String[]{"id", "name"});
+        List<Ranking> results = new ArrayList<Ranking>();
 
         if (c != null) {
             if (c.moveToFirst()) {
                 do {
+                    int id = c.getInt(c.getColumnIndex("id"));
                     String name = c.getString(c.getColumnIndex("name"));
-                    results.add(name);
+                    results.add(new Ranking(this, name, id));
                 } while (c.moveToNext());
             }
         }
@@ -95,8 +96,7 @@ public class DatabaseHandler {
             if (c.moveToFirst()) {
                 do {
                     String name = c.getString(c.getColumnIndex("name"));
-                    int score = c.getInt(c.getColumnIndex("score"));
-                    results.add(name + ", " + score);
+                    results.add(name);
                 } while (c.moveToNext());
             }
         }
