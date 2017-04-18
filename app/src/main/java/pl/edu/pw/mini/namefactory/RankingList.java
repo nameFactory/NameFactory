@@ -4,24 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RankingList extends AppCompatActivity
@@ -60,10 +72,36 @@ public class RankingList extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         dbh = new DatabaseHandler(this);
-        //zamockowana lista imion-------------------------------------------------------------------
-        dbh.pushNames(null, null, null);
+        String url = "https://api.namefactory.pl/names_db";
+        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(
+                Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                List<String> names = new LinkedList<>();
+                List<String> descs = new LinkedList<>();
+                List<Boolean> is_males = new LinkedList<>();
+                try {
+                    JSONArray json_names = response.getJSONArray("names");
+                    for(int i = 0; i < json_names.length(); i++) {
+                        JSONObject row = json_names.getJSONObject(i);
+                        names.add(row.getString("name"));
+                        descs.add(row.getString("description"));
+                        is_males.add(row.getBoolean("is_male"));
+                    }
+                    dbh.pushNames(names, descs, is_males);
+                } catch (JSONException e) {
+                    dbh.pushNames(null, null, null);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dbh.pushNames(null, null, null);
+            }
+        }
+        );
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
 
         rankingsList = dbh.getRankingList();
 
