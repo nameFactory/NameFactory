@@ -27,6 +27,8 @@ public class Evaluation extends AppCompatActivity {
     int messageCount;
     // to keep current Index of text
     int currentIndex=-1;
+    int ind1;
+    int ind2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class Evaluation extends AppCompatActivity {
         n2Switcher.setInAnimation(in);
         n2Switcher.setOutAnimation(out);
 
-        switchNames(n1Switcher);
+        switchNames1(n1Switcher);
 
 /*        // ClickListener for NEXT button
         // When clicked on Button TextSwitcher will switch between texts
@@ -103,17 +105,44 @@ public class Evaluation extends AppCompatActivity {
         });*/
     }
 
-    public void switchNames(View v)
+    //nacisniecie pierwszego imienia (ind1)
+    public void switchNames1(View v)
     {
+        //wybrane imie ma tutaj ind1
         //LOSOWANIE----------------------------------------------------
         // TODO Auto-generated method stub
         currentIndex++;
+        ind1=currentIndex;
+        // If index reaches maximum reset it
+        if(currentIndex==messageCount)
+            currentIndex=0;
+        n1Switcher.setText(namesToShow[currentIndex]);
+
+
+        currentIndex++;
+        ind2 = currentIndex;
+        // If index reaches maximum reset it
+        if(currentIndex==messageCount)
+            currentIndex=0;
+        n2Switcher.setText(namesToShow[currentIndex]);
+
+    }
+
+    //nacisniecie drugiego imienia (ind2)
+    public void switchNames2(View v)
+    {
+        //wybrane imie ma tutaj ind2
+        //LOSOWANIE----------------------------------------------------
+        // TODO Auto-generated method stub
+        currentIndex++;
+        ind1=currentIndex;
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
         n1Switcher.setText(namesToShow[currentIndex]);
 
         currentIndex++;
+        ind2 = currentIndex;
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
