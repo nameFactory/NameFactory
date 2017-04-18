@@ -65,6 +65,8 @@ public class RankingList extends AppCompatActivity
         //zamockowana lista imion-------------------------------------------------------------------
         dbh.pushNames(null, null, null);
 
+        rankingsList = dbh.getRankingList();
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         rAdapter = new RankingsAdapter(rankingsList, getApplicationContext());
@@ -91,7 +93,7 @@ public class RankingList extends AppCompatActivity
                 Ranking element = rankingsList.get(position);
                 bundel.putInt("rankingName", element.getID());
 
-                //przejdz do aktywnosci avaluation
+                //przejdz do aktywnosci evaluation
                 Intent in = new Intent(getApplicationContext(), Evaluation.class);
                 in.putExtras(bundel);
                 startActivity(in);
@@ -128,7 +130,7 @@ public class RankingList extends AppCompatActivity
 
         }));
 
-        prepareRankingsList();
+       prepareRankingsList();
     }
 
     //zczytywanie listy elementow z bazydanych LUB czegos innego
@@ -136,9 +138,7 @@ public class RankingList extends AppCompatActivity
 
         //pobranie z bazy danych -----------------------------------------------------------------
         rankingsList = dbh.getRankingList();
-        Toast.makeText(this, rankingsList.get(4).getRankingName(), Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, rankingsList.get(0).getRankingName(), Toast.LENGTH_LONG).show();
-//        rankingsList = dbh.
+
 //        Ranking r1 = new Ranking();
 //        r1.setRankingName("Moj pierwszy ranking");
 //        rankingsList.add(r1);

@@ -26,6 +26,8 @@ public class Database extends SQLiteOpenHelper {
         this.context = context;
         db = this.getWritableDatabase();
         createColumnsList();
+
+        //onUpgrade(db, 1, 2);
     }
 
     @Override

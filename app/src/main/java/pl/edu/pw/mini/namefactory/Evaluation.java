@@ -24,7 +24,7 @@ public class Evaluation extends AppCompatActivity {
 
     // Array of String to Show In TextSwitcher
     private String[] namesToShow;
-    int messageCount=namesToShow.length;
+    int messageCount;
     // to keep current Index of text
     int currentIndex=-1;
 
@@ -45,7 +45,8 @@ public class Evaluation extends AppCompatActivity {
 
         setTitle((CharSequence)rankingName );
 
-        namesToShow = (String[])dbh.getNamesListAsString(rankingID).toArray();
+        namesToShow = dbh.getNamesListAsString(rankingID).toArray(new String[0]);
+        messageCount=namesToShow.length;
 
         // get The references
         n1Switcher = (TextSwitcher) findViewById(R.id.name1);

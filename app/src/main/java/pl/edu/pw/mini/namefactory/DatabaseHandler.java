@@ -72,9 +72,9 @@ public class DatabaseHandler {
     //dodawanie imion z danej listy id imion do danego rankingu
     public void addNames2Ranking(int rankingID, List<String> names)
     {
-        List<String> namesFromServer = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
-        for (String str : namesFromServer)
-            myDb.insertData("NAMES2RANKING", new String[] {str, Integer.toString(rankingID), "0"});
+        List<Integer> namesFromServer = Arrays.asList(1, 2, 3, 4, 5);
+        for (Integer id : namesFromServer)
+            myDb.insertData("NAMES2RANKING", new String[] {Integer.toString(id), Integer.toString(rankingID), "0"});
 
     }
 
@@ -104,7 +104,7 @@ public class DatabaseHandler {
     //wypisywanie listy rankingów
     public List<Ranking> getRankingList(){
         Cursor c = myDb.getData("RANKINGS", new String[]{"id", "name"});
-        List<Ranking> results = new ArrayList<Ranking>();
+        List<Ranking> results = new ArrayList<>();
 
         if (c != null) {
             if (c.moveToFirst()) {
@@ -126,7 +126,7 @@ public class DatabaseHandler {
     //wypisywanie imion z danego rankingu
     public List<String> getNamesListAsString(int rankingID){
         Cursor c = myDb.getNamesFromRanking(rankingID);
-        List<String> results = new ArrayList<String>();
+        List<String> results = new ArrayList<>();
         if (c != null) {
             if (c.moveToFirst()) {
                 do {
@@ -141,7 +141,7 @@ public class DatabaseHandler {
     //wypisywanie obiektów Name z danego rankingu
     public List<Name> getNameList(int rankingID){
         Cursor c = myDb.getNamesFromRanking(rankingID);
-        List<Name> results = new ArrayList<Name>();
+        List<Name> results = new ArrayList<>();
         if (c != null) {
             if (c.moveToFirst()) {
                 do {

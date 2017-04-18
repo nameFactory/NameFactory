@@ -11,13 +11,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RankingView extends AppCompatActivity {
 
-    private List<Name> namesList = new ArrayList<>();
+    private List<Name> namesList;
     private RecyclerView recyclerView;
     private NamesAdapter nAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -33,12 +34,15 @@ public class RankingView extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         this.dbh = RankingList.dbh;
+
         // get the Intent that started this Activity
         Intent in = getIntent();
 
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
         rankingID=(int)b.get("rankingName");
+
+        namesList = dbh.getNameList(rankingID);
 
         rankingName = dbh.getRankingName(rankingID);
         setTitle((CharSequence)rankingName );

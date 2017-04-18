@@ -1,7 +1,11 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.widget.Toast;
+
 import java.util.Collections;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Asus on 14.04.2017.
@@ -31,6 +35,6 @@ public class Ranking {
     }
 
     public String getNamesString() {
-        return dbh.getNamesListAsString(ID).subList(0, 15).toString();
+        return dbh.getNamesListAsString(ID).toString();
     }
 }
