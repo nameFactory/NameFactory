@@ -1,5 +1,6 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,5 +27,8 @@ public class NewRanking extends AppCompatActivity {
         rankingID = dbh.createRanking(nameRanking);
         //zamockowana lista imion wybranych z preferencji - null -----------------------------------
         dbh.addNames2Ranking(rankingID, null);
+
+        Intent in = new Intent(getApplicationContext(), RankingList.class);
+        startActivity(in);
     }
 }

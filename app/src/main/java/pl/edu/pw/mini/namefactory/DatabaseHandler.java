@@ -110,7 +110,7 @@ public class DatabaseHandler {
                 do {
                     int id = c.getInt(c.getColumnIndex("id"));
                     String name = c.getString(c.getColumnIndex("name"));
-                    results.add(new Ranking(this, name, id));
+                    results.add(new Ranking(name, id));
                 } while (c.moveToNext());
             }
         }
