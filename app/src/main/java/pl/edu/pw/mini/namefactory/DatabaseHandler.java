@@ -69,8 +69,10 @@ public class DatabaseHandler {
     }
 
     //dodawanie imion z danej listy id imion do danego rankingu
-    public void addNames2Ranking(int rankingID, List<String> names){
-        for (String str : names)
+    public void addNames2Ranking(int rankingID, List<String> names)
+    {
+        List<String> namesFromServer = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
+        for (String str : namesFromServer)
             myDb.insertData("NAMES2RANKING", new String[] {str, Integer.toString(rankingID), "0"});
 
     }

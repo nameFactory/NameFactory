@@ -62,6 +62,8 @@ public class RankingList extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         dbh = new DatabaseHandler(this);
+        //zamockowana lista imion-------------------------------------------------------------------
+        dbh.pushNames(null, null, null);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
