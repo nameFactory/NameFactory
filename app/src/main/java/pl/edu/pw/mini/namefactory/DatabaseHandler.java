@@ -23,14 +23,15 @@ public class DatabaseHandler {
         myDb = new Database(context, "localStorage");
     }
     //dodawanie imion do bazy z listy pobranej z serwera
-    public void pushNames(List<String> names, List<String> desc, List<Boolean> male){
+    public void pushNames(List<String> names, List<String> descs, List<Boolean> is_males){
+        if(names == null || descs == null || is_males == null) {
+            names = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
+            descs = Arrays.asList("fancy name", "shitty name", "fag name", "marek lowca szparek", "to jest opis");
+            is_males = Arrays.asList(true, true, true, true, true);
+        }
 
-        List<String> namesFromServer = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
-        List<String> descFromServer = Arrays.asList("fancy name", "shitty name", "fag name", "marek lowca szparek", "to jest opis");
-        List<Boolean> boolsFromServer = Arrays.asList(true, true, true, true, true);
-
-        for (int i = 0; i<namesFromServer.size(); i++)
-            myDb.insertData("NAMES", new String[]{namesFromServer.get(i), descFromServer.get(i), boolsFromServer.get(i).toString()});
+        for (int i = 0; i < names.size(); i++)
+            myDb.insertData("NAMES", new String[]{names.get(i), descs.get(i), is_males.get(i).toString()});
     }
 
     //wypisywanie opisu i nazwy danego imienia
