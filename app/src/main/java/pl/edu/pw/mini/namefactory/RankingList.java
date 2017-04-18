@@ -136,6 +136,8 @@ public class RankingList extends AppCompatActivity
 
         //pobranie z bazy danych -----------------------------------------------------------------
         rankingsList = dbh.getRankingList();
+        Toast.makeText(this, rankingsList.get(4).getRankingName(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, rankingsList.get(0).getRankingName(), Toast.LENGTH_LONG).show();
 //        rankingsList = dbh.
 //        Ranking r1 = new Ranking();
 //        r1.setRankingName("Moj pierwszy ranking");

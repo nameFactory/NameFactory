@@ -10,7 +10,6 @@ import android.widget.Toast;
 public class NewRanking extends AppCompatActivity {
 
     EditText textBox;
-
     int rankingID;
     private DatabaseHandler dbh;
 
@@ -27,12 +26,11 @@ public class NewRanking extends AppCompatActivity {
     {
         String nameRanking = textBox.getText().toString();
         rankingID = dbh.createRanking(nameRanking);
-        //Toast do testowania
-        Toast.makeText(this, nameRanking + " " + Integer.toString(rankingID), Toast.LENGTH_LONG).show();
+
         //zamockowana lista imion wybranych z preferencji - null -----------------------------------
         dbh.addNames2Ranking(rankingID, null);
 
-        Intent in = new Intent(getApplicationContext(), RankingList.class);
-        startActivity(in);
+       // Intent in = new Intent(getApplicationContext(), RankingList.class);
+       // startActivity(in);
     }
 }
