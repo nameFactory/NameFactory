@@ -12,16 +12,9 @@ public class Ranking {
     private String name;
     private DatabaseHandler dbh;
 
-    //konstruktor do tworzenia faktycznego obiektu i rekordu w tabeli
-    public Ranking(DatabaseHandler dbh, String name) {
-        this.dbh = dbh;
-        this.name = name;
-        this.ID = dbh.createRanking(name);
-    }
-
     //konstruktor do tworzenia obiektu z rekordu w tabeli (na potrzeby recyclingView)
-    public Ranking(DatabaseHandler dbh, String name, int id) {
-        this.dbh = dbh;
+    public Ranking(String name, int id) {
+        this.dbh = RankingList.dbh;
         this.name = name;
         this.ID = id;
     }

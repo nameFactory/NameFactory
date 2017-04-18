@@ -29,7 +29,7 @@ public class RankingList extends AppCompatActivity
         ChooseRankingFragment.ChooseNameDialogListener{
 
     private List<Ranking> rankingsList = new ArrayList<>();
-    private DatabaseHandler dbh;
+    protected static DatabaseHandler dbh;
     private RecyclerView recyclerView;
     private RankingsAdapter rAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -60,6 +60,8 @@ public class RankingList extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        dbh = new DatabaseHandler(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 

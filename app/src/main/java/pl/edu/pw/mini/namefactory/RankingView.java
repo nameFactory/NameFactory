@@ -32,6 +32,7 @@ public class RankingView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.dbh = RankingList.dbh;
         // get the Intent that started this Activity
         Intent in = getIntent();
 

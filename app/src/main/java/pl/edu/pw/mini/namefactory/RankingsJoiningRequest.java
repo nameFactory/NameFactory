@@ -16,7 +16,7 @@ public class RankingsJoiningRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rankings_joining_request);
-
+        this.dbh = RankingList.dbh;
         // get the Intent that started this Activity
         Intent in = getIntent();
 

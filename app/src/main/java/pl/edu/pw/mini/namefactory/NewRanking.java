@@ -8,6 +8,7 @@ import android.widget.EditText;
 public class NewRanking extends AppCompatActivity {
 
     String nameRanking;
+    private DatabaseHandler dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +17,11 @@ public class NewRanking extends AppCompatActivity {
 
         EditText textBox = (EditText) findViewById(R.id.rankingName);
         nameRanking = textBox.getText().toString();
+        this.dbh = RankingList.dbh;
     }
 
     public void add(View v)
     {
-        //dodanie nowego rankingu-----------------------------------------------------
+        dbh.createRanking(nameRanking);
     }
 }

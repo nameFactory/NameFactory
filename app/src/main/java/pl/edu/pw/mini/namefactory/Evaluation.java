@@ -23,7 +23,6 @@ public class Evaluation extends AppCompatActivity {
     private DatabaseHandler dbh;
 
     // Array of String to Show In TextSwitcher
-    //ZMIANA - pobierz z bazy -------------------------------------------------------------
     private String[] namesToShow;
     int messageCount=namesToShow.length;
     // to keep current Index of text
@@ -36,6 +35,8 @@ public class Evaluation extends AppCompatActivity {
 
         // get the Intent that started this Activity
         Intent intent = getIntent();
+
+        this.dbh = RankingList.dbh;
 
         // get the Bundle that stores the data of this Activity
         Bundle b = intent.getExtras();
