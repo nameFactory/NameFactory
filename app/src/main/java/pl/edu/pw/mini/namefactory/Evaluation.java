@@ -23,7 +23,7 @@ public class Evaluation extends AppCompatActivity {
     private DatabaseHandler dbh;
 
     // Array of String to Show In TextSwitcher
-    private String[] namesToShow;
+    private Name[] namesToShow;
     int messageCount;
     // to keep current Index of text
     int currentIndex=-1;
@@ -47,7 +47,7 @@ public class Evaluation extends AppCompatActivity {
 
         setTitle((CharSequence)rankingName );
 
-        namesToShow = dbh.getNamesListAsString(rankingID).toArray(new String[0]);
+        namesToShow = dbh.getNameList(rankingID).toArray(new Name[0]);
         messageCount=namesToShow.length;
 
         // get The references
@@ -109,6 +109,7 @@ public class Evaluation extends AppCompatActivity {
     public void switchNames1(View v)
     {
         //wybrane imie ma tutaj ind1
+        dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), 100);
         //LOSOWANIE----------------------------------------------------
         // TODO Auto-generated method stub
         currentIndex++;
@@ -116,7 +117,7 @@ public class Evaluation extends AppCompatActivity {
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
-        n1Switcher.setText(namesToShow[currentIndex]);
+        n1Switcher.setText(namesToShow[currentIndex].getName());
 
 
         currentIndex++;
@@ -124,7 +125,7 @@ public class Evaluation extends AppCompatActivity {
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
-        n2Switcher.setText(namesToShow[currentIndex]);
+        n2Switcher.setText(namesToShow[currentIndex].getName());
 
     }
 
@@ -132,6 +133,7 @@ public class Evaluation extends AppCompatActivity {
     public void switchNames2(View v)
     {
         //wybrane imie ma tutaj ind2
+        dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), 100);
         //LOSOWANIE----------------------------------------------------
         // TODO Auto-generated method stub
         currentIndex++;
@@ -139,14 +141,14 @@ public class Evaluation extends AppCompatActivity {
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
-        n1Switcher.setText(namesToShow[currentIndex]);
+        n1Switcher.setText(namesToShow[currentIndex].getName());
 
         currentIndex++;
         ind2 = currentIndex;
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
-        n2Switcher.setText(namesToShow[currentIndex]);
+        n2Switcher.setText(namesToShow[currentIndex].getName());
 
     }
 }
