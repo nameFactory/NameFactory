@@ -26,7 +26,7 @@ public class DatabaseHandler {
     public void pushNames(List<String> names, List<String> desc, List<Boolean> male){
 
         List<String> namesFromServer = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
-        List<String> descFromServer = Arrays.asList("fancy name", "shitty name", "fag name", "marek lowca szparek", "to jest opis");
+        List<String> descFromServer = Arrays.asList("fancy name desc", "fancy name desc", "fancy name desc", "fancy name desc", "fancy name desc");
         List<Boolean> boolsFromServer = Arrays.asList(true, true, true, true, true);
 
         for (int i = 0; i<namesFromServer.size(); i++)
@@ -36,7 +36,7 @@ public class DatabaseHandler {
     //wypisywanie opisu i nazwy danego imienia
     public String[] getNameDetails(int nameID){
         Cursor c = myDb.getNamesDetails(nameID);
-        String[] result = null;
+        String[] result = new String[3];
         if (c != null) {
             if (c.moveToFirst()) {
                 result[0] = c.getString(c.getColumnIndex("name"));
