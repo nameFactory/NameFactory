@@ -119,8 +119,21 @@ public class DatabaseHandler {
     }
 
     //zmiana score dla danego imienia w danym rankingu
-    public void changeNamesScore(int rankingID, int nameID, int newScore){
+    public void changeNamesScore(int rankingID, int nameID, int currentScore, int Score){
+        int newScore = currentScore + Score;
         myDb.updateNamesScore(nameID, rankingID, newScore);
+    }
+
+    //wypisywanie aktualnego score dla imienia w danym rankingu
+    public int getNamesScore(int rankingID, int nameID){
+        Cursor c = myDb.getNameScore(nameID, rankingID);
+        int currentScore = 0;
+        if (c != null) {
+            if (c.moveToFirst()) {
+                currentScore = c.getInt(c.getColumnIndex("score"));
+            }
+        }
+        return currentScore;
     }
 
     //wypisywanie imion z danego rankingu

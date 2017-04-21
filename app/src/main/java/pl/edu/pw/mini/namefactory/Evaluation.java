@@ -11,13 +11,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class Evaluation extends AppCompatActivity {
 
     private TextSwitcher n1Switcher;
     private TextSwitcher n2Switcher;
-
+    private int addedScore = 100;
     private String rankingName;
     private int rankingID;
     private DatabaseHandler dbh;
@@ -109,7 +110,9 @@ public class Evaluation extends AppCompatActivity {
     public void switchNames1(View v)
     {
         //wybrane imie ma tutaj ind1
-        dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), 100);
+        int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+        dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), currentScore, addedScore);
+        Toast.makeText(this, "gora " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
         //LOSOWANIE----------------------------------------------------
         // TODO Auto-generated method stub
         currentIndex++;
@@ -133,7 +136,9 @@ public class Evaluation extends AppCompatActivity {
     public void switchNames2(View v)
     {
         //wybrane imie ma tutaj ind2
-        dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), 100);
+        int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+        dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
+        Toast.makeText(this, "dol " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
         //LOSOWANIE----------------------------------------------------
         // TODO Auto-generated method stub
         currentIndex++;

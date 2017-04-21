@@ -30,7 +30,5 @@ public class NewRanking extends AppCompatActivity {
         //zamockowana lista imion wybranych z preferencji - null -----------------------------------
         dbh.addNames2Ranking(rankingID, null);
 
-       // Intent in = new Intent(getApplicationContext(), RankingList.class);
-       // startActivity(in);
     }
 }

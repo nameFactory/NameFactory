@@ -167,6 +167,11 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
+    public Cursor getNameScore(int idName, int idRanking){
+        Cursor res = db.rawQuery("SELECT score FROM NAMES2RANKING WHERE id_name = ? AND id_ranking = ?", new String[] {Integer.toString(idName), Integer.toString(idRanking)});
+        return res;
+    }
+
     public boolean deleteData(String tableName, int id){
         db.delete(tableName, "id = ?", new String[] {Integer.toString(id)});
         return true;
