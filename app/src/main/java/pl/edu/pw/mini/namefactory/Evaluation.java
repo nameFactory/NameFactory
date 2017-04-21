@@ -93,7 +93,7 @@ public class Evaluation extends AppCompatActivity {
         n2Switcher.setInAnimation(in);
         n2Switcher.setOutAnimation(out);
 
-        switchNames1(n1Switcher);
+        ChooseDataForSwitchers();
 
 /*        // ClickListener for NEXT button
         // When clicked on Button TextSwitcher will switch between texts
@@ -107,40 +107,30 @@ public class Evaluation extends AppCompatActivity {
     }
 
     //nacisniecie pierwszego imienia (ind1)
-    public void switchNames1(View v)
+    public void switchNames(View v)
     {
-        //wybrane imie ma tutaj ind1
-        int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
-        dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), currentScore, addedScore);
-        Toast.makeText(this, "gora " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
-        //LOSOWANIE----------------------------------------------------
-        // TODO Auto-generated method stub
-        currentIndex++;
-        ind1=currentIndex;
-        // If index reaches maximum reset it
-        if(currentIndex==messageCount)
-            currentIndex=0;
-        n1Switcher.setText(namesToShow[currentIndex].getName());
+        if(v.getId()==n1Switcher.getId())
+        {
+            //wybrane imie ma tutaj ind1
+            int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+            dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), currentScore, addedScore);
+            Toast.makeText(this, "gora " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
+        }
+        else if (v.getId() == n2Switcher.getId())
+        {
+            //wybrane imie ma tutaj ind2
+            int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+            dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
+            Toast.makeText(this, "dol " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
+        }
 
-
-        currentIndex++;
-        ind2 = currentIndex;
-        // If index reaches maximum reset it
-        if(currentIndex==messageCount)
-            currentIndex=0;
-        n2Switcher.setText(namesToShow[currentIndex].getName());
+        ChooseDataForSwitchers();
 
     }
 
-    //nacisniecie drugiego imienia (ind2)
-    public void switchNames2(View v)
+    private void ChooseDataForSwitchers()
     {
-        //wybrane imie ma tutaj ind2
-        int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
-        dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
-        Toast.makeText(this, "dol " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
-        //LOSOWANIE----------------------------------------------------
-        // TODO Auto-generated method stub
+        //LOSOWANIE _-------------------------------------
         currentIndex++;
         ind1=currentIndex;
         // If index reaches maximum reset it
@@ -154,6 +144,5 @@ public class Evaluation extends AppCompatActivity {
         if(currentIndex==messageCount)
             currentIndex=0;
         n2Switcher.setText(namesToShow[currentIndex].getName());
-
     }
 }
