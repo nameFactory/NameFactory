@@ -142,17 +142,17 @@ public class Evaluation extends AppCompatActivity {
     {
         //LOSOWANIE _-------------------------------------
         currentIndex++;
-        ind1=currentIndex;
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
+        ind1=currentIndex;
         n1Switcher.setText(namesToShow[currentIndex].getName());
 
         currentIndex++;
-        ind2 = currentIndex;
         // If index reaches maximum reset it
         if(currentIndex==messageCount)
             currentIndex=0;
+        ind2 = currentIndex;
         n2Switcher.setText(namesToShow[currentIndex].getName());
     }
 }
