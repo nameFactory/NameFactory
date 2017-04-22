@@ -1,6 +1,7 @@
 package pl.edu.pw.mini.namefactory;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
@@ -61,9 +62,8 @@ public class RankingList extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        dbh = new DatabaseHandler(this);
-        //zamockowana lista imion-------------------------------------------------------------------
-        dbh.pushNames(null, null, null);
+        //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
+        databaseCheckFirstRun();
 
         rankingsList = dbh.getRankingList();
 
@@ -292,5 +292,45 @@ public class RankingList extends AppCompatActivity
     @Override
     public void onDialogRankingNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
+    }
+
+    private void databaseCheckFirstRun() {
+
+        final String PREFS_NAME =  getResources().getString(R.string.shared_prefs_name);
+        final String PREF_VERSION_CODE_KEY = "version_code";
+        final int DOESNT_EXIST = -1;
+
+        // Get current version code
+        int currentVersionCode = BuildConfig.VERSION_CODE;
+
+        // Get saved version code
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+
+        // Check for first run or upgrade
+        if (currentVersionCode == savedVersionCode) {
+
+            // This is just a normal run
+            dbh = new DatabaseHandler(this);
+            Toast.makeText(this, "not a first run", Toast.LENGTH_LONG).show();
+            return;
+
+        } else if (savedVersionCode == DOESNT_EXIST) {
+
+            // This is a new install (or the user cleared the shared preferences)
+            dbh = new DatabaseHandler(this);
+            //zamockowana lista imion---------------------------------------------------------------
+            dbh.pushNames(null, null, null);
+            Toast.makeText(this, "first run!", Toast.LENGTH_LONG).show();
+
+
+        } else if (currentVersionCode > savedVersionCode) {
+
+            // TODO This is an upgrade
+            Toast.makeText(this, "upgrade!", Toast.LENGTH_LONG).show();
+        }
+
+        // Update the shared preferences with the current version code
+        prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
     }
 }

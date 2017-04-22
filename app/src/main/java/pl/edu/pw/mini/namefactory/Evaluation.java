@@ -112,16 +112,26 @@ public class Evaluation extends AppCompatActivity {
         if(v.getId()==n1Switcher.getId())
         {
             //wybrane imie ma tutaj ind1
-            int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
-            dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), currentScore, addedScore);
-            Toast.makeText(this, "gora " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
+            int currentScore = 0;
+            try {
+                currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+                dbh.changeNamesScore(rankingID, namesToShow[ind1].getID(), currentScore, addedScore);
+            }
+            catch (Exception e){
+                Toast.makeText(this, "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind1].getID()), Toast.LENGTH_LONG).show();
+            }
         }
         else if (v.getId() == n2Switcher.getId())
         {
             //wybrane imie ma tutaj ind2
-            int currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
-            dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
-            Toast.makeText(this, "dol " + Integer.toString(currentScore), Toast.LENGTH_LONG).show();
+            int currentScore = 0;
+            try{
+                currentScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
+                dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
+            }
+            catch(Exception e){
+                Toast.makeText(this, "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind2].getID()), Toast.LENGTH_LONG).show();
+            }
         }
 
         ChooseDataForSwitchers();
