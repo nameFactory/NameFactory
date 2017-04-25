@@ -102,6 +102,10 @@ public class Database extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+    public void recreateNamesTable(){
+        db.execSQL("DROP TABLE IF EXISTS NAMES");
+        db.execSQL("create table NAMES (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, desc TEXT, male BOOLEAN)");
+    }
 
     public Cursor getData(String tableName, String[] columns){
         StringBuilder builder = new StringBuilder();

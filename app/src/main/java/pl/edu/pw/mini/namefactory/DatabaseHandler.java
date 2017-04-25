@@ -22,13 +22,14 @@ public class DatabaseHandler {
         this.context = context;
         myDb = new Database(context, "localStorage");
     }
-    //dodawanie imion do bazy z listy pobranej z serwera
+    //tworzenie nowej tabeli z podanymi imionami
     public void pushNames(List<String> names, List<String> desc, List<Boolean> male){
 
         List<String> namesFromServer = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
         List<String> descFromServer = Arrays.asList("fancy name desc", "fancy name desc", "fancy name desc", "fancy name desc", "fancy name desc");
         List<Boolean> boolsFromServer = Arrays.asList(true, true, true, true, true);
 
+        myDb.recreateNamesTable();
         for (int i = 0; i<namesFromServer.size(); i++)
             myDb.insertData("NAMES", new String[]{namesFromServer.get(i), descFromServer.get(i), boolsFromServer.get(i).toString()});
     }

@@ -312,6 +312,9 @@ public class RankingList extends AppCompatActivity
 
             // This is just a normal run
             dbh = new DatabaseHandler(this);
+
+            //TODO tutaj możemy sprawdzać czy currentVerisonCode odpowiada temu z serwera i jak nie to aktualizować listę imion
+            //dbh.pushNames(null,null,null);
             Toast.makeText(this, "not a first run", Toast.LENGTH_LONG).show();
             return;
 
