@@ -27,9 +27,6 @@
             android:name=".RankingView"
             android:label="@string/title_activity_ranking_view"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".NewRanking"
-            android:label="@string/title_activity_new_ranking" />
         <activity android:name=".RankingsJoiningAccept" />
         <activity
             android:name=".RankingsListMain"

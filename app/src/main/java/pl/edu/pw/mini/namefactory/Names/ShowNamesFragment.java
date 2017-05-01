@@ -3,12 +3,19 @@ package pl.edu.pw.mini.namefactory.Names;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,10 +24,13 @@ import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Additional.DividerItem;
 import pl.edu.pw.mini.namefactory.NameCard;
 import pl.edu.pw.mini.namefactory.R;
+import pl.edu.pw.mini.namefactory.RankingList;
+import pl.edu.pw.mini.namefactory.RankingsJoiningRequestFragment;
 import pl.edu.pw.mini.namefactory.RankingsListMain;
 import pl.edu.pw.mini.namefactory.Additional.RecyclerTouchListener;
 import pl.edu.pw.mini.namefactory.Additional.SwipeHelperCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +45,7 @@ public class ShowNamesFragment extends Fragment {
     // TODO: Customize parameters
     private OnNamesListFragmentInteractionListener mListener;
 
-    private List<Name> namesList;
+    private List<Name> namesList  = new ArrayList<>();;
     private NamesAdapter nAdapter;
     private String rankingName;
     private int rankingID = -1;
@@ -52,6 +62,7 @@ public class ShowNamesFragment extends Fragment {
     @SuppressWarnings("unused")
     public static ShowNamesFragment newInstance(int id) {
 
+        Log.i("FRAG", "weszlo do newInstance w shownames");
         ShowNamesFragment fragment = new ShowNamesFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
@@ -62,7 +73,8 @@ public class ShowNamesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.dbh = RankingsListMain.dbh;
+        this.dbh = RankingList.dbh;
+        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
 
@@ -76,7 +88,8 @@ public class ShowNamesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_names_list, container, false);
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
+        Log.i("FRAG", "weszlo do onCreateView");
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -116,7 +129,9 @@ public class ShowNamesFragment extends Fragment {
 
             }));
 
+            Log.i("FRAG", "ustawiony adapter");
             prepareNamesList();
+            Log.i("FRAG", "przygotowana lista");
         }
         return view;
     }
@@ -159,5 +174,36 @@ public class ShowNamesFragment extends Fragment {
     public interface OnNamesListFragmentInteractionListener {
         // TODO: Update argument type and name
         void OnNamesListFragmentInteractionListener(Name item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.ranking_view, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_connecting) {
+
+            //przejdz do rankingjoiningrequest
+            RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(rankingID);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_ranking_list, fragment, null)
+                    .addToBackStack(null)
+                    .commit();
+
+            //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

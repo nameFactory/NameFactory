@@ -3,6 +3,7 @@ package pl.edu.pw.mini.namefactory;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class RankingsJoiningRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rankings_joining_request, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join your ranking");
         textName = (TextView) view.findViewById(R.id.rankingNameText);
         textName.setText(rankingName);
         return view;

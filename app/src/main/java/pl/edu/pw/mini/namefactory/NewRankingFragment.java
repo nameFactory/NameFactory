@@ -2,10 +2,12 @@ package pl.edu.pw.mini.namefactory;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
@@ -64,7 +66,18 @@ public class NewRankingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_ranking, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("New ranking");
         textBox = (EditText) view.findViewById(R.id.rankingName);
+
+        final Button bt= (Button) view.findViewById(R.id.addBt);
+        bt.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                add(bt);
+            }
+        });
         this.dbh = RankingList.dbh;
 
         return view;

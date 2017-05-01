@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,6 +30,8 @@ import pl.edu.pw.mini.namefactory.Additional.SwipeHelperCallback;
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseRankingFragment;
+import pl.edu.pw.mini.namefactory.Names.Name;
+import pl.edu.pw.mini.namefactory.Names.ShowNamesFragment;
 import pl.edu.pw.mini.namefactory.Rankings.Ranking;
 import pl.edu.pw.mini.namefactory.Rankings.RankingsAdapter;
 import pl.edu.pw.mini.namefactory.Rankings.ShowRankingsFragment;
@@ -40,7 +43,7 @@ public class RankingList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ChooseNameFragment.ChooseNameDialogListener,
         ChooseRankingFragment.ChooseRankingDialogListener, RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener,
         EvaluationFragment.OnEvaluationFragmentInteractionListener, FiltersFragment.OnFiltersFragmentInteractionListener,
-        RankingViewFragment.OnListFragmentInteractionListener{
+        ShowNamesFragment.OnNamesListFragmentInteractionListener, NewRankingFragment.OnNewRankingFragmentInteractionListener{
 
     private List<pl.edu.pw.mini.namefactory.Rankings.Ranking> rankingsList = new ArrayList<>();
     public static DatabaseHandler dbh;
@@ -119,32 +122,25 @@ public class RankingList extends AppCompatActivity
                         .addToBackStack(null)
                         .commit();
 
-                // Creating Bundle object
-/*                Bundle bundel = new Bundle();
+                ((FloatingActionButton)findViewById(R.id.fab)).hide();
 
-                // Storing data into bundle
-                Ranking element = rankingsList.get(position);
-                bundel.putInt("rankingName", element.getID());
-
-                //przejdz do aktywnosci evaluation
-                Intent in = new Intent(getApplicationContext(), Evaluation.class);
-                in.putExtras(bundel);
-                startActivity(in);*/
 
             }
 
             @Override
             public void onLongClick(View view, int position) {
 
+                Log.i("FRAG", "weszlo do onLongClick przed rankingViewFragment");
                 Ranking element = rankingsList.get(position);
 
-                //przejdz do rankingview
-                FragmentTransaction ft = fm.beginTransaction();
-
-                RankingViewFragment fragment = RankingViewFragment.newInstance(element.getID());
-                ft.replace(R.id.content_ranking_list, fragment, null)
+                //przejdz do fragmetnu shownamesfragment
+                ShowNamesFragment setFragment= ShowNamesFragment.newInstance(element.getID());
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_ranking_list, setFragment, null)
                         .addToBackStack(null)
                         .commit();
+
+                ((FloatingActionButton)findViewById(R.id.fab)).hide();
 
                 /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 editProductsOn = sharedPref.getBoolean("checkbox_edit_preference", true);
@@ -198,15 +194,16 @@ public class RankingList extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            ((FloatingActionButton)findViewById(R.id.fab)).show();
         }
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.ranking_list, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -244,6 +241,8 @@ public class RankingList extends AppCompatActivity
                     .replace(R.id.content_ranking_list, setFragment, null)
                     .addToBackStack(null)
                     .commit();
+
+            ((FloatingActionButton)findViewById(R.id.fab)).hide();
 
 
         } else if (id == R.id.nav_share) {
@@ -324,6 +323,8 @@ public class RankingList extends AppCompatActivity
                 .addToBackStack(null)
                 .commit();
 
+        ((FloatingActionButton)findViewById(R.id.fab)).hide();
+
         //ukryj floating button
         //zmien toolbar
     }
@@ -382,13 +383,14 @@ public class RankingList extends AppCompatActivity
         ;
     }
 
+
     @Override
-    public void onListFragmentInteraction(pl.edu.pw.mini.namefactory.Names.Name name) {
+    public void onFiltersFragmentInteraction() {
 
     }
 
     @Override
-    public void onFiltersFragmentInteraction() {
+    public void OnNamesListFragmentInteractionListener(Name item) {
 
     }
 }

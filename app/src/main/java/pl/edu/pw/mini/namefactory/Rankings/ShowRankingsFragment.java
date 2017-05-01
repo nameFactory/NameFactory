@@ -2,6 +2,7 @@ package pl.edu.pw.mini.namefactory.Rankings;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -107,6 +108,8 @@ public class ShowRankingsFragment extends Fragment {
                             .addToBackStack(null)
                             .commit();
 
+                    //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
+
                 }
 
                 @Override
@@ -116,10 +119,12 @@ public class ShowRankingsFragment extends Fragment {
 
                     //przejdz do fragmetnu shownamesfragment
                     ShowNamesFragment setFragment= ShowNamesFragment.newInstance(element.getID());
-                    getFragmentManager().beginTransaction()
+                    getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentFrame, setFragment, null)
                             .addToBackStack(null)
                             .commit();
+
+                    //((FloatingActionButton)getView().findViewById(R.id.fab)).hide();
                 }
 
             }));

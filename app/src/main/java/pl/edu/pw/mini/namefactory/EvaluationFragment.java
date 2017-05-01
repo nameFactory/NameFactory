@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 //import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -80,6 +81,7 @@ public class EvaluationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_evaluation, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
 
         n1Switcher = (TextSwitcher) view.findViewById(R.id.name1);
         n2Switcher = (TextSwitcher) view.findViewById(R.id.name2);
@@ -124,6 +126,23 @@ public class EvaluationFragment extends Fragment {
 
         ChooseDataForSwitchers();
         Log.i("FRAG", "weszlo do onCreateView");
+
+        n1Switcher.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                switchNames(n1Switcher);
+            }
+        });
+        n2Switcher.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                switchNames(n2Switcher);
+            }
+        });
 
         return view;
     }
@@ -183,7 +202,6 @@ public class EvaluationFragment extends Fragment {
     //nacisniecie pierwszego imienia (ind1)
     public void switchNames(View v)
     {
-        Log.i("FRAG", "weszlo do switchNames");
         if(v.getId()==n1Switcher.getId())
         {
             //wybrane imie ma tutaj ind1
