@@ -1,11 +1,11 @@
 package pl.edu.pw.mini.namefactory;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 
 public class NewRanking extends AppCompatActivity {
 

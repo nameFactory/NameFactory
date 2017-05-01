@@ -1,6 +1,8 @@
 package pl.edu.pw.mini.namefactory;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,10 +15,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import pl.edu.pw.mini.namefactory.Additional.ClickListener;
+import pl.edu.pw.mini.namefactory.Additional.DividerItem;
+import pl.edu.pw.mini.namefactory.Additional.RecyclerTouchListener;
+import pl.edu.pw.mini.namefactory.Additional.SwipeHelperCallback;
+import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
+import pl.edu.pw.mini.namefactory.Names.Name;
+import pl.edu.pw.mini.namefactory.Names.NamesAdapter;
+import pl.edu.pw.mini.namefactory.Names.ShowNamesFragment;
+
 import java.util.List;
 
-public class RankingView extends AppCompatActivity {
+public class RankingView extends AppCompatActivity implements RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener {
 
     private List<Name> namesList;
     private RecyclerView recyclerView;
@@ -25,6 +35,7 @@ public class RankingView extends AppCompatActivity {
     private String rankingName;
     private int rankingID;
     private DatabaseHandler dbh;
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +45,7 @@ public class RankingView extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         this.dbh = RankingList.dbh;
+        fm = getSupportFragmentManager();
 
         // get the Intent that started this Activity
         Intent in = getIntent();
@@ -43,13 +55,16 @@ public class RankingView extends AppCompatActivity {
         rankingID=(int)b.get("rankingName");
 
         namesList = dbh.getNameList(rankingID);
+        Toast.makeText(getApplicationContext(), "Ranking ID: " + rankingID, Toast.LENGTH_SHORT).show();
 
         rankingName = dbh.getRankingName(rankingID);
         setTitle((CharSequence)rankingName );
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_for_names);
 
-        nAdapter = new NamesAdapter(namesList, getApplicationContext());
+        ShowNamesFragment.OnNamesListFragmentInteractionListener lListener = null;
+
+        nAdapter = new NamesAdapter(namesList, getApplicationContext(), lListener);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -144,16 +159,25 @@ public class RankingView extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_connecting) {
 
-            // Creating Bundle object
-            Bundle bundel = new Bundle();
-            bundel.putInt("rankingName", rankingID);
 
-            Intent in = new Intent(getApplicationContext(), RankingsJoiningRequest.class);
-            in.putExtras(bundel);
-            startActivity(in);
+            //przejdz do rankingjoiningrequest
+            FragmentTransaction ft = fm.beginTransaction();
+
+            RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(rankingID);
+            ft.replace(R.id.content_ranking_view, fragment, null)
+                    .addToBackStack(null)
+                    .commit();
+
+            //ukryj floating button
+            //zmien toolbar
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+
     }
 }

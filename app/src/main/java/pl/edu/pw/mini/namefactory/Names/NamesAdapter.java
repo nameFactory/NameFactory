@@ -1,8 +1,6 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.Names;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,15 +13,19 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
+import pl.edu.pw.mini.namefactory.*;
+import pl.edu.pw.mini.namefactory.Additional.SwipeHelperAdapter;
+
 /**
- * Created by Asus on 15.04.2017.
+ * Created by Asus on 23.04.2017.
  */
 
-public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> implements SwipeHelperAdapter  {
+public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> implements SwipeHelperAdapter {
 
     private List<Name> namesList;
     private final Context context;
-    SharedPreferences.OnSharedPreferenceChangeListener listener;
+    //SharedPreferences.OnSharedPreferenceChangeListener listener;
+    //private final RankingViewFragment.OnRankingsListFragmentInteractionListener mListener;
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -51,24 +53,27 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public ImageView img;
+        public final View mView;
 
         public ViewHolder(View view) {
             super(view);
+            mView = view;
 
             name = (TextView) view.findViewById(R.id.name);
             img = (ImageView) view.findViewById(R.id.winner);
         }
     }
 
-    public NamesAdapter(final List<Name> namesList, Context context) {
+    public NamesAdapter(final List<Name> namesList, Context context, ShowNamesFragment.OnNamesListFragmentInteractionListener _mlistener) {
         this.namesList = namesList;
         this.context = context;
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        //mListener = _mlistener;
+        /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         listener =
                 new SharedPreferences.OnSharedPreferenceChangeListener() {
                     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                       /* if (key.equals("checkbox_edit_preference")) {
+                       *//* if (key.equals("checkbox_edit_preference")) {
                         }
                         else if(key.equals("checkbox_mark_preference"))
                         {
@@ -79,10 +84,10 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
                             elemColor = prefs.getInt("checkbox_mark_color_preference",0);
                             for(ListPoint product:productsList)
                                 mark(product, product.getisBought());
-                        }*/
+                        }*//*
                     }
                 };
-        sharedPref.registerOnSharedPreferenceChangeListener(listener);
+        sharedPref.registerOnSharedPreferenceChangeListener(listener);*/
     }
 
     @Override
@@ -96,13 +101,26 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(NamesAdapter.ViewHolder holder, int position) {
 
-        Name name = namesList.get(position);
+        final Name name = namesList.get(position);
+
         holder.name.setText(name.getName());
         if(position==0)
         {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGirl));
             holder.img.setImageResource(R.drawable.trophy_48);
         }
+
+        //MOZE TO JEST NIEPOTRZEBNE _________________________________
+       /* holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    mListener.onListFragmentInteraction(name);
+                }
+            }
+        });*/
     }
 
     @Override
@@ -110,12 +128,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
         return namesList.size();
     }
 
-    // Insert a new item to the RecyclerView on a predefined position
-/*    public void insert(Name data) {
-        //ZMIEN -----------------------------------------------------------------------------------------
-        namesList.add(data);
-        notifyItemInserted(getItemCount());
-    }*/
 
     // Remove a RecyclerView item containing a specified Data object
     public void remove(Name data) {

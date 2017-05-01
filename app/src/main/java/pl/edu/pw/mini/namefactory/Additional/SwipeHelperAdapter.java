@@ -1,4 +1,4 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.Additional;
 
 /**
  * Created by Asus on 14.04.2017.

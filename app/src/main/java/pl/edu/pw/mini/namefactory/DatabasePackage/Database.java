@@ -1,4 +1,4 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.DatabasePackage;
 
 import android.content.ContentValues;
 import android.content.Context;

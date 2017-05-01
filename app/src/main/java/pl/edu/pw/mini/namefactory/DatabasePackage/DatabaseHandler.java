@@ -1,13 +1,13 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.DatabasePackage;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import pl.edu.pw.mini.namefactory.DatabasePackage.Database;
 
 /**
  * Created by Piotr on 17.04.2017.
@@ -103,16 +103,16 @@ public class DatabaseHandler {
 
 
     //wypisywanie listy rankingów
-    public List<Ranking> getRankingList(){
+    public List<pl.edu.pw.mini.namefactory.Rankings.Ranking> getRankingList(){
         Cursor c = myDb.getData("RANKINGS", new String[]{"id", "name"});
-        List<Ranking> results = new ArrayList<>();
+        List<pl.edu.pw.mini.namefactory.Rankings.Ranking> results = new ArrayList<>();
 
         if (c != null) {
             if (c.moveToFirst()) {
                 do {
                     int id = c.getInt(c.getColumnIndex("id"));
                     String name = c.getString(c.getColumnIndex("name"));
-                    results.add(new Ranking(name, id));
+                    results.add(new pl.edu.pw.mini.namefactory.Rankings.Ranking(name, id));
                 } while (c.moveToNext());
             }
         }
@@ -153,15 +153,15 @@ public class DatabaseHandler {
     }
 
     //wypisywanie obiektów Name z danego rankingu
-    public List<Name> getNameList(int rankingID){
+    public List<pl.edu.pw.mini.namefactory.Names.Name> getNameList(int rankingID){
         Cursor c = myDb.getNamesFromRanking(rankingID);
-        List<Name> results = new ArrayList<>();
+        List<pl.edu.pw.mini.namefactory.Names.Name> results = new ArrayList<>();
         if (c != null) {
             if (c.moveToFirst()) {
                 do {
                     int id = c.getInt(c.getColumnIndex("id"));
                     String name = c.getString(c.getColumnIndex("name"));
-                    results.add(new Name(id, name));
+                    results.add(new pl.edu.pw.mini.namefactory.Names.Name(id, name));
                 } while (c.moveToNext());
             }
         }

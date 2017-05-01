@@ -10,4 +10,6 @@
     <color name="colorBoyLight">#cee9ff</color>
     <color name="colorBoy">#a8d8ff</color>
     <color name="colorBoyDark">#62b8ff</color>
+
+    <color name="backgroundColor">#FFFFFF</color>
 </resources>

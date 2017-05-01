@@ -23,19 +23,18 @@
             android:name=".NameCard"
             android:label="@string/title_activity_name_card"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Evaluation"
-            android:label="@string/title_activity_evaluation" />
-        <activity android:name=".RankingView"
-            android:label="@string/title_activity_ranking_view"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Filters"
-            android:label="@string/title_activity_filters" />
-        <activity android:name=".RankingsJoiningRequest"
-            android:label="@string/title_activity_ranking_joining" />
-        <activity android:name=".NewRanking"
-            android:label="@string/title_activity_new_ranking"/>
-        <activity android:name=".RankingsJoiningAccept"></activity>
+            android:name=".RankingView"
+            android:label="@string/title_activity_ranking_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NewRanking"
+            android:label="@string/title_activity_new_ranking" />
+        <activity android:name=".RankingsJoiningAccept" />
+        <activity
+            android:name=".RankingsListMain"
+            android:label="@string/title_activity_rankings_list_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

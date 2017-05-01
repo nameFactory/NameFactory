@@ -1,7 +1,7 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.Names;
 
 /**
- * Created by Asus on 14.04.2017.
+ * Created by Asus on 23.04.2017.
  */
 
 public class Name {
@@ -24,4 +24,5 @@ public class Name {
     public void setName(String name) {
         this.name = name;
     }
+
 }

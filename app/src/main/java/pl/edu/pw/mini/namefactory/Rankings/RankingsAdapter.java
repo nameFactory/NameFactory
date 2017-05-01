@@ -1,8 +1,6 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.Rankings;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +11,12 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
+import pl.edu.pw.mini.namefactory.*;
+import pl.edu.pw.mini.namefactory.Additional.SwipeHelperAdapter;
+import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
+
 /**
- * Created by Asus on 14.04.2017.
+ * Created by Asus on 23.04.2017.
  */
 
 public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHolder> implements SwipeHelperAdapter {
@@ -22,7 +24,7 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
     private List<Ranking> rankingsList;
     private final Context context;
     private DatabaseHandler dbh;
-    SharedPreferences.OnSharedPreferenceChangeListener listener;
+   // SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -57,17 +59,17 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
         }
     }
 
-    public RankingsAdapter(final List<Ranking> rankingsList, Context context) {
+    public RankingsAdapter(final List<Ranking> rankingsList, Context context, ShowRankingsFragment.OnRankingsListFragmentInteractionListener rListener) {
         this.rankingsList = rankingsList;
         this.context = context;
         this.dbh = RankingList.dbh;
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+       /* SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         listener =
                 new SharedPreferences.OnSharedPreferenceChangeListener() {
                     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                       /* if (key.equals("checkbox_edit_preference")) {
+                       *//* if (key.equals("checkbox_edit_preference")) {
                         }
                         else if(key.equals("checkbox_mark_preference"))
                         {
@@ -78,10 +80,10 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
                             elemColor = prefs.getInt("checkbox_mark_color_preference",0);
                             for(ListPoint product:productsList)
                                 mark(product, product.getisBought());
-                        }*/
+                        }*//*
                     }
                 };
-        sharedPref.registerOnSharedPreferenceChangeListener(listener);
+        sharedPref.registerOnSharedPreferenceChangeListener(listener);*/
     }
 
     @Override
@@ -89,7 +91,7 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rankings_list_row, parent, false);
 
-        return new ViewHolder(itemView);
+        return new RankingsAdapter.ViewHolder(itemView);
     }
 
     @Override

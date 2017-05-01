@@ -3,10 +3,10 @@ package pl.edu.pw.mini.namefactory;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,18 +22,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import pl.edu.pw.mini.namefactory.Additional.ClickListener;
+import pl.edu.pw.mini.namefactory.Additional.DividerItem;
+import pl.edu.pw.mini.namefactory.Additional.RecyclerTouchListener;
+import pl.edu.pw.mini.namefactory.Additional.SwipeHelperCallback;
+import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
+import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
+import pl.edu.pw.mini.namefactory.Dialogs.ChooseRankingFragment;
+import pl.edu.pw.mini.namefactory.Rankings.Ranking;
+import pl.edu.pw.mini.namefactory.Rankings.RankingsAdapter;
+import pl.edu.pw.mini.namefactory.Rankings.ShowRankingsFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RankingList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ChooseNameFragment.ChooseNameDialogListener,
-        ChooseRankingFragment.ChooseNameDialogListener{
+        ChooseRankingFragment.ChooseRankingDialogListener, RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener,
+        EvaluationFragment.OnEvaluationFragmentInteractionListener, FiltersFragment.OnFiltersFragmentInteractionListener,
+        RankingViewFragment.OnListFragmentInteractionListener{
 
-    private List<Ranking> rankingsList = new ArrayList<>();
-    protected static DatabaseHandler dbh;
+    private List<pl.edu.pw.mini.namefactory.Rankings.Ranking> rankingsList = new ArrayList<>();
+    public static DatabaseHandler dbh;
     private RecyclerView recyclerView;
     private RankingsAdapter rAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private FragmentManager fm;
+    private ShowRankingsFragment.OnRankingsListFragmentInteractionListener rlistener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +61,18 @@ public class RankingList extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(getApplicationContext(), Filters.class);
+
+                FiltersFragment setFragment= new FiltersFragment();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content_ranking_list, setFragment, null)
+                        .addToBackStack(null)
+                        .commit();
+
+
+/*                Intent in = new Intent(getApplicationContext(), Filters.class);
                 in.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Filters.FiltersPreferenceFragment.class.getName() );
                 in.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-                startActivity(in);
+                startActivity(in);*/
             }
         });
 
@@ -65,11 +88,13 @@ public class RankingList extends AppCompatActivity
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
 
+        fm = getSupportFragmentManager();
+
         rankingsList = dbh.getRankingList();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        rAdapter = new RankingsAdapter(rankingsList, getApplicationContext());
+        rAdapter = new RankingsAdapter(rankingsList, getApplicationContext(), rlistener);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -86,8 +111,16 @@ public class RankingList extends AppCompatActivity
             @Override
             public void onClick(View view, int position) {
 
+               Ranking element = rankingsList.get(position);
+
+                EvaluationFragment setFragment = EvaluationFragment.newInstance(element.getID());
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_ranking_list, setFragment, null)
+                        .addToBackStack(null)
+                        .commit();
+
                 // Creating Bundle object
-                Bundle bundel = new Bundle();
+/*                Bundle bundel = new Bundle();
 
                 // Storing data into bundle
                 Ranking element = rankingsList.get(position);
@@ -96,24 +129,23 @@ public class RankingList extends AppCompatActivity
                 //przejdz do aktywnosci evaluation
                 Intent in = new Intent(getApplicationContext(), Evaluation.class);
                 in.putExtras(bundel);
-                startActivity(in);
+                startActivity(in);*/
 
             }
 
             @Override
             public void onLongClick(View view, int position) {
 
-                // Creating Bundle object
-                Bundle bundel = new Bundle();
-
-                // Storing data into bundle
                 Ranking element = rankingsList.get(position);
-                bundel.putInt("rankingName", element.getID());
 
-                //przejdz do aktywnosci rankingview
-                Intent in = new Intent(getApplicationContext(), RankingView.class);
-                in.putExtras(bundel);
-                startActivity(in);
+                //przejdz do rankingview
+                FragmentTransaction ft = fm.beginTransaction();
+
+                RankingViewFragment fragment = RankingViewFragment.newInstance(element.getID());
+                ft.replace(R.id.content_ranking_list, fragment, null)
+                        .addToBackStack(null)
+                        .commit();
+
                 /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 editProductsOn = sharedPref.getBoolean("checkbox_edit_preference", true);
 
@@ -129,6 +161,7 @@ public class RankingList extends AppCompatActivity
             }
 
         }));
+
 
        prepareRankingsList();
     }
@@ -206,10 +239,12 @@ public class RankingList extends AppCompatActivity
 
         } else if (id == R.id.nav_new_ranking) {
             //przejdz do tworzenia nowego rankingu
-            Intent in = new Intent(getApplicationContext(), Filters.class);
-            in.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Filters.FiltersPreferenceFragment.class.getName() );
-            in.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-            startActivity(in);
+            FiltersFragment setFragment= new FiltersFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.content_ranking_list, setFragment, null)
+                    .addToBackStack(null)
+                    .commit();
+
 
         } else if (id == R.id.nav_share) {
             //wybierz najpierw ktory ranking - dialog - lista
@@ -243,6 +278,9 @@ public class RankingList extends AppCompatActivity
             DialogFragment dialog = new ChooseRankingFragment();
             dialog.setArguments(bundel);
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
+        }  else if (id == R.id.testowanieGRUBE) {
+            Intent in = new Intent(getApplicationContext(), RankingsListMain.class);
+            startActivity(in);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -275,17 +313,19 @@ public class RankingList extends AppCompatActivity
     @Override
     public void onDialogRankingPositiveClick(DialogFragment dialog, String name) {
 
-        // Creating Bundle object
-        Bundle bundel = new Bundle();
+        //przejdz do rankingjoiningrequest
+        FragmentTransaction ft = fm.beginTransaction();
 
-        // Storing data into bundle
-        bundel.putString("rankingName", name);
+        //tutaj Id------------------------------------------------------------------------------------------
+        int id = 7;
 
-        //przejdz do aktywnosci rankingjoiningrequest
-        Intent in = new Intent(getApplicationContext(), RankingsJoiningRequest.class);
-        in.putExtras(bundel);
-        startActivity(in);
+        RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(id);
+        ft.replace(R.id.content_ranking_list, fragment, null)
+                .addToBackStack(null)
+                .commit();
 
+        //ukryj floating button
+        //zmien toolbar
     }
 
     //zamknij dialog jesli nacisniety zostanie negatywny przycisk
@@ -335,5 +375,20 @@ public class RankingList extends AppCompatActivity
 
         // Update the shared preferences with the current version code
         prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+        ;
+    }
+
+    @Override
+    public void onListFragmentInteraction(pl.edu.pw.mini.namefactory.Names.Name name) {
+
+    }
+
+    @Override
+    public void onFiltersFragmentInteraction() {
+
     }
 }

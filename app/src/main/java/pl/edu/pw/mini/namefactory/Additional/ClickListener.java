@@ -1,4 +1,4 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.Additional;
 
 import android.view.View;
 

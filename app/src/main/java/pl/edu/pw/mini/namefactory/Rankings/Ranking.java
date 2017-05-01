@@ -1,14 +1,10 @@
-package pl.edu.pw.mini.namefactory;
+package pl.edu.pw.mini.namefactory.Rankings;
 
-import android.widget.Toast;
-
-import java.util.Collections;
-import java.util.List;
-
-import static java.security.AccessController.getContext;
+import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
+import pl.edu.pw.mini.namefactory.RankingList;
 
 /**
- * Created by Asus on 14.04.2017.
+ * Created by Asus on 23.04.2017.
  */
 
 public class Ranking {
