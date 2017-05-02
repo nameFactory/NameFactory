@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -82,7 +83,7 @@ public class ShowRankingsFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
 
             //if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setLayoutManager(new GridLayoutManager(context,2));
             //} else {
             //    recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             //}

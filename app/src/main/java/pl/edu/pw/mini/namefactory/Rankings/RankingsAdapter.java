@@ -50,12 +50,14 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView ranking, names;
+        public TextView ranking, name1, name2, name3;
 
         public ViewHolder(View view) {
             super(view);
             ranking = (TextView) view.findViewById(R.id.ranking);
-            names = (TextView) view.findViewById(R.id.names);
+            name1 = (TextView) view.findViewById(R.id.name1);
+            name2 = (TextView) view.findViewById(R.id.name2);
+            name3 = (TextView) view.findViewById(R.id.name3);
         }
     }
 
@@ -97,9 +99,12 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
     @Override
     public void onBindViewHolder(RankingsAdapter.ViewHolder holder, int position) {
 
-        Ranking product = rankingsList.get(position);
-        holder.ranking.setText(product.getRankingName());
-        holder.names.setText(product.getNamesString());
+        //ROZWIAZ SPRYTNIEJ_____________________________________________________________
+        Ranking ranking = rankingsList.get(position);
+        holder.ranking.setText(ranking.getRankingName());
+        holder.name1.setText(ranking.getNames().get(0).getName());
+        holder.name2.setText(ranking.getNames().get(1).getName());
+        holder.name3.setText(ranking.getNames().get(2).getName());
     }
 
     @Override

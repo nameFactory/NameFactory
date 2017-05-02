@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -98,10 +99,10 @@ public class RankingList extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         rAdapter = new RankingsAdapter(rankingsList, getApplicationContext(), rlistener);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItem(this, LinearLayoutManager.VERTICAL));
+       // recyclerView.addItemDecoration(new DividerItem(this, LinearLayoutManager.VERTICAL));
 
         ItemTouchHelper.Callback callback =
                 new SwipeHelperCallback(rAdapter);

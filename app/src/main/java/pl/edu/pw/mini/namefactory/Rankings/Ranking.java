@@ -1,6 +1,9 @@
 package pl.edu.pw.mini.namefactory.Rankings;
 
+import java.util.List;
+
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
+import pl.edu.pw.mini.namefactory.Names.Name;
 import pl.edu.pw.mini.namefactory.RankingList;
 
 /**
@@ -28,6 +31,10 @@ public class Ranking {
     public void setRankingName(String name) {
         dbh.editRankingName(ID, name);
         this.name = name;
+    }
+
+    public List<Name> getNames() {
+        return dbh.getNameList(ID);
     }
 
     public String getNamesString() {
