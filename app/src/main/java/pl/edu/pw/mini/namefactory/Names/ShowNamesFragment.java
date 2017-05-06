@@ -74,7 +74,7 @@ public class ShowNamesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.dbh = RankingList.dbh;
+        this.dbh = RankingsListMain.dbh;
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {

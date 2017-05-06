@@ -64,7 +64,7 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
     public RankingsAdapter(final List<Ranking> rankingsList, Context context, ShowRankingsFragment.OnRankingsListFragmentInteractionListener rListener) {
         this.rankingsList = rankingsList;
         this.context = context;
-        this.dbh = RankingList.dbh;
+        this.dbh = RankingsListMain.dbh;
 
        /* SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 

@@ -5,6 +5,7 @@ import java.util.List;
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Names.Name;
 import pl.edu.pw.mini.namefactory.RankingList;
+import pl.edu.pw.mini.namefactory.RankingsListMain;
 
 /**
  * Created by Asus on 23.04.2017.
@@ -17,7 +18,7 @@ public class Ranking {
 
     //konstruktor do tworzenia obiektu z rekordu w tabeli (na potrzeby recyclingView)
     public Ranking(String name, int id) {
-        this.dbh = RankingList.dbh;
+        this.dbh = RankingsListMain.dbh;
         this.name = name;
         this.ID = id;
     }
