@@ -6,8 +6,8 @@
     android:name="pl.edu.pw.mini.namefactory.Rankings.ShowRankingsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:background="@color/colorPrimaryLight"
+    android:scrollbars="vertical"
     app:layoutManager="LinearLayoutManager"
     tools:context="pl.edu.pw.mini.namefactory.Rankings.ShowRankingsFragment"
     tools:listitem="@layout/rankings_list_row" />
