@@ -42,9 +42,6 @@ public class RankingsListMain extends AppCompatActivity
 
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
-        //----------------------------------------------------------------------------------------------------
-        dbh = RankingList.dbh;
-        //----------------------------------------------------------------------------------------------------
 
         setContentView(R.layout.activity_rankings_list_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
