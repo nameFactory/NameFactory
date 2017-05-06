@@ -78,7 +78,7 @@ public class NewRankingFragment extends Fragment {
                 add(bt);
             }
         });
-        this.dbh = RankingList.dbh;
+        this.dbh = RankingsListMain.dbh;
 
         return view;
     }
