@@ -22,13 +22,16 @@ import java.util.ArrayList;
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseRankingFragment;
+import pl.edu.pw.mini.namefactory.Names.Name;
+import pl.edu.pw.mini.namefactory.Names.ShowNamesFragment;
 import pl.edu.pw.mini.namefactory.Rankings.*;
 import pl.edu.pw.mini.namefactory.Rankings.Ranking;
 
 public class RankingsListMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ChooseNameFragment.ChooseNameDialogListener,
         ChooseRankingFragment.ChooseRankingDialogListener, RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener,
-        ShowRankingsFragment.OnRankingsListFragmentInteractionListener {
+        EvaluationFragment.OnEvaluationFragmentInteractionListener, FiltersFragment.OnFiltersFragmentInteractionListener,
+        ShowRankingsFragment.OnRankingsListFragmentInteractionListener, ShowNamesFragment.OnNamesListFragmentInteractionListener, NewRankingFragment.OnNewRankingFragmentInteractionListener {
 
     public static DatabaseHandler dbh;
     private FragmentManager fm;
@@ -36,6 +39,9 @@ public class RankingsListMain extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
+        databaseCheckFirstRun();
         //----------------------------------------------------------------------------------------------------
         dbh = RankingList.dbh;
         //----------------------------------------------------------------------------------------------------
@@ -69,8 +75,7 @@ public class RankingsListMain extends AppCompatActivity
 
         fm = getSupportFragmentManager();
 
-        //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
-       // databaseCheckFirstRun();
+
 
         //wyswietlenie fragmentu z lista rankingow
         //przejdz do rankingjoiningrequest
@@ -128,6 +133,7 @@ public class RankingsListMain extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            //((FloatingActionButton)findViewById(R.id.fab)).show();
         }
     }
 
@@ -174,6 +180,8 @@ public class RankingsListMain extends AppCompatActivity
                     .replace(R.id.fragmentFrame, setFragment, null)
                     .addToBackStack(null)
                     .commit();
+
+            //((FloatingActionButton)findViewById(R.id.fab)).hide();
 
         } else if (id == R.id.nav_share) {
             //wybierz najpierw ktory ranking - dialog - lista
@@ -260,6 +268,16 @@ public class RankingsListMain extends AppCompatActivity
 
     @Override
     public void onRankingsListFragmentInteraction(Ranking item) {
+
+    }
+
+    @Override
+    public void onFiltersFragmentInteraction() {
+
+    }
+
+    @Override
+    public void OnNamesListFragmentInteractionListener(Name item) {
 
     }
 }

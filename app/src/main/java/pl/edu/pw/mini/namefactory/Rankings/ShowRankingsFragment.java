@@ -37,10 +37,11 @@ import pl.edu.pw.mini.namefactory.Additional.SwipeHelperCallback;
 public class ShowRankingsFragment extends Fragment {
 
     private List<Ranking> rankingsList = new ArrayList<>();
+    private RecyclerView recyclerView;
     private OnRankingsListFragmentInteractionListener mListener;
     private RankingsAdapter rAdapter;
     private DatabaseHandler dbh;
-    private FragmentManager fm;
+    //private FragmentManager fm;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -68,7 +69,7 @@ public class ShowRankingsFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }*/
         this.dbh = RankingsListMain.dbh;
-        fm = getActivity().getSupportFragmentManager();
+        //fm = getActivity().getSupportFragmentManager();
 
     }
 
@@ -76,7 +77,7 @@ public class ShowRankingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rankings_list, container, false);
-        RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -91,7 +92,7 @@ public class ShowRankingsFragment extends Fragment {
             //}
 
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.addItemDecoration(new DividerItem(context, LinearLayoutManager.VERTICAL));
+            //recyclerView.addItemDecoration(new DividerItem(context, LinearLayoutManager.VERTICAL));
             ItemTouchHelper.Callback callback =
                     new SwipeHelperCallback(rAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);

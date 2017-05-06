@@ -136,7 +136,7 @@ public class FiltersFragment extends PreferenceFragment {
             //przejdz do nazwania nowego rankingu
             NewRankingFragment setFragment= new NewRankingFragment();
             getActivity().getFragmentManager().beginTransaction()
-                    .replace(R.id.content_ranking_list, setFragment, null)
+                    .replace(R.id.fragmentFrame, setFragment, null)
                     .addToBackStack(null)
                     .commit();
 

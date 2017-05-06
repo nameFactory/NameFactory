@@ -90,11 +90,12 @@ public class ShowNamesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_names_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
         Log.i("FRAG", "weszlo do onCreateView");
+        RecyclerView recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
+            namesList = dbh.getNameList(rankingID);
             nAdapter = new NamesAdapter(namesList,context, mListener);
-            RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.addItemDecoration(new DividerItem(context, LinearLayoutManager.VERTICAL));
@@ -129,11 +130,11 @@ public class ShowNamesFragment extends Fragment {
 
             }));
 
-            Log.i("FRAG", "ustawiony adapter");
-            prepareNamesList();
-            Log.i("FRAG", "przygotowana lista");
+            //Log.i("FRAG", "ustawiony adapter");
+            //prepareNamesList();
+            //Log.i("FRAG", "przygotowana lista");
         }
-        return view;
+        return recyclerView;
     }
 
 
@@ -195,7 +196,7 @@ public class ShowNamesFragment extends Fragment {
             //przejdz do rankingjoiningrequest
             RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(rankingID);
             getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_ranking_list, fragment, null)
+                    .replace(R.id.fragmentFrame, fragment, null)
                     .addToBackStack(null)
                     .commit();
 
