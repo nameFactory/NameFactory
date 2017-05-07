@@ -25,12 +25,4 @@
             android:title="@string/navigation_drawer_check_name" />
     </group>
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/testowanieGRUBE"
-            android:title="TESTOWANIE" />
-    </group>
-
-
-
 </menu>

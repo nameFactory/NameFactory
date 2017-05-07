@@ -4,7 +4,6 @@ import java.util.List;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Names.Name;
-import pl.edu.pw.mini.namefactory.RankingList;
 import pl.edu.pw.mini.namefactory.RankingsListMain;
 
 /**

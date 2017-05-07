@@ -42,7 +42,7 @@ public class RankingsJoiningRequestFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.dbh = RankingList.dbh;
+        this.dbh = RankingsListMain.dbh;
 
         if (getArguments() != null) {
 

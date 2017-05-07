@@ -8,6 +8,7 @@ public class Name {
 
     private String name;
     private int ID;
+    private boolean isGirl;
 
     public Name(int id, String name) {
         this.name = name;
@@ -16,6 +17,7 @@ public class Name {
 
     public int getID() {return ID;}
 
+    public boolean getIsGirl() {return isGirl;}
 
     public String getName() {
         return name;
