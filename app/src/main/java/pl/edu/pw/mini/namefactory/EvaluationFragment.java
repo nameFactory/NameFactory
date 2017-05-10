@@ -20,7 +20,7 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
-
+import pl.edu.pw.mini.namefactory.Names.Name;
 
 
 public class EvaluationFragment extends Fragment {
@@ -34,6 +34,7 @@ public class EvaluationFragment extends Fragment {
     private String rankingName;
     private int rankingID;
     private DatabaseHandler dbh;
+    private boolean isGirl;
 
     // Array of String to Show In TextSwitcher
     private pl.edu.pw.mini.namefactory.Names.Name[] namesToShow;
@@ -68,7 +69,11 @@ public class EvaluationFragment extends Fragment {
 
             rankingID = getArguments().getInt(ARG_ID);
             rankingName = dbh.getRankingName(rankingID);
-            namesToShow = dbh.getNameList(rankingID).toArray(new pl.edu.pw.mini.namefactory.Names.Name[0]);
+            namesToShow = dbh.getNameList(rankingID).toArray(new Name[0]);
+            if(namesToShow[0].getIsGirl())
+                isGirl = true;
+            else
+                isGirl= false;
             messageCount=namesToShow.length;
         }
     }
@@ -85,6 +90,17 @@ public class EvaluationFragment extends Fragment {
 
         n1Switcher = (TextSwitcher) view.findViewById(R.id.name1);
         n2Switcher = (TextSwitcher) view.findViewById(R.id.name2);
+        if(isGirl)
+        {
+            n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirl));
+            n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirlDark));
+        }
+        else
+        {
+            n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoy));
+            n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoyDark));
+        }
+
 
         // Set the ViewFactory of the TextSwitcher that will create TextView object when asked
         n1Switcher.setFactory(new ViewSwitcher.ViewFactory() {

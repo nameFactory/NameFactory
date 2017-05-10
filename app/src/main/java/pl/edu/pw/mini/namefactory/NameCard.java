@@ -23,7 +23,7 @@ public class NameCard extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.dbh = RankingList.dbh;
+        this.dbh = RankingsListMain.dbh;
 
         // get the Intent that started this Activity
         Intent in = getIntent();
@@ -39,9 +39,19 @@ public class NameCard extends AppCompatActivity {
         setTitle((CharSequence)nameDetails[0]);
 
         CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        colToolbar.setBackgroundColor(getResources().getColor(R.color.colorGirl));
-        colToolbar.setContentScrimColor(getResources().getColor(R.color.colorGirl));
-        colToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorGirl));
+        if(male)
+        {
+            colToolbar.setBackgroundColor(getResources().getColor(R.color.colorGirl));
+            colToolbar.setContentScrimColor(getResources().getColor(R.color.colorGirl));
+            colToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorGirl));
+        }
+        else
+        {
+            colToolbar.setBackgroundColor(getResources().getColor(R.color.colorBoy));
+            colToolbar.setContentScrimColor(getResources().getColor(R.color.colorBoy));
+            colToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorBoy));
+        }
+
 
 /*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

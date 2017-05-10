@@ -106,7 +106,10 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
         holder.name.setText(name.getName());
         if(position==0)
         {
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGirl));
+            if(name.getIsGirl())
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGirl));
+            else
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBoy));
             holder.img.setImageResource(R.drawable.trophy_48);
         }
 

@@ -71,6 +71,12 @@ public class RankingsListMain extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fm = getSupportFragmentManager();
+        fm.addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener() {
+                    public void onBackStackChanged() {
+                        ((FloatingActionButton)findViewById(R.id.fab)).show();
+                    }
+                });
 
 
 
@@ -79,7 +85,6 @@ public class RankingsListMain extends AppCompatActivity
         FragmentTransaction ft = fm.beginTransaction();
         ShowRankingsFragment fragment = ShowRankingsFragment.newInstance();
         ft.replace(R.id.fragmentFrame, fragment, null)
-                .addToBackStack(null)
                 .commit();
     }
 
@@ -221,6 +226,7 @@ public class RankingsListMain extends AppCompatActivity
     @Override
     public void onDialogRankingPositiveClick(DialogFragment dialog, String name) {
 
+
         //przejdz do rankingjoiningrequest
         FragmentTransaction ft = fm.beginTransaction();
 
@@ -231,6 +237,8 @@ public class RankingsListMain extends AppCompatActivity
         ft.replace(R.id.fragmentFrame, fragment, null)
                 .addToBackStack(null)
                 .commit();
+
+        ((FloatingActionButton)findViewById(R.id.fab)).hide();
     }
 
     @Override
@@ -241,6 +249,7 @@ public class RankingsListMain extends AppCompatActivity
     @Override
     public void onDialogNamePositiveClick(DialogFragment dialog, String name) {
 
+        ((FloatingActionButton)findViewById(R.id.fab)).hide();
         // Creating Bundle object
         Bundle bundel = new Bundle();
 

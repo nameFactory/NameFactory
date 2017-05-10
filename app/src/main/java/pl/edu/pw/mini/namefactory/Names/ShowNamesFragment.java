@@ -3,9 +3,7 @@ package pl.edu.pw.mini.namefactory.Names;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +22,6 @@ import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Additional.DividerItem;
 import pl.edu.pw.mini.namefactory.NameCard;
 import pl.edu.pw.mini.namefactory.R;
-import pl.edu.pw.mini.namefactory.RankingList;
 import pl.edu.pw.mini.namefactory.RankingsJoiningRequestFragment;
 import pl.edu.pw.mini.namefactory.RankingsListMain;
 import pl.edu.pw.mini.namefactory.Additional.RecyclerTouchListener;
@@ -45,7 +42,8 @@ public class ShowNamesFragment extends Fragment {
     // TODO: Customize parameters
     private OnNamesListFragmentInteractionListener mListener;
 
-    private List<Name> namesList  = new ArrayList<>();;
+    private List<Name> namesList  = new ArrayList<>();
+    private RecyclerView recyclerView;
     private NamesAdapter nAdapter;
     private String rankingName;
     private int rankingID = -1;
@@ -90,7 +88,7 @@ public class ShowNamesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_names_list, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
         Log.i("FRAG", "weszlo do onCreateView");
-        RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();

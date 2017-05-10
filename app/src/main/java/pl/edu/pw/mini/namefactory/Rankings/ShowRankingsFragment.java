@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,6 +78,7 @@ public class ShowRankingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rankings_list, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("NameFactory");
         recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {

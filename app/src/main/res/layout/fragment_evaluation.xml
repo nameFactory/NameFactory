@@ -16,8 +16,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:onClick="switchNames"
-            android:background="@color/colorGirl"/>
+            android:onClick="switchNames" />
 
         <TextSwitcher
             android:id="@+id/name2"
@@ -25,8 +24,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:onClick="switchNames"
-            android:background="@color/colorGirlDark"/>
+            android:onClick="switchNames" />
     </LinearLayout>
 
 
