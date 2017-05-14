@@ -14,6 +14,9 @@ public interface ApiService {
     @POST("user")
     Call<ApiNewUser> createNewUserAccount(@Body ApiNewUserRequest body);
 
+    @POST("ranking")
+    Call<ApiEmptyResponse> createNewRanking(@Body ApiNewRankingRequest body);
+
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.namefactory.pl/")
             .addConverterFactory(GsonConverterFactory.create())
