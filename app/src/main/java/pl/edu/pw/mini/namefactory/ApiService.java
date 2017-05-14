@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface ApiService {
     @GET("names_db")
-    Call<NamesDB> getNamesDB();
+    Call<ApiNamesDB> getNamesDB();
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.namefactory.pl/")
