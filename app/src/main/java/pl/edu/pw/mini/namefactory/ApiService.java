@@ -1,7 +1,5 @@
 package pl.edu.pw.mini.namefactory;
 
-import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,7 +12,7 @@ public interface ApiService {
     Call<ApiNamesDB> getNamesDB();
 
     @POST("user")
-    Call<ApiNewUser> createNewUserAccount(@Body HashMap<String, String> body);
+    Call<ApiNewUser> createNewUserAccount(@Body ApiNewUserRequest body);
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.namefactory.pl/")
