@@ -8,16 +8,17 @@ public class Name {
 
     private String name;
     private int ID;
-    private boolean isGirl;
+    private boolean isMale;
 
-    public Name(int id, String name) {
+    public Name(int id, String name, boolean isMale) {
         this.name = name;
         this.ID = id;
+        this.isMale = isMale;
     }
 
     public int getID() {return ID;}
 
-    public boolean getIsGirl() {return isGirl;}
+    public boolean getIsGirl() {return !isMale;}
 
     public String getName() {
         return name;

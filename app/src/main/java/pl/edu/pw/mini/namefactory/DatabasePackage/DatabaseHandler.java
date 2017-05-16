@@ -161,7 +161,8 @@ public class DatabaseHandler {
                 do {
                     int id = c.getInt(c.getColumnIndex("id"));
                     String name = c.getString(c.getColumnIndex("name"));
-                    results.add(new pl.edu.pw.mini.namefactory.Names.Name(id, name));
+                    boolean male = Boolean.parseBoolean(c.getString(c.getColumnIndex("male")));
+                    results.add(new pl.edu.pw.mini.namefactory.Names.Name(id, name, male));
                 } while (c.moveToNext());
             }
         }
