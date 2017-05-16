@@ -2,6 +2,7 @@ package pl.edu.pw.mini.namefactory;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -26,15 +27,19 @@ import pl.edu.pw.mini.namefactory.Names.Name;
 import pl.edu.pw.mini.namefactory.Names.ShowNamesFragment;
 import pl.edu.pw.mini.namefactory.Rankings.*;
 import pl.edu.pw.mini.namefactory.Rankings.Ranking;
+import pl.edu.pw.mini.namefactory.User.UserAccount;
+import pl.edu.pw.mini.namefactory.User.UserProfileFragment;
 
 public class RankingsListMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ChooseNameFragment.ChooseNameDialogListener,
         ChooseRankingFragment.ChooseRankingDialogListener, RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener,
         EvaluationFragment.OnEvaluationFragmentInteractionListener, FiltersFragment.OnFiltersFragmentInteractionListener,
-        ShowRankingsFragment.OnRankingsListFragmentInteractionListener, ShowNamesFragment.OnNamesListFragmentInteractionListener, NewRankingFragment.OnNewRankingFragmentInteractionListener {
+        ShowRankingsFragment.OnRankingsListFragmentInteractionListener, ShowNamesFragment.OnNamesListFragmentInteractionListener,
+        NewRankingFragment.OnNewRankingFragmentInteractionListener, UserProfileFragment.OnUserFragmentInteractionListener {
 
     public static DatabaseHandler dbh;
     private FragmentManager fm;
+    private UserAccount User;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,12 @@ public class RankingsListMain extends AppCompatActivity
 
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
+
+        //ustawienie Usera
+        User = new UserAccount();
+        User.setEmail("marta@ja.pl");
+        User.setUserName("Marta");
+        User.setName("Marta");
 
         setContentView(R.layout.activity_rankings_list_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -217,6 +228,15 @@ public class RankingsListMain extends AppCompatActivity
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
 
         }
+        else if(id == R.id.nav_profile)
+        {
+            //PRZEJSCIE DO FRAGMENTU USER PROFILE ________________________________________________________________
+            UserProfileFragment setFragment= UserProfileFragment.newInstance(User.getUserName(), User.getEmail());
+            fm.beginTransaction()
+                    .replace(R.id.fragmentFrame, setFragment, null)
+                    .addToBackStack(null)
+                    .commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -284,6 +304,11 @@ public class RankingsListMain extends AppCompatActivity
 
     @Override
     public void OnNamesListFragmentInteractionListener(Name item) {
+
+    }
+
+    @Override
+    public void onUserFragmentInteraction(Uri uri) {
 
     }
 }
