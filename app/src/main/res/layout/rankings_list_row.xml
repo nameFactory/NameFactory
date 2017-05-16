@@ -8,19 +8,40 @@
     android:paddingRight="16dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    android:layout_margin="10dp"
     android:clickable="true"
-    android:background="?android:attr/selectableItemBackground">
+    android:elevation="10dp"
+    android:background="@color/backgroundColor"
+    >
+
+   <!--android:background="?android:attr/selectableItemBackground"  -->
 
     <TextView
         android:id="@+id/ranking"
-        android:textSize="16dp"
+        android:textSize="24dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <TextView
-        android:id="@+id/names"
+        android:id="@+id/name1"
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="20dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/name3"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"/>
 
 </LinearLayout>
