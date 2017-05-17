@@ -59,9 +59,11 @@ public class RankingsJoiningRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rankings_joining_request, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join your ranking");
+        mListener.setTitleName("Join your ranking");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join your ranking");
         textName = (TextView) view.findViewById(R.id.rankingNameText);
         textName.setText(rankingName);
+        mListener.hideFloatingButton();
         return view;
     }
 
@@ -94,7 +96,9 @@ public class RankingsJoiningRequestFragment extends Fragment {
      */
     public interface OnRankingsJoiningRequestFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        //void onFragmentInteraction();
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 
     public void sendRequest(View v)

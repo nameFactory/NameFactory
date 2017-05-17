@@ -68,12 +68,14 @@ public class UserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.navigation_drawer_user_profile);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.navigation_drawer_user_profile);
         ((TextView)view.findViewById(R.id.userName)).setText(user.getName());
 
         ((TextView)view.findViewById(R.id.showUserName)).setText(user.getUserName());
         ((TextView)view.findViewById(R.id.showUserEmail)).setText(user.getEmail());
 
+        mListener.hideFloatingButton();
+        mListener.setTitleName( getString(R.string.navigation_drawer_user_profile));
 
         return view;
     }
@@ -108,6 +110,7 @@ public class UserProfileFragment extends Fragment {
      */
     public interface OnUserFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onUserFragmentInteraction(Uri uri);
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 }

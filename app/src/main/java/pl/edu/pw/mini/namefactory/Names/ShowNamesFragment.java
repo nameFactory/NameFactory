@@ -21,6 +21,7 @@ import pl.edu.pw.mini.namefactory.Additional.ClickListener;
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Additional.DividerItem;
 import pl.edu.pw.mini.namefactory.NameCard;
+import pl.edu.pw.mini.namefactory.NewRankingNameFragment;
 import pl.edu.pw.mini.namefactory.R;
 import pl.edu.pw.mini.namefactory.RankingsJoiningRequestFragment;
 import pl.edu.pw.mini.namefactory.RankingsListMain;
@@ -86,8 +87,10 @@ public class ShowNamesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_names_list, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
         Log.i("FRAG", "weszlo do onCreateView");
+        mListener.hideFloatingButton();
+        mListener.setTitleName(rankingName);
         recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -172,7 +175,9 @@ public class ShowNamesFragment extends Fragment {
      */
     public interface OnNamesListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void OnNamesListFragmentInteractionListener(Name item);
+        //void OnNamesListFragmentInteractionListener(Name item);
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 
     @Override
@@ -199,6 +204,17 @@ public class ShowNamesFragment extends Fragment {
                     .commit();
 
             //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
+
+            return true;
+        }
+        else if (id == R.id.action_namechaning)
+        {
+            //przejdz do nazwania nowego rankingu
+            NewRankingNameFragment setFragment= NewRankingNameFragment.newInstance(rankingName);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentFrame, setFragment, null)
+                    .addToBackStack(null)
+                    .commit();
 
             return true;
         }

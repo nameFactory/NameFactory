@@ -1,13 +1,9 @@
 package pl.edu.pw.mini.namefactory;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,7 +53,7 @@ public class FiltersFragment extends PreferenceFragment {
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.pref_filters);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
         //fm = getActivity().getSupportFragmentManager();
     }
 
@@ -74,15 +70,11 @@ public class FiltersFragment extends PreferenceFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_filters, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Choose filters");
-        return view;
-    }
+        mListener.setTitleName("Choose filters");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Choose filters");
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFiltersFragmentInteraction();
-        }
+        mListener.changeFloatingButtonDone();
+        return view;
     }
 
     @Override
@@ -114,37 +106,9 @@ public class FiltersFragment extends PreferenceFragment {
      */
     public interface OnFiltersFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFiltersFragmentInteraction();
+        //void onFiltersFragmentInteraction();
+        void changeFloatingButtonDone();
+        void setTitleName(String name);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.filters, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_create) {
-
-            //przejdz do nazwania nowego rankingu
-            NewRankingFragment setFragment= new NewRankingFragment();
-            getActivity().getFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentFrame, setFragment, null)
-                    .addToBackStack(null)
-                    .commit();
-
-            //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

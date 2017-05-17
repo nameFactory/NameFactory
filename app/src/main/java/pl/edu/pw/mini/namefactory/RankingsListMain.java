@@ -2,12 +2,13 @@ package pl.edu.pw.mini.namefactory;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,10 +24,8 @@ import java.util.ArrayList;
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseRankingFragment;
-import pl.edu.pw.mini.namefactory.Names.Name;
 import pl.edu.pw.mini.namefactory.Names.ShowNamesFragment;
 import pl.edu.pw.mini.namefactory.Rankings.*;
-import pl.edu.pw.mini.namefactory.Rankings.Ranking;
 import pl.edu.pw.mini.namefactory.User.UserAccount;
 import pl.edu.pw.mini.namefactory.User.UserProfileFragment;
 
@@ -35,7 +34,7 @@ public class RankingsListMain extends AppCompatActivity
         ChooseRankingFragment.ChooseRankingDialogListener, RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener,
         EvaluationFragment.OnEvaluationFragmentInteractionListener, FiltersFragment.OnFiltersFragmentInteractionListener,
         ShowRankingsFragment.OnRankingsListFragmentInteractionListener, ShowNamesFragment.OnNamesListFragmentInteractionListener,
-        NewRankingFragment.OnNewRankingFragmentInteractionListener, UserProfileFragment.OnUserFragmentInteractionListener {
+        NewRankingNameFragment.OnNewRankingFragmentInteractionListener, UserProfileFragment.OnUserFragmentInteractionListener {
 
     public static DatabaseHandler dbh;
     private FragmentManager fm;
@@ -45,6 +44,7 @@ public class RankingsListMain extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.i("MAIN","weszlo do onCreate RankingsListMain.");
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
 
@@ -58,7 +58,7 @@ public class RankingsListMain extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +70,7 @@ public class RankingsListMain extends AppCompatActivity
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,12 +82,12 @@ public class RankingsListMain extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fm = getSupportFragmentManager();
-        fm.addOnBackStackChangedListener(
+ /*       fm.addOnBackStackChangedListener(
                 new FragmentManager.OnBackStackChangedListener() {
                     public void onBackStackChanged() {
                         ((FloatingActionButton)findViewById(R.id.fab)).show();
                     }
-                });
+                });*/
 
 
 
@@ -204,6 +204,7 @@ public class RankingsListMain extends AppCompatActivity
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
+            bundel.putString("type", "connection");
 
             // Create an instance of the dialog fragment and show it
             DialogFragment dialog = new ChooseRankingFragment();
@@ -220,6 +221,7 @@ public class RankingsListMain extends AppCompatActivity
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
+            bundel.putString("type", "evaluation"); //zamien na enumy
 
             //wybierz najpierw ktory ranking - dialog - lista
             // Create an instance of the dialog fragment and show it
@@ -244,21 +246,33 @@ public class RankingsListMain extends AppCompatActivity
     }
 
     @Override
-    public void onDialogRankingPositiveClick(DialogFragment dialog, String name) {
+    public void onDialogRankingPositiveClick(DialogFragment dialog, String name, String operationType) {
 
 
         //przejdz do rankingjoiningrequest
         FragmentTransaction ft = fm.beginTransaction();
 
         //tutaj Id------------------------------------------------------------------------------------------
-        int id = 7;
+        int id = 10;
 
-        RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(id);
-        ft.replace(R.id.fragmentFrame, fragment, null)
-                .addToBackStack(null)
-                .commit();
+        if(operationType.equals("connection"))
+        {
 
-        ((FloatingActionButton)findViewById(R.id.fab)).hide();
+            RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(id);
+            ft.replace(R.id.fragmentFrame, fragment, null)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else
+        {
+            EvaluationFragment setFragment= EvaluationFragment.newInstance(id);
+            ft.replace(R.id.fragmentFrame, setFragment, null)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+
+        //((FloatingActionButton)findViewById(R.id.fab)).hide();
     }
 
     @Override
@@ -269,7 +283,7 @@ public class RankingsListMain extends AppCompatActivity
     @Override
     public void onDialogNamePositiveClick(DialogFragment dialog, String name) {
 
-        ((FloatingActionButton)findViewById(R.id.fab)).hide();
+        //((FloatingActionButton)findViewById(R.id.fab)).hide();
         // Creating Bundle object
         Bundle bundel = new Bundle();
 
@@ -293,22 +307,70 @@ public class RankingsListMain extends AppCompatActivity
     }
 
     @Override
-    public void onRankingsListFragmentInteraction(Ranking item) {
+    public void changeFloatingButtonDone() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        fab.setLayoutParams(p);
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_done_white_24dp);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //dodawanie nowego rankingu
+                //generowanie nazwy rankignu -------------------------------------------------
+                String nameRanking = "generowana nazwa";
+                int rankingID = dbh.createRanking(nameRanking);
+
+                //zamockowana lista imion wybranych z preferencji - null -----------------------------------
+                dbh.addNames2Ranking(rankingID, null);
+
+                //przejdz do rankingjoiningrequest
+                FragmentTransaction ft = fm.beginTransaction();
+                ShowRankingsFragment fragment = ShowRankingsFragment.newInstance();
+                ft.replace(R.id.fragmentFrame, fragment, null)
+                        .commit();
+            }
+        });
     }
 
     @Override
-    public void onFiltersFragmentInteraction() {
+    public void changeFloatingButtonAdd() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        fab.setLayoutParams(p);
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_add_white_48dp);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //PRZEJSCIE DO FRAGMENTU FILTERS ________________________________________________________________
+                FiltersFragment setFragment= new FiltersFragment();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentFrame, setFragment, null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     @Override
-    public void OnNamesListFragmentInteractionListener(Name item) {
-
+    public void hideFloatingButton() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        fab.setLayoutParams(p);
+        fab.setVisibility(View.GONE);
+        Log.i("MAIN","button hidden.");
     }
 
     @Override
-    public void onUserFragmentInteraction(Uri uri) {
-
+    public void setTitleName(String name) {
+        this.getSupportActionBar().setTitle(name);
     }
 }

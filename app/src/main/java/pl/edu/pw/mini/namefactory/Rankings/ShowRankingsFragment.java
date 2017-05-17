@@ -78,7 +78,8 @@ public class ShowRankingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rankings_list, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("NameFactory");
+        mListener.changeFloatingButtonAdd();
+        mListener.setTitleName("NameFactory");
         recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -177,6 +178,7 @@ public class ShowRankingsFragment extends Fragment {
      */
     public interface OnRankingsListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onRankingsListFragmentInteraction(Ranking item);
+        void changeFloatingButtonAdd();
+        void setTitleName(String name);
     }
 }

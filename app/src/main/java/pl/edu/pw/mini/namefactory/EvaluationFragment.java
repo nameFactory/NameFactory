@@ -86,7 +86,9 @@ public class EvaluationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_evaluation, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
+        mListener.hideFloatingButton();
+        mListener.setTitleName(rankingName);
+
 
         n1Switcher = (TextSwitcher) view.findViewById(R.id.name1);
         n2Switcher = (TextSwitcher) view.findViewById(R.id.name2);
@@ -212,7 +214,9 @@ public class EvaluationFragment extends Fragment {
      */
     public interface OnEvaluationFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        //void onFragmentInteraction();
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 
     //nacisniecie pierwszego imienia (ind1)

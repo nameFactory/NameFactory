@@ -2,7 +2,7 @@ package pl.edu.pw.mini.namefactory;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,37 +16,37 @@ import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewRankingFragment.OnNewRankingFragmentInteractionListener} interface
+ * {@link NewRankingNameFragment.OnNewRankingFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewRankingFragment#newInstance} factory method to
+ * Use the {@link NewRankingNameFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewRankingFragment extends Fragment {
-/*    // TODO: Rename parameter arguments, choose names that match
+public class NewRankingNameFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_RNAME = "rankingName";
+    //private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;*/
+    //private String mParam1;
+    private String rankingName;
 
     EditText textBox;
     private DatabaseHandler dbh;
 
     private OnNewRankingFragmentInteractionListener mListener;
 
-    public NewRankingFragment() {
+    public NewRankingNameFragment() {
         // Required empty public constructor
     }
 
 
-    public static NewRankingFragment newInstance() {
-        NewRankingFragment fragment = new NewRankingFragment();
-        /*Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);*/
+    public static NewRankingNameFragment newInstance(String rankingName) {
+        NewRankingNameFragment fragment = new NewRankingNameFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_RNAME, rankingName);
+       // args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -54,7 +54,7 @@ public class NewRankingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
+            rankingName = getArguments().getString(ARG_RNAME);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -66,16 +66,17 @@ public class NewRankingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_ranking, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("New ranking");
+        mListener.setTitleName("Change ranking name");
         textBox = (EditText) view.findViewById(R.id.rankingName);
+        textBox.setHint(rankingName);
 
-        final Button bt= (Button) view.findViewById(R.id.addBt);
+        final Button bt= (Button) view.findViewById(R.id.changeBt);
         bt.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                add(bt);
+                change(bt);
             }
         });
         this.dbh = RankingsListMain.dbh;
@@ -113,16 +114,15 @@ public class NewRankingFragment extends Fragment {
     public interface OnNewRankingFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction();
+        void setTitleName(String name);
     }
 
-    public void add(View v)
+    public void change(View v)
     {
-        //dodawanie nowego rankingu
-        String nameRanking = textBox.getText().toString();
-        int rankingID = dbh.createRanking(nameRanking);
 
-        //zamockowana lista imion wybranych z preferencji - null -----------------------------------
-        dbh.addNames2Ranking(rankingID, null);
+        //zmiana nazwy rankingu__________________________________
+        //powrot do poprzedniego fragmentu
+        getActivity().getSupportFragmentManager().popBackStackImmediate();
 
     }
 }
