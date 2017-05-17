@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 
@@ -120,8 +124,15 @@ public class NewRankingFragment extends Fragment {
         //dodawanie nowego rankingu
         String nameRanking = textBox.getText().toString();
         int rankingID = dbh.createRanking(nameRanking);
+        try
+        {
+            RankingsListMain.apiWrapper.createNewRanking(rankingID, null);
+        }
+        catch(IOException e){
+            Toast.makeText(getActivity(), "Creating new ranking unsuccessful", Toast.LENGTH_LONG).show();
+        }
 
-        //zamockowana lista imion wybranych z preferencji - null -----------------------------------
+        //TODO tymczasowo dodajemy wszystkie imiona z bazy, dlatego przesyłamy null
         dbh.addNames2Ranking(rankingID, null);
 
     }

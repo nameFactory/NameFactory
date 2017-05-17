@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import pl.edu.pw.mini.namefactory.ApiName;
 import pl.edu.pw.mini.namefactory.DatabasePackage.Database;
 
 /**
@@ -23,15 +24,10 @@ public class DatabaseHandler {
         myDb = new Database(context, "localStorage");
     }
     //tworzenie nowej tabeli z podanymi imionami
-    public void pushNames(List<String> names, List<String> desc, List<Boolean> male){
-
-        List<String> namesFromServer = Arrays.asList("Piotr", "Michał", "Kuba", "Marek", "Alex");
-        List<String> descFromServer = Arrays.asList("fancy name desc", "fancy name desc", "fancy name desc", "fancy name desc", "fancy name desc");
-        List<Boolean> boolsFromServer = Arrays.asList(true, true, true, true, true);
-
+    public void pushNames(List<ApiName> names){
         myDb.recreateNamesTable();
-        for (int i = 0; i<namesFromServer.size(); i++)
-            myDb.insertData("NAMES", new String[]{namesFromServer.get(i), descFromServer.get(i), boolsFromServer.get(i).toString()});
+        for(ApiName name : names)
+            myDb.insertData("NAMES", new String[]{name.name, name.description, String.valueOf(name.is_male)});
     }
 
     //wypisywanie opisu i nazwy danego imienia
@@ -71,9 +67,21 @@ public class DatabaseHandler {
     }
 
     //dodawanie imion z danej listy id imion do danego rankingu
-    public void addNames2Ranking(int rankingID, List<String> names)
+    public void addNames2Ranking(int rankingID, List<Integer> names)
     {
-        List<Integer> namesFromServer = Arrays.asList(1, 2, 3, 4, 5);
+        //tymczasowo namesFromServer bo names jest null
+        List<Integer> namesFromServer = new ArrayList<Integer>();
+        Cursor c = myDb.getNamesIDs();
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    Integer id = c.getInt(c.getColumnIndex("id"));
+                    namesFromServer.add(id);
+                } while (c.moveToNext());
+            }
+        }
+
+
         for (Integer id : namesFromServer)
             myDb.insertData("NAMES2RANKING", new String[] {Integer.toString(id), Integer.toString(rankingID), "0"});
 
@@ -120,18 +128,17 @@ public class DatabaseHandler {
     }
 
     //zmiana score dla danego imienia w danym rankingu
-    public void changeNamesScore(int rankingID, int nameID, int currentScore, int Score){
-        int newScore = currentScore + Score;
+    public void changeNamesScore(int rankingID, int nameID, double newScore){
         myDb.updateNamesScore(nameID, rankingID, newScore);
     }
 
     //wypisywanie aktualnego score dla imienia w danym rankingu
-    public int getNamesScore(int rankingID, int nameID){
+    public double getNamesScore(int rankingID, int nameID){
         Cursor c = myDb.getNameScore(nameID, rankingID);
-        int currentScore = 0;
+        double currentScore = 0;
         if (c != null) {
             if (c.moveToFirst()) {
-                currentScore = c.getInt(c.getColumnIndex("score"));
+                currentScore = c.getDouble(c.getColumnIndex("score"));
             }
         }
         return currentScore;
