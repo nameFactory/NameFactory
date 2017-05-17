@@ -30,7 +30,6 @@ public class EvaluationFragment extends Fragment {
 
     private TextSwitcher n1Switcher;
     private TextSwitcher n2Switcher;
-    private int addedScore = 100;
     private String rankingName;
     private int rankingID;
     private DatabaseHandler dbh;
@@ -221,10 +220,17 @@ public class EvaluationFragment extends Fragment {
         if(v.getId()==n1Switcher.getId())
         {
             //wybrane imie ma tutaj ind1
-            int currentScore = 0;
-            try {
-                currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
-                dbh.changeNamesScore(rankingID, namesToShow[ind1].getID(), currentScore, addedScore);
+            double currentWinnerScore = 0, currentLoserScore = 0;
+            try{
+                currentWinnerScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+                currentLoserScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
+
+                EloUpdatedPair newScores = Elo.getUpdatedScore(currentWinnerScore, currentLoserScore);
+
+                dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), newScores.getWinnerPoints());
+                dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), newScores.getLoserPoints());
+
+                RankingsListMain.apiWrapper.createNewMatch(rankingID, namesToShow[ind1].getID(), namesToShow[ind2].getID());
             }
             catch (Exception e){
                 Toast.makeText(getActivity(), "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind1].getID()), Toast.LENGTH_LONG).show();
@@ -233,10 +239,17 @@ public class EvaluationFragment extends Fragment {
         else if (v.getId() == n2Switcher.getId())
         {
             //wybrane imie ma tutaj ind2
-            int currentScore = 0;
+            double currentWinnerScore = 0, currentLoserScore = 0;
             try{
-                currentScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
-                dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
+                currentWinnerScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
+                currentLoserScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+
+                EloUpdatedPair newScores = Elo.getUpdatedScore(currentWinnerScore, currentLoserScore);
+
+                dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), newScores.getWinnerPoints());
+                dbh.changeNamesScore(rankingID,namesToShow[ind1].getID(), newScores.getLoserPoints());
+
+                RankingsListMain.apiWrapper.createNewMatch(rankingID, namesToShow[ind2].getID(), namesToShow[ind1].getID());
             }
             catch(Exception e){
                 Toast.makeText(getActivity(), "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind2].getID()), Toast.LENGTH_LONG).show();

@@ -18,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
@@ -38,6 +40,7 @@ public class RankingsListMain extends AppCompatActivity
         NewRankingFragment.OnNewRankingFragmentInteractionListener, UserProfileFragment.OnUserFragmentInteractionListener {
 
     public static DatabaseHandler dbh;
+    public static ApiWrapper apiWrapper;
     private FragmentManager fm;
     private UserAccount User;
 
@@ -117,6 +120,10 @@ public class RankingsListMain extends AppCompatActivity
 
             // This is just a normal run
             dbh = new DatabaseHandler(this);
+
+            //TODO pobranie loginu i hasla z urzadzenia
+            String login = "qwertyuiop", password = "asdfghjkl";
+            apiWrapper = new ApiWrapper(login, password);
             Toast.makeText(this, "not a first run", Toast.LENGTH_LONG).show();
             return;
 
@@ -124,8 +131,21 @@ public class RankingsListMain extends AppCompatActivity
 
             // This is a new install (or the user cleared the shared preferences)
             dbh = new DatabaseHandler(this);
-            //zamockowana lista imion---------------------------------------------------------------
-            dbh.pushNames(null, null, null);
+
+            //TODO tworzenie loginu i hasla i zapis ich lokalnie
+            String login = "qwertyuiop", password = "asdfghjkl";
+            apiWrapper = new ApiWrapper(login, password);
+
+            //dodawanie imion
+            try
+            {
+                List<ApiName> names = ApiWrapper.getNamesDB().names;
+                dbh.pushNames(names);
+            }
+            catch(IOException e)
+            {
+                Toast.makeText(this, "Downloading names unsuccessful", Toast.LENGTH_LONG).show();
+            }
             Toast.makeText(this, "first run!", Toast.LENGTH_LONG).show();
 
 
