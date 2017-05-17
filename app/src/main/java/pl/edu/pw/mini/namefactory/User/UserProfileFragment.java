@@ -1,6 +1,7 @@
 package pl.edu.pw.mini.namefactory.User;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,16 +69,35 @@ public class UserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.navigation_drawer_user_profile);
-        ((TextView)view.findViewById(R.id.userName)).setText(user.getName());
+        SetupView(view);
 
-        ((TextView)view.findViewById(R.id.showUserName)).setText(user.getUserName());
-        ((TextView)view.findViewById(R.id.showUserEmail)).setText(user.getEmail());
+
+        return view;
+    }
+
+    void SetupView(View _view)
+    {
+        ((TextView)_view.findViewById(R.id.userName)).setText(user.getName());
+
+        ((TextView)_view.findViewById(R.id.showUserName)).setText(user.getUserName());
+        ((TextView)_view.findViewById(R.id.showUserEmail)).setText(user.getEmail());
 
         mListener.hideFloatingButton();
         mListener.setTitleName( getString(R.string.navigation_drawer_user_profile));
+    }
 
-        return view;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        populateViewForOrientation(inflater, (ViewGroup) getView());
+    }
+
+    private void populateViewForOrientation(LayoutInflater inflater, ViewGroup viewGroup) {
+        viewGroup.removeAllViewsInLayout();
+        View subview = inflater.inflate(R.layout.fragment_user_profile, viewGroup);
+
+        SetupView(subview);
     }
 
 
