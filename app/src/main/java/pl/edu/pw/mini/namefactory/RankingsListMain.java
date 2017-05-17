@@ -204,7 +204,7 @@ public class RankingsListMain extends AppCompatActivity
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
-            bundel.putString("type", "connection");
+            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.CONNECTION);
 
             // Create an instance of the dialog fragment and show it
             DialogFragment dialog = new ChooseRankingFragment();
@@ -221,7 +221,7 @@ public class RankingsListMain extends AppCompatActivity
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
-            bundel.putString("type", "evaluation"); //zamien na enumy
+            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.EVALUATION);
 
             //wybierz najpierw ktory ranking - dialog - lista
             // Create an instance of the dialog fragment and show it
@@ -239,6 +239,24 @@ public class RankingsListMain extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         }
+        else if(id == R.id.nav_global)
+        {
+            // Creating Bundle object
+            Bundle bundel = new Bundle();
+
+            //globalne rankinig ___________________________________________________________
+            ArrayList<String> rankingsNames = dbh.getRankingsNames();
+
+            // Storing data into bundle
+            bundel.putStringArrayList("rankings", rankingsNames);
+            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.SHOW);
+
+            //wybierz najpierw ktory ranking - dialog - lista
+            // Create an instance of the dialog fragment and show it
+            DialogFragment dialog = new ChooseRankingFragment();
+            dialog.setArguments(bundel);
+            dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -246,7 +264,7 @@ public class RankingsListMain extends AppCompatActivity
     }
 
     @Override
-    public void onDialogRankingPositiveClick(DialogFragment dialog, String name, String operationType) {
+    public void onDialogRankingPositiveClick(DialogFragment dialog, String name, ChooseRankingFragment.RankingDialogType operationType) {
 
 
         //przejdz do rankingjoiningrequest
@@ -255,7 +273,7 @@ public class RankingsListMain extends AppCompatActivity
         //tutaj Id------------------------------------------------------------------------------------------
         int id = 10;
 
-        if(operationType.equals("connection"))
+        if(operationType== ChooseRankingFragment.RankingDialogType.CONNECTION)
         {
 
             RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(id);
@@ -263,9 +281,17 @@ public class RankingsListMain extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         }
-        else
+        else if(operationType== ChooseRankingFragment.RankingDialogType.EVALUATION)
         {
             EvaluationFragment setFragment= EvaluationFragment.newInstance(id);
+            ft.replace(R.id.fragmentFrame, setFragment, null)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else if(operationType== ChooseRankingFragment.RankingDialogType.SHOW)
+        {
+            //przejdz do fragmetnu shownamesfragment
+            ShowNamesFragment setFragment= ShowNamesFragment.newInstance(id);
             ft.replace(R.id.fragmentFrame, setFragment, null)
                     .addToBackStack(null)
                     .commit();

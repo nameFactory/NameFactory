@@ -10,6 +10,7 @@
     <string name="navigation_drawer_work_on_ranking">Work on ranking ...</string>
     <string name="navigation_drawer_check_name">Check name meaning</string>
     <string name="navigation_drawer_user_profile">Your profile</string>
+    <string name="navigation_drawer_global_ranking">See global rankings</string>
 
 
     <string name="shared_prefs_name">NameFactoryPrefs</string>
