@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
@@ -110,9 +112,10 @@ public class RankingsListMain extends AppCompatActivity
 
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;
-
         // Get saved version code
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
+
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
 
         // Check for first run or upgrade
@@ -120,10 +123,18 @@ public class RankingsListMain extends AppCompatActivity
 
             // This is just a normal run
             dbh = new DatabaseHandler(this);
-
-            //TODO pobranie loginu i hasla z urzadzenia
-            String login = "qwertyuiop", password = "asdfghjkl";
-            apiWrapper = new ApiWrapper(login, password);
+            String login, password;
+            try{
+                Set<String> set = prefs.getStringSet("USER", null);
+                if (set == null) throw new Exception();
+                login = set.toArray(new String[2])[0];
+                password = set.toArray(new String[2])[1];
+                apiWrapper = new ApiWrapper(login, password);
+            }
+            catch(Exception e) {
+                Toast.makeText(this, "No user was found", Toast.LENGTH_LONG).show();
+                return;
+            }
             Toast.makeText(this, "not a first run", Toast.LENGTH_LONG).show();
             return;
 
@@ -131,10 +142,26 @@ public class RankingsListMain extends AppCompatActivity
 
             // This is a new install (or the user cleared the shared preferences)
             dbh = new DatabaseHandler(this);
+            try
+            {
+                ApiNewUser user = ApiWrapper.createNewUser(null);
+                String login = user.username;
+                String pass = user.password;
+                
+                apiWrapper = new ApiWrapper(login, pass);
 
-            //TODO tworzenie loginu i hasla i zapis ich lokalnie
-            String login = "qwertyuiop", password = "asdfghjkl";
-            apiWrapper = new ApiWrapper(login, password);
+                //zapis danych uzytkownika lokalnie
+                Set<String> set = new HashSet<>();
+                set.add(login);
+                set.add(pass);
+                prefs.edit().putStringSet("USER", set);
+
+            }
+            catch(Exception e)
+            {
+                Toast.makeText(this, "Creating user unsuccessful", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             //dodawanie imion
             try
@@ -145,6 +172,7 @@ public class RankingsListMain extends AppCompatActivity
             catch(IOException e)
             {
                 Toast.makeText(this, "Downloading names unsuccessful", Toast.LENGTH_LONG).show();
+                return;
             }
             Toast.makeText(this, "first run!", Toast.LENGTH_LONG).show();
 
