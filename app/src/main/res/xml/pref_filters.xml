@@ -13,13 +13,13 @@
         android:positiveButtonText="@null"
         android:title="@string/pref_title_origin" />
 
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="popularity"
         android:summary="@string/pref_description_popularity"
         android:title="@string/pref_title_popularity" />
 
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="religion"
         android:summary="@string/pref_description_religion"

@@ -195,7 +195,8 @@ public class RankingsListMain extends AppCompatActivity
             //przejdz do tworzenia nowego rankingu
             //PRZEJSCIE DO FRAGMENTU FILTERS ________________________________________________________________
             FiltersFragment setFragment= new FiltersFragment();
-            getFragmentManager().beginTransaction()
+
+            fm.beginTransaction()
                     .replace(R.id.fragmentFrame, setFragment, null)
                     .addToBackStack(null)
                     .commit();
@@ -388,7 +389,7 @@ public class RankingsListMain extends AppCompatActivity
 
                 //PRZEJSCIE DO FRAGMENTU FILTERS ________________________________________________________________
                 FiltersFragment setFragment= new FiltersFragment();
-                getFragmentManager().beginTransaction()
+                fm.beginTransaction()
                         .replace(R.id.fragmentFrame, setFragment, null)
                         .addToBackStack(null)
                         .commit();

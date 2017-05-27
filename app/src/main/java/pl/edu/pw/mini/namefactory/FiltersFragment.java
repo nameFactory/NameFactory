@@ -10,9 +10,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
 
-public class FiltersFragment extends PreferenceFragment {
+public class FiltersFragment extends PreferenceFragmentCompat {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,11 +51,13 @@ public class FiltersFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+    }
 
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.pref_filters);
-        //setHasOptionsMenu(true);
-        //fm = getActivity().getSupportFragmentManager();
+        setPreferencesFromResource(R.xml.pref_filters, rootKey);
     }
 
     @Override
@@ -69,10 +72,8 @@ public class FiltersFragment extends PreferenceFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_filters, container, false);
+        View view = super.onCreateView(inflater,container,savedInstanceState);
         mListener.setTitleName("Choose filters");
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Choose filters");
-
         mListener.changeFloatingButtonDone();
         return view;
     }
