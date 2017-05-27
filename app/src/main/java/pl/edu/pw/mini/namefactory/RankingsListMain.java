@@ -276,7 +276,8 @@ public class RankingsListMain extends AppCompatActivity
         //przejdz do rankingjoiningrequest
         FragmentTransaction ft = fm.beginTransaction();
 
-        //tutaj Id------------------------------------------------------------------------------------------
+        //tutaj Id----------------------------------------------POMOC--------------------------------------------
+        //id dla rankingu ktory brzmi  'name'
         int id = 10;
 
         if(operationType== ChooseRankingFragment.RankingDialogType.CONNECTION)
@@ -319,8 +320,12 @@ public class RankingsListMain extends AppCompatActivity
         // Creating Bundle object
         Bundle bundel = new Bundle();
 
+        //tutaj Id----------------------------------------------POMOC--------------------------------------------
+        //id dla imienia kotre brzmi 'name'
+        int id = 3;
+
         // Storing data into bundle
-        bundel.putString("name", name);
+        bundel.putInt("name", id);
 
         //przejdz do aktywnosci namecard
         Intent in = new Intent(getApplicationContext(), NameCard.class);
