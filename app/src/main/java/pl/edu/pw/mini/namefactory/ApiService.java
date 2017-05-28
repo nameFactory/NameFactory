@@ -20,6 +20,9 @@ public interface ApiService {
     @POST("match")
     Call<ApiEmptyResponse> createNewMatch(@Body ApiNewMatchRequest body);
 
+    @POST("match_list")
+    Call<ApiGetMatches> getMatchesList(@Body ApiGetMatchesRequest body);
+
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.namefactory.pl/")
             .addConverterFactory(GsonConverterFactory.create())
