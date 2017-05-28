@@ -31,4 +31,8 @@ public class ApiWrapper {
     public ApiGetMatches getMatches(int ranking_id) throws IOException {
         return apiService.getMatchesList(new ApiGetMatchesRequest(this.username, this.password, ranking_id)).execute().body();
     }
+
+    public ApiTop getTop50() throws IOException {
+        return apiService.getTop50().execute().body();
+    }
 }
