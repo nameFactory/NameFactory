@@ -20,11 +20,15 @@ public class ApiWrapper {
         this.password = password;
     }
 
-    public void createNewRanking(int ranking_id, int tag_ids[]) throws IOException {
-        apiService.createNewRanking(new ApiNewRankingRequest(this.username, this.password, ranking_id, tag_ids)).execute().body();
+    public void createNewRanking(int ranking_id, boolean is_male, int tag_ids[]) throws IOException {
+        apiService.createNewRanking(new ApiNewRankingRequest(this.username, this.password, ranking_id, is_male, tag_ids)).execute().body();
     }
 
     public void createNewMatch(int ranking_id, int winner_id, int loser_id) throws IOException {
         apiService.createNewMatch(new ApiNewMatchRequest(this.username, this.password, ranking_id, winner_id, loser_id)).execute().body();
+    }
+
+    public ApiGetMatches getMatches(int ranking_id) throws IOException {
+        return apiService.getMatchesList(new ApiGetMatchesRequest(this.username, this.password, ranking_id)).execute().body();
     }
 }
