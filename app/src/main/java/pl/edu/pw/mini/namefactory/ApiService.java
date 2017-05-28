@@ -23,6 +23,9 @@ public interface ApiService {
     @POST("match_list")
     Call<ApiGetMatches> getMatchesList(@Body ApiGetMatchesRequest body);
 
+    @GET("top50")
+    Call<ApiTop> getTop50();
+
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.namefactory.pl/")
             .addConverterFactory(GsonConverterFactory.create())
