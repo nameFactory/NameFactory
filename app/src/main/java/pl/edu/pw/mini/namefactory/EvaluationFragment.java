@@ -1,5 +1,6 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -93,6 +94,7 @@ public class EvaluationFragment extends Fragment {
         return view;
     }
 
+    //@TargetApi(16)
     void SetupView(View _view)
     {
         mListener.hideFloatingButton();
@@ -104,11 +106,13 @@ public class EvaluationFragment extends Fragment {
         if(isGirl)
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirl));
+            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirlDark));
         }
         else
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoy));
+            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_boy));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoyDark));
         }
 
