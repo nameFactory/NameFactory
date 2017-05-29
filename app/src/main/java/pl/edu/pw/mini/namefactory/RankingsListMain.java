@@ -158,7 +158,7 @@ public class RankingsListMain extends AppCompatActivity
                 prefs.edit().putStringSet("USER", set);
 
             }
-            catch(Exception e)
+            catch(IOException e)
             {
                 Toast.makeText(this, "Creating user unsuccessful", Toast.LENGTH_LONG).show();
                 return;
