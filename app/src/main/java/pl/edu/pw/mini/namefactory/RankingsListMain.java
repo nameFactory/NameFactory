@@ -152,7 +152,6 @@ public class RankingsListMain extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            //((FloatingActionButton)findViewById(R.id.fab)).show();
         }
     }
 
@@ -277,9 +276,7 @@ public class RankingsListMain extends AppCompatActivity
         //przejdz do rankingjoiningrequest
         FragmentTransaction ft = fm.beginTransaction();
 
-        //tutaj Id----------------------------------------------POMOC--------------------------------------------
-        //id dla rankingu ktory brzmi  'name'
-        int id = 10;
+        int id = dbh.getRankingsID(name);
 
         if(operationType== ChooseRankingFragment.RankingDialogType.CONNECTION)
         {
@@ -321,9 +318,7 @@ public class RankingsListMain extends AppCompatActivity
         // Creating Bundle object
         Bundle bundel = new Bundle();
 
-        //tutaj Id----------------------------------------------POMOC--------------------------------------------
-        //id dla imienia kotre brzmi 'name'
-        int id = 3;
+        int id = dbh.getNamesID(name);
 
         // Storing data into bundle
         bundel.putInt("name", id);
