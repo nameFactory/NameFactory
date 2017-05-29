@@ -117,6 +117,7 @@ public class RankingsListMain extends AppCompatActivity
         //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
 
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+        savedVersionCode = DOESNT_EXIST;
 
         // Check for first run or upgrade
         if (currentVersionCode == savedVersionCode) {
