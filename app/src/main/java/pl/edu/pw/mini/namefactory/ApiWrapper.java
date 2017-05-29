@@ -8,7 +8,10 @@ public class ApiWrapper {
     private String password;
 
     static ApiNewUser createNewUser(String email) throws IOException {
-        return apiService.createNewUserAccount(new ApiNewUserRequest(email)).execute().body();
+        String emailToSend = "";
+        if(email != null)
+            emailToSend = email;
+        return apiService.createNewUserAccount(new ApiNewUserRequest(emailToSend)).execute().body();
     }
 
     static ApiNamesDB getNamesDB() throws IOException {
