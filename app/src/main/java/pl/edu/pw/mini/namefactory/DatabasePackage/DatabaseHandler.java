@@ -101,6 +101,17 @@ public class DatabaseHandler {
         return results;
     }
 
+    //pobieranie id rankigu
+    public int getRankingsID(String name){
+        Cursor c = myDb.getRankingsID(name);
+        int id = -1;
+        if (c != null) {
+            if (c.moveToFirst()) {
+                id = c.getInt(c.getColumnIndex("id"));
+            }
+        }
+        return id;
+    }
 
     //wypisywanie listy rankingów
     public List<pl.edu.pw.mini.namefactory.Rankings.Ranking> getRankingList(){
@@ -150,6 +161,18 @@ public class DatabaseHandler {
             }
         }
         return results;
+    }
+
+    //pobieranie id imienia
+    public int getNamesID(String name){
+        Cursor c = myDb.getNamesID(name);
+        int id = -1;
+        if (c != null) {
+            if (c.moveToFirst()) {
+                id = c.getInt(c.getColumnIndex("id"));
+            }
+        }
+        return id;
     }
 
     //wypisywanie obiektów Name z danego rankingu

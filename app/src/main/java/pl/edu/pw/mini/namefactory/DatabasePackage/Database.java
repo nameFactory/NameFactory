@@ -139,6 +139,11 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getRankingsID(String name){
+        Cursor res = db.rawQuery("SELECT id FROM RANKINGS WHERE name = ?", new String[] {name});
+        return res;
+    }
+
     //uwaga trzeba samemu pilnować kolejności i poprawności wartości kolumn, nie podajemy kolumn autoincrementowanych
     public int insertData(String tableName, String[] values){
         ContentValues contentValues = new ContentValues();
@@ -173,6 +178,11 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getNameScore(int idName, int idRanking){
         Cursor res = db.rawQuery("SELECT score FROM NAMES2RANKING WHERE id_name = ? AND id_ranking = ?", new String[] {Integer.toString(idName), Integer.toString(idRanking)});
+        return res;
+    }
+
+    public Cursor getNamesID(String name){
+        Cursor res = db.rawQuery("SELECT id FROM NAMES WHERE name = ?", new String[] {name});
         return res;
     }
 
