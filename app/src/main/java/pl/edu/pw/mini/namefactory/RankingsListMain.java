@@ -45,6 +45,7 @@ public class RankingsListMain extends AppCompatActivity
     public static ApiWrapper apiWrapper;
     private FragmentManager fm;
     private UserAccount User;
+    public static int rankingNumber=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -403,7 +404,7 @@ public class RankingsListMain extends AppCompatActivity
 
                 //dodawanie nowego rankingu
                 //generowanie nazwy rankignu -------------------------------------------------
-                String nameRanking = "generowana nazwa";
+                String nameRanking = "generowana nazwa"+ Integer.toString(rankingNumber++);
                 int rankingID = dbh.createRanking(nameRanking);
 
                 //zamockowana lista imion wybranych z preferencji - null -----------------------------------
