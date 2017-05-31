@@ -104,7 +104,7 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
         final Name name = namesList.get(position);
 
         holder.name.setText(name.getName());
-        if(position==0)
+        if(namesList.get(0).getID() == name.getID() )
         {
             if(name.getIsGirl())
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGirl));
