@@ -67,12 +67,12 @@ public class DatabaseHandler {
     }
 
     //dodawanie imion z danej listy id imion do danego rankingu
-    public void addNames2Ranking(int rankingID, List<Integer> names)
+    public void addNames2Ranking(int rankingID, boolean gender)
     {
-        //tymczasowo namesFromServer bo names jest null
+        //tymczasowo
         List<Integer> namesFromServer = new ArrayList<Integer>();
 
-        Cursor c = myDb.getNamesIDs();
+        Cursor c = myDb.getNamesIDs(gender);
         if (c != null) {
             if (c.moveToFirst()) {
                 do {

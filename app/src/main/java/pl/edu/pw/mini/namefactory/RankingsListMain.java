@@ -123,7 +123,8 @@ public class RankingsListMain extends AppCompatActivity
         int currentVersionCode = BuildConfig.VERSION_CODE;
         // Get saved version code
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
+        //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
+
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
 
         // Check for first run or upgrade
