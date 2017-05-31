@@ -71,6 +71,7 @@ public class DatabaseHandler {
     {
         //tymczasowo namesFromServer bo names jest null
         List<Integer> namesFromServer = new ArrayList<Integer>();
+
         Cursor c = myDb.getNamesIDs();
         if (c != null) {
             if (c.moveToFirst()) {

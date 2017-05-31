@@ -1,5 +1,6 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
@@ -43,6 +46,7 @@ public class RankingsListMain extends AppCompatActivity
 
     public static DatabaseHandler dbh;
     public static ApiWrapper apiWrapper;
+    public static ExecutorService fixedPool = Executors.newFixedThreadPool(1);
     private FragmentManager fm;
     private UserAccount User;
 
@@ -110,14 +114,15 @@ public class RankingsListMain extends AppCompatActivity
         final String PREFS_NAME =  getResources().getString(R.string.shared_prefs_name);
         final String PREF_VERSION_CODE_KEY = "version_code";
         final int DOESNT_EXIST = -1;
-
+        final Context context = this;
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;
         // Get saved version code
-        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
 
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+
         savedVersionCode = DOESNT_EXIST;
 
         // Check for first run or upgrade
@@ -144,38 +149,49 @@ public class RankingsListMain extends AppCompatActivity
 
             // This is a new install (or the user cleared the shared preferences)
             dbh = new DatabaseHandler(this);
-            try
-            {
-                ApiNewUser user = ApiWrapper.createNewUser(null);
-                String login = user.username;
-                String pass = user.password;
-                
-                apiWrapper = new ApiWrapper(login, pass);
 
-                //zapis danych uzytkownika lokalnie
-                Set<String> set = new HashSet<>();
-                set.add(login);
-                set.add(pass);
-                prefs.edit().putStringSet("USER", set);
+            Runnable newUserTask = new Runnable(){
+                @Override
+                public void run() {
+                    try
+                    {
+                        ApiNewUser user = ApiWrapper.createNewUser(null);
+                        String login = user.username;
+                        String pass = user.password;
 
-            }
-            catch(IOException e)
-            {
-                Toast.makeText(this, "Creating user unsuccessful", Toast.LENGTH_LONG).show();
-                return;
-            }
+                        RankingsListMain.apiWrapper = new ApiWrapper(login, pass);
 
-            //dodawanie imion
-            try
-            {
-                List<ApiName> names = ApiWrapper.getNamesDB().names;
-                dbh.pushNames(names);
-            }
-            catch(IOException e)
-            {
-                Toast.makeText(this, "Downloading names unsuccessful", Toast.LENGTH_LONG).show();
-                return;
-            }
+                        //zapis danych uzytkownika lokalnie
+                        Set<String> set = new HashSet<>();
+                        set.add(login);
+                        set.add(pass);
+                        prefs.edit().putStringSet("USER", set);
+                    }
+                    catch(IOException e)
+                    {
+                        Log.i("suc", "Creating user unsuccessful");
+                        //Toast.makeText(context, "Creating user unsuccessful", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    //dodawanie imion
+                    try
+                    {
+                        List<ApiName> names = ApiWrapper.getNamesDB().names;
+                        RankingsListMain.dbh.pushNames(names);
+                        Log.i("suc", "Creating user successful");
+                        //Toast.makeText(context, "Creating user successful", Toast.LENGTH_LONG).show();
+                    }
+                    catch(IOException e)
+                    {
+                        Log.i("suc", "Downloading names unsuccessful");
+                        //Toast.makeText(context, "Downloading names unsuccessful", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+            };
+
+            fixedPool.submit(newUserTask);
             Toast.makeText(this, "first run!", Toast.LENGTH_LONG).show();
 
 
@@ -396,7 +412,7 @@ public class RankingsListMain extends AppCompatActivity
         fab.setLayoutParams(p);
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_done_white_24dp);
-
+        final Context context = this;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -404,10 +420,23 @@ public class RankingsListMain extends AppCompatActivity
                 //dodawanie nowego rankingu
                 //generowanie nazwy rankignu -------------------------------------------------
                 String nameRanking = "generowana nazwa";
-                int rankingID = dbh.createRanking(nameRanking);
 
-                //zamockowana lista imion wybranych z preferencji - null -----------------------------------
+                //dodawanie nowego rankingu
+                final int rankingID = dbh.createRanking(nameRanking);
+                //TODO tymczasowo dodajemy wszystkie imiona z bazy, dlatego przesyłamy null
                 dbh.addNames2Ranking(rankingID, null);
+
+                Runnable newRankingTask = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            RankingsListMain.apiWrapper.createNewRanking(rankingID, true, null);
+                        } catch (IOException e) {
+                            Toast.makeText(context, "Creating new ranking unsuccessful", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                };
+                RankingsListMain.fixedPool.submit(newRankingTask);
 
                 //przejdz do rankingjoiningrequest
                 FragmentTransaction ft = fm.beginTransaction();
