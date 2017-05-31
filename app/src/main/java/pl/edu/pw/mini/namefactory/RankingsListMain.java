@@ -49,6 +49,7 @@ public class RankingsListMain extends AppCompatActivity
     public static ExecutorService fixedPool = Executors.newFixedThreadPool(1);
     private FragmentManager fm;
     private UserAccount User;
+    public static int rankingNumber=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -419,7 +420,7 @@ public class RankingsListMain extends AppCompatActivity
 
                 //dodawanie nowego rankingu
                 //generowanie nazwy rankignu -------------------------------------------------
-                String nameRanking = "generowana nazwa";
+                String nameRanking = "generowana nazwa"+ Integer.toString(rankingNumber++);
 
                 //dodawanie nowego rankingu
                 final int rankingID = dbh.createRanking(nameRanking);
