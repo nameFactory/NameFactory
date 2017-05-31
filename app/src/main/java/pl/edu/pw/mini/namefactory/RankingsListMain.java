@@ -123,7 +123,7 @@ public class RankingsListMain extends AppCompatActivity
         int currentVersionCode = BuildConfig.VERSION_CODE;
         // Get saved version code
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
+        prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
 
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
 
@@ -426,16 +426,16 @@ public class RankingsListMain extends AppCompatActivity
 
                 //dodawanie nowego rankingu
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean gender =sharedPref.getBoolean("gender",false);
+                final boolean gender =sharedPref.getBoolean("gender",false);
                 final int rankingID = dbh.createRanking(nameRanking);
                 //TODO tymczasowo dodajemy wszystkie imiona z bazy, dlatego przesyłamy null
-                dbh.addNames2Ranking(rankingID, null);
+                dbh.addNames2Ranking(rankingID, gender);
 
                 Runnable newRankingTask = new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            RankingsListMain.apiWrapper.createNewRanking(rankingID, true, null);
+                            RankingsListMain.apiWrapper.createNewRanking(rankingID, gender, new int[0]);
                         } catch (IOException e) {
                             Toast.makeText(context, "Creating new ranking unsuccessful", Toast.LENGTH_LONG).show();
                         }

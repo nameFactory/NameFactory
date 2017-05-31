@@ -134,8 +134,8 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getNamesIDs(){
-        Cursor res = db.rawQuery("SELECT id FROM NAMES", new String[0]);
+    public Cursor getNamesIDs(boolean gender){
+        Cursor res = db.rawQuery("SELECT id FROM NAMES WHERE male = ?", new String[] {Boolean.toString(gender)});
         return res;
     }
 
