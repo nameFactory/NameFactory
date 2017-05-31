@@ -114,17 +114,16 @@ public class RankingsListMain extends AppCompatActivity
 
         final String PREFS_NAME =  getResources().getString(R.string.shared_prefs_name);
         final String PREF_VERSION_CODE_KEY = "version_code";
+        //final String PREF_LOGIN_CODE_KEY = "login";
+        //final String PREF_PASS_CODE_KEY = "pass";
         final int DOESNT_EXIST = -1;
         final Context context = this;
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;
         // Get saved version code
-        final SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
-
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
-
-        savedVersionCode = DOESNT_EXIST;
 
         // Check for first run or upgrade
         if (currentVersionCode == savedVersionCode) {
@@ -154,6 +153,7 @@ public class RankingsListMain extends AppCompatActivity
             Runnable newUserTask = new Runnable(){
                 @Override
                 public void run() {
+                    SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                     try
                     {
                         ApiNewUser user = ApiWrapper.createNewUser(null);
@@ -166,7 +166,7 @@ public class RankingsListMain extends AppCompatActivity
                         Set<String> set = new HashSet<>();
                         set.add(login);
                         set.add(pass);
-                        prefs.edit().putStringSet("USER", set);
+                        prefs.edit().putStringSet("USER", set).apply();
                     }
                     catch(IOException e)
                     {
