@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 
@@ -34,6 +35,10 @@ public class NameCard extends AppCompatActivity {
         String[] nameDetails = dbh.getNameDetails(nameID);
         name = nameDetails[0];
         desc = nameDetails[1];
+
+        TextView descriptionBlock = (TextView) findViewById(R.id.nameDescription);
+        descriptionBlock.setText(desc);
+
         if (nameDetails[2] == "true") male = true;
         else male = false;
         setTitle((CharSequence)nameDetails[0]);
