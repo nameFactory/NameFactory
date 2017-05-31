@@ -1,6 +1,7 @@
 package pl.edu.pw.mini.namefactory;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -59,11 +60,35 @@ public class RankingsJoiningRequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rankings_joining_request, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join your ranking");
-        textName = (TextView) view.findViewById(R.id.rankingNameText);
-        textName.setText(rankingName);
+        SetupView(view);
+
         return view;
     }
+
+    void SetupView(View _view)
+    {
+        mListener.setTitleName("Join your ranking");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join your ranking");
+        textName = (TextView) _view.findViewById(R.id.rankingNameText);
+        textName.setText(rankingName);
+        mListener.hideFloatingButton();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        populateViewForOrientation(inflater, (ViewGroup) getView());
+    }
+
+    private void populateViewForOrientation(LayoutInflater inflater, ViewGroup viewGroup) {
+        viewGroup.removeAllViewsInLayout();
+        View subview = inflater.inflate(R.layout.fragment_rankings_joining_request, viewGroup);
+        subview.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        subview.setClickable(true);
+        SetupView(subview);
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -94,7 +119,9 @@ public class RankingsJoiningRequestFragment extends Fragment {
      */
     public interface OnRankingsJoiningRequestFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        //void onFragmentInteraction();
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 
     public void sendRequest(View v)

@@ -10,6 +10,7 @@
     <string name="navigation_drawer_work_on_ranking">Work on ranking ...</string>
     <string name="navigation_drawer_check_name">Check name meaning</string>
     <string name="navigation_drawer_user_profile">Your profile</string>
+    <string name="navigation_drawer_global_ranking">See global rankings</string>
 
 
     <string name="shared_prefs_name">NameFactoryPrefs</string>
@@ -20,10 +21,14 @@
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_ranking_view">Ranking</string>
-    <string name="action_connecting">Connect to ...</string>
+    <string name="action_connecting">Connect with ...</string>
+    <string name="action_namechaning">Change ranking name</string>
 
     <string name="title_activity_name_card">Name Card</string>
-    <string name="section_origin">Origin</string>
+    <string name="section_origin">Country of origin</string>
+    <string name="pref_description_origin">Choose names with a particular country of origin</string>
+    <string name="pref_title_gender">Boy\'s names</string>
+    <string name="pref_description_gender">Choose names\' gender</string>
     <string name="section_date">Nameday date</string>
     <string name="section_meaning">Meaning</string>
     <string name="section_people">Famous people</string>
@@ -68,14 +73,12 @@
 
     <string name="pref_title_origin">Origin</string>
     <string-array name="pref_origin_titles">
-        <item>Polskie</item>
-        <item>Brytyjskie</item>
-        <item>Rzymskie</item>
+        <item>Polish</item>
+        <item>English</item>
     </string-array>
     <string-array name="pref_origin_values">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

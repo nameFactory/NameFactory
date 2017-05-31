@@ -1,6 +1,8 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -85,18 +87,31 @@ public class EvaluationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_evaluation, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
 
-        n1Switcher = (TextSwitcher) view.findViewById(R.id.name1);
-        n2Switcher = (TextSwitcher) view.findViewById(R.id.name2);
+        SetupView(view);
+
+        return view;
+    }
+
+    //@TargetApi(16)
+    void SetupView(View _view)
+    {
+        mListener.hideFloatingButton();
+        mListener.setTitleName(rankingName);
+
+
+        n1Switcher = (TextSwitcher) _view.findViewById(R.id.name1);
+        n2Switcher = (TextSwitcher) _view.findViewById(R.id.name2);
         if(isGirl)
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirl));
+            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirlDark));
         }
         else
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoy));
+            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_boy));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoyDark));
         }
 
@@ -158,8 +173,24 @@ public class EvaluationFragment extends Fragment {
                 switchNames(n2Switcher);
             }
         });
+    }
 
-        return view;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        populateViewForOrientation(inflater, (ViewGroup) getView());
+    }
+
+    private void populateViewForOrientation(LayoutInflater inflater, ViewGroup viewGroup) {
+        viewGroup.removeAllViewsInLayout();
+        View subview = inflater.inflate(R.layout.fragment_evaluation, viewGroup);
+
+        subview.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        subview.setClickable(true);
+
+        SetupView(subview);
     }
 
     private void ChooseDataForSwitchers()
@@ -211,7 +242,9 @@ public class EvaluationFragment extends Fragment {
      */
     public interface OnEvaluationFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        //void onFragmentInteraction();
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 
     //nacisniecie pierwszego imienia (ind1)

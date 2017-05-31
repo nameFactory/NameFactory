@@ -42,6 +42,7 @@ public class NameCard extends AppCompatActivity {
         if(male)
         {
             colToolbar.setBackgroundColor(getResources().getColor(R.color.colorGirl));
+            //colToolbar.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             colToolbar.setContentScrimColor(getResources().getColor(R.color.colorGirl));
             colToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorGirl));
         }
