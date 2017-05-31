@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -424,6 +425,8 @@ public class RankingsListMain extends AppCompatActivity
                 String nameRanking = "generowana nazwa"+ Integer.toString(rankingNumber++);
 
                 //dodawanie nowego rankingu
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean gender =sharedPref.getBoolean("gender",false);
                 final int rankingID = dbh.createRanking(nameRanking);
                 //TODO tymczasowo dodajemy wszystkie imiona z bazy, dlatego przesyłamy null
                 dbh.addNames2Ranking(rankingID, null);
