@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import java.util.Random;
+
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Names.Name;
 
@@ -40,8 +42,6 @@ public class EvaluationFragment extends Fragment {
     // Array of String to Show In TextSwitcher
     private pl.edu.pw.mini.namefactory.Names.Name[] namesToShow;
     int messageCount;
-    // to keep current Index of text
-    int currentIndex=-1;
     int ind1;
     int ind2;
 
@@ -195,20 +195,14 @@ public class EvaluationFragment extends Fragment {
 
     private void ChooseDataForSwitchers()
     {
-        //LOSOWANIE _-------------------------------------
-        currentIndex++;
-        // If index reaches maximum reset it
-        if(currentIndex==messageCount)
-            currentIndex=0;
-        ind1=currentIndex;
-        n1Switcher.setText(namesToShow[currentIndex].getName());
+        Random random = new Random();
+        ind1 = random.nextInt(messageCount);
+        n1Switcher.setText(namesToShow[ind1].getName());
 
-        currentIndex++;
-        // If index reaches maximum reset it
-        if(currentIndex==messageCount)
-            currentIndex=0;
-        ind2 = currentIndex;
-        n2Switcher.setText(namesToShow[currentIndex].getName());
+        do {
+            ind2 = random.nextInt(messageCount);
+        } while(ind1 == ind2);
+        n2Switcher.setText(namesToShow[ind2].getName());
     }
 
 
