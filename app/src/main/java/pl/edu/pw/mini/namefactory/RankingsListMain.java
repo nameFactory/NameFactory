@@ -14,7 +14,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -33,7 +32,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.LogRecord;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
@@ -344,17 +342,19 @@ public class RankingsListMain extends AppCompatActivity
 
             //globalne rankinig ___________________________________________________________
             ArrayList<String> rankingsNames = new ArrayList<>();
-            rankingsNames.add("Chlopiec");
+            ArrayList<Integer> rankingsIds = new ArrayList<>();
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
-            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.SHOW);
+            bundel.putIntegerArrayList("rankingsID", rankingsIds);
+            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.SHOWGLOBAL);
 
             //wybierz najpierw ktory ranking - dialog - lista
             // Create an instance of the dialog fragment and show it
             DialogFragment dialog = new ChooseRankingFragment();
             dialog.setArguments(bundel);
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
+            
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -384,7 +384,7 @@ public class RankingsListMain extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         }
-        else if(operationType== ChooseRankingFragment.RankingDialogType.SHOW)
+        else if(operationType== ChooseRankingFragment.RankingDialogType.SHOWGLOBAL)
         {
             //przejdz do fragmetnu shownamesfragment
             ShowNamesFragment setFragment= ShowNamesFragment.newInstance(id);

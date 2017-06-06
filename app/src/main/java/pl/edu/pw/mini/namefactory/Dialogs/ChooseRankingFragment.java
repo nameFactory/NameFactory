@@ -20,7 +20,7 @@ public class ChooseRankingFragment extends DialogFragment {
     public enum RankingDialogType{
         CONNECTION,
         EVALUATION,
-        SHOW
+        SHOWGLOBAL,
     }
 
     public interface ChooseRankingDialogListener {
