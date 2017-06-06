@@ -129,7 +129,7 @@ public class NewRankingNameFragment extends Fragment {
         //zmiana nazwy rankingu__________________________________
 
         String rankingNewName = textBox.getText().toString();
-
+        RankingsListMain.dbh.editRankingName(rankingID, rankingNewName);
         //powrot do poprzedniego fragmentu
         //TextView
         //dbh.editRankingName(rankingID, String newRankingName)

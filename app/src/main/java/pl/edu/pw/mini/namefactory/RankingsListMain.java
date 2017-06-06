@@ -343,7 +343,8 @@ public class RankingsListMain extends AppCompatActivity
             Bundle bundel = new Bundle();
 
             //globalne rankinig ___________________________________________________________
-            ArrayList<String> rankingsNames = dbh.getRankingsNames();
+            ArrayList<String> rankingsNames = new ArrayList<>();
+            rankingsNames.add("Chlopiec");
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
