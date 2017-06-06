@@ -110,6 +110,22 @@ public class DatabaseHandler {
         return results;
     }
 
+    //wypisywanie listy rankingów jako stringi
+    public ArrayList<Integer> getRankingsIDs(){
+        Cursor c = myDb.getData("RANKINGS", new String[]{"id"});
+        ArrayList<Integer> results = new ArrayList<Integer>();
+
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+                    Integer id = c.getInt(c.getColumnIndex("id"));
+                    results.add(id);
+                } while (c.moveToNext());
+            }
+        }
+        return results;
+    }
+
     //pobieranie id rankigu
     public int getRankingsID(String name){
         Cursor c = myDb.getRankingsID(name);

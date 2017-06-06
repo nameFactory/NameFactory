@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -29,11 +30,12 @@ public class NewRankingNameFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_RNAME = "rankingName";
-    //private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_RID = "rankingID";
 
     // TODO: Rename and change types of parameters
     //private String mParam1;
     private String rankingName;
+    private int rankingID;
 
     EditText textBox;
     private DatabaseHandler dbh;
@@ -45,11 +47,11 @@ public class NewRankingNameFragment extends Fragment {
     }
 
 
-    public static NewRankingNameFragment newInstance(String rankingName) {
+    public static NewRankingNameFragment newInstance(String rankingName, int rankingID) {
         NewRankingNameFragment fragment = new NewRankingNameFragment();
         Bundle args = new Bundle();
         args.putString(ARG_RNAME, rankingName);
-       // args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_RID, rankingID);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,7 +61,7 @@ public class NewRankingNameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             rankingName = getArguments().getString(ARG_RNAME);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
+            rankingID= getArguments().getInt(ARG_RID);
         }
     }
 
@@ -125,7 +127,12 @@ public class NewRankingNameFragment extends Fragment {
     {
 
         //zmiana nazwy rankingu__________________________________
+
+        String rankingNewName = textBox.getText().toString();
+
         //powrot do poprzedniego fragmentu
+        //TextView
+        //dbh.editRankingName(rankingID, String newRankingName)
         getActivity().getSupportFragmentManager().popBackStackImmediate();
 
     }

@@ -210,7 +210,7 @@ public class ShowNamesFragment extends Fragment {
         else if (id == R.id.action_namechaning)
         {
             //przejdz do nazwania nowego rankingu
-            NewRankingNameFragment setFragment= NewRankingNameFragment.newInstance(rankingName);
+            NewRankingNameFragment setFragment= NewRankingNameFragment.newInstance(rankingName, rankingID);
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentFrame, setFragment, null)
                     .addToBackStack(null)

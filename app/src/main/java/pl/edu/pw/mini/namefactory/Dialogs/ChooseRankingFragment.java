@@ -24,7 +24,7 @@ public class ChooseRankingFragment extends DialogFragment {
     }
 
     public interface ChooseRankingDialogListener {
-        public void onDialogRankingPositiveClick(DialogFragment dialog, String name, RankingDialogType operationType);
+        public void onDialogRankingPositiveClick(DialogFragment dialog, Integer id, RankingDialogType operationType);
         public void onDialogRankingNegativeClick(DialogFragment dialog);
     }
 
@@ -32,6 +32,7 @@ public class ChooseRankingFragment extends DialogFragment {
     {
         // get the Bundle that stores the data of this Activity
         ArrayList<String> rNames = (ArrayList<String>) b.get("rankings");
+        rIDS = (ArrayList<Integer>) b.get("rankingsID");
         rankingsNames =rNames.toArray(new CharSequence[rNames.size()]);
 
         operationType = (RankingDialogType) b.get("type");
@@ -39,6 +40,7 @@ public class ChooseRankingFragment extends DialogFragment {
 
 
     CharSequence[] rankingsNames;
+    ArrayList<Integer> rIDS;
     RankingDialogType operationType;
     int ranking;
 
@@ -81,7 +83,7 @@ public class ChooseRankingFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // ADD NEW ELEMENT
 
-                            mListener.onDialogRankingPositiveClick(ChooseRankingFragment.this, (String)rankingsNames[ranking], operationType);
+                            mListener.onDialogRankingPositiveClick(ChooseRankingFragment.this, rIDS.get(ranking), operationType);
 
                     }
                 })

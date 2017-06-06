@@ -1,16 +1,20 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.LogRecord;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
@@ -51,6 +56,7 @@ public class RankingsListMain extends AppCompatActivity
     private FragmentManager fm;
     private UserAccount User;
     public static int rankingNumber=0;
+    ProgressDialog loadDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,8 @@ public class RankingsListMain extends AppCompatActivity
         Log.i("MAIN","weszlo do onCreate RankingsListMain.");
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
+
+
 
         //ustawienie Usera
         User = new UserAccount();
@@ -123,7 +131,7 @@ public class RankingsListMain extends AppCompatActivity
         int currentVersionCode = BuildConfig.VERSION_CODE;
         // Get saved version code
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
+        //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
 
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
 
@@ -151,6 +159,15 @@ public class RankingsListMain extends AppCompatActivity
 
             // This is a new install (or the user cleared the shared preferences)
             dbh = new DatabaseHandler(this);
+
+            loadDialog = ProgressDialog.show(RankingsListMain.this, "Loading", "Please wait while synchronising database...");
+            final Handler handler = new Handler() {
+
+                @Override
+                public void handleMessage(Message msg) {
+                    loadDialog.dismiss();
+                }
+            };
 
             Runnable newUserTask = new Runnable(){
                 @Override
@@ -191,8 +208,11 @@ public class RankingsListMain extends AppCompatActivity
                         //Toast.makeText(context, "Downloading names unsuccessful", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    handler.sendEmptyMessage(0);
                 }
             };
+
+
 
             fixedPool.submit(newUserTask);
             Toast.makeText(this, "first run!", Toast.LENGTH_LONG).show();
@@ -275,9 +295,11 @@ public class RankingsListMain extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
             ArrayList<String> rankingsNames = dbh.getRankingsNames();
+            ArrayList<Integer> rankingsIds = dbh.getRankingsIDs();
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
+            bundel.putIntegerArrayList("rankingsID", rankingsIds);
             bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.CONNECTION);
 
             // Create an instance of the dialog fragment and show it
@@ -292,9 +314,11 @@ public class RankingsListMain extends AppCompatActivity
             Bundle bundel = new Bundle();
 
             ArrayList<String> rankingsNames = dbh.getRankingsNames();
+            ArrayList<Integer> rankingsIds = dbh.getRankingsIDs();
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
+            bundel.putIntegerArrayList("rankingsID", rankingsIds);
             bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.EVALUATION);
 
             //wybierz najpierw ktory ranking - dialog - lista
@@ -338,13 +362,11 @@ public class RankingsListMain extends AppCompatActivity
     }
 
     @Override
-    public void onDialogRankingPositiveClick(DialogFragment dialog, String name, ChooseRankingFragment.RankingDialogType operationType) {
+    public void onDialogRankingPositiveClick(DialogFragment dialog, Integer id, ChooseRankingFragment.RankingDialogType operationType) {
 
 
         //przejdz do rankingjoiningrequest
         FragmentTransaction ft = fm.beginTransaction();
-
-        int id = dbh.getRankingsID(name);
 
         if(operationType== ChooseRankingFragment.RankingDialogType.CONNECTION)
         {
