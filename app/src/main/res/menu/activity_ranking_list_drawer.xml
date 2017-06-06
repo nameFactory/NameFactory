@@ -1,40 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Ranking">
-        <menu>
-            <item
-                android:id="@+id/nav_new_ranking"
-                android:icon="@drawable/ic_add_black_24dp"
-                android:title="@string/title_activity_new_ranking" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/title_activity_ranking_joining" />
-            <item
-                android:id="@+id/nav_work_on"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/navigation_drawer_work_on_ranking" />
-        </menu>
-    </item>
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_name"
-            android:icon="@drawable/ic_folder_shared_black_24dp"
-            android:title="@string/navigation_drawer_check_name" />
-
-        <item android:id="@+id/nav_global"
-        android:icon="@drawable/ic_public_black_24dp"
-        android:title="@string/navigation_drawer_global_ranking" />
-    </group>
-
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/navigation_drawer_user_profile" />
+
+
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/title_activity_ranking_joining" />
+
     </group>
+
+    <item android:title="Other">
+        <menu>
+            <item android:id="@+id/nav_global"
+                android:icon="@drawable/ic_public_black_24dp"
+                android:title="@string/navigation_drawer_global_ranking" />
+
+            <item
+                android:id="@+id/nav_name"
+                android:icon="@drawable/ic_folder_shared_black_24dp"
+                android:title="@string/navigation_drawer_check_name" />
+        </menu>
+
+    </item>
+
+
 
 </menu>

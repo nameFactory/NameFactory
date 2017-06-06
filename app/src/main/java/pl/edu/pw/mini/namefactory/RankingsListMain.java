@@ -276,18 +276,6 @@ public class RankingsListMain extends AppCompatActivity
             dialog.show(getSupportFragmentManager(), "ChooseNameFragment");
 
 
-        } else if (id == R.id.nav_new_ranking) {
-            //przejdz do tworzenia nowego rankingu
-            //PRZEJSCIE DO FRAGMENTU FILTERS ________________________________________________________________
-            FiltersFragment setFragment= new FiltersFragment();
-
-            fm.beginTransaction()
-                    .replace(R.id.fragmentFrame, setFragment, null)
-                    .addToBackStack(null)
-                    .commit();
-
-            //((FloatingActionButton)findViewById(R.id.fab)).hide();
-
         } else if (id == R.id.nav_share) {
             //wybierz najpierw ktory ranking - dialog - lista
             // Creating Bundle object
@@ -306,27 +294,7 @@ public class RankingsListMain extends AppCompatActivity
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
 
 
-        } else if (id == R.id.nav_work_on) {
-
-            // Creating Bundle object
-            Bundle bundel = new Bundle();
-
-            ArrayList<String> rankingsNames = dbh.getRankingsNames();
-            ArrayList<Integer> rankingsIds = dbh.getRankingsIDs();
-
-            // Storing data into bundle
-            bundel.putStringArrayList("rankings", rankingsNames);
-            bundel.putIntegerArrayList("rankingsID", rankingsIds);
-            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.EVALUATION);
-
-            //wybierz najpierw ktory ranking - dialog - lista
-            // Create an instance of the dialog fragment and show it
-            DialogFragment dialog = new ChooseRankingFragment();
-            dialog.setArguments(bundel);
-            dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
-
-        }
-        else if(id == R.id.nav_profile)
+        } else if(id == R.id.nav_profile)
         {
             //PRZEJSCIE DO FRAGMENTU USER PROFILE ________________________________________________________________
             UserProfileFragment setFragment= UserProfileFragment.newInstance(User.getUserName(), User.getEmail());
@@ -354,7 +322,7 @@ public class RankingsListMain extends AppCompatActivity
             DialogFragment dialog = new ChooseRankingFragment();
             dialog.setArguments(bundel);
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
-            
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
