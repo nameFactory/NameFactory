@@ -342,9 +342,27 @@ public class RankingsListMain extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            //globalne rankinig ___________________________________________________________
+            //pobieranie rankingów gloablnych
             ArrayList<String> rankingsNames = new ArrayList<>();
-            rankingsNames.add("Chlopiec");
+            ArrayList<Integer> rankingsIDs = new ArrayList<>();
+            try
+            {
+                List<ApiTopNames> topNamesList = ApiWrapper.getTop50().result;
+                for (ApiTopNames namesArray : topNamesList){
+                    String rankingName = Boolean.toString(namesArray.is_male());
+                    int globalRankingID = dbh.createRanking(rankingName);
+                    rankingsIDs.add(globalRankingID);
+                    rankingsNames.add(rankingName);
+                    dbh.addNames2Ranking(globalRankingID, namesArray.getTop50());
+                }
+
+            }
+            catch(IOException e)
+            {
+                Log.i("globalRanking" ,e.getMessage());
+                return false;
+            }
+            //globalne rankinig ___________________________________________________________
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);
