@@ -9,4 +9,5 @@
     android:scrollbars="vertical"
     app:layoutManager="LinearLayoutManager"
     tools:context="pl.edu.pw.mini.namefactory.JoinPackage.JoinRequestFragment"
-    tools:listitem="@layout/join_rankings_row" />
+    tools:listitem="@layout/join_rankings_row"
+    android:background="@color/colorPrimaryLight"/>
