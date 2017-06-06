@@ -69,7 +69,6 @@ public class DatabaseHandler {
     //dodawanie imion z danej listy id imion do danego rankingu
     public void addNames2Ranking(int rankingID, boolean gender)
     {
-        //tymczasowo
         List<Integer> namesFromServer = new ArrayList<Integer>();
 
         Cursor c = myDb.getNamesIDs(gender);
@@ -82,7 +81,13 @@ public class DatabaseHandler {
             }
         }
 
+        for (Integer id : namesFromServer)
+            myDb.insertData("NAMES2RANKING", new String[] {Integer.toString(id), Integer.toString(rankingID), "0"});
 
+    }
+
+    public void addNames2Ranking(int rankingID, int[] namesFromServer)
+    {
         for (Integer id : namesFromServer)
             myDb.insertData("NAMES2RANKING", new String[] {Integer.toString(id), Integer.toString(rankingID), "0"});
 

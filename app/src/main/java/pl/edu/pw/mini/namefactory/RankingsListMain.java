@@ -341,26 +341,29 @@ public class RankingsListMain extends AppCompatActivity
             Bundle bundel = new Bundle();
 
             //pobieranie rankingów gloablnych
-            ArrayList<String> rankingsNames = new ArrayList<>();
-            ArrayList<Integer> rankingsIds = new ArrayList<>();
-            ArrayList<Integer> rankingsIDs = new ArrayList<>();
-            try
-            {
-                List<ApiTopNames> topNamesList = ApiWrapper.getTop50().result;
-                for (ApiTopNames namesArray : topNamesList){
-                    String rankingName = Boolean.toString(namesArray.is_male());
-                    int globalRankingID = dbh.createRanking(rankingName);
-                    rankingsIDs.add(globalRankingID);
-                    rankingsNames.add(rankingName);
-                    dbh.addNames2Ranking(globalRankingID, namesArray.getTop50());
-                }
+            final ArrayList<String> rankingsNames = new ArrayList<>();
+            final ArrayList<Integer> rankingsIds = new ArrayList<>();
+            Runnable newGlobalRankingsTask = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        List<ApiTopNames> topNamesList = ApiWrapper.getTop50().result;
+                        for (ApiTopNames namesArray : topNamesList) {
+                            String rankingName = Boolean.toString(namesArray.is_male());
+                            int globalRankingID = dbh.createRanking(rankingName);
+                            rankingsIds.add(globalRankingID);
+                            rankingsNames.add(rankingName);
+                            dbh.addNames2Ranking(globalRankingID, namesArray.getTop50());
+                        }
 
-            }
-            catch(IOException e)
-            {
-                Log.i("globalRanking" ,e.getMessage());
-                return false;
-            }
+                    } catch (IOException e) {
+                        Log.i("globalRanking", e.getMessage());
+                        return;
+                    }
+                }
+            };
+            fixedPool.submit(newGlobalRankingsTask);
+
             //globalne rankinig ___________________________________________________________
 
             // Storing data into bundle
