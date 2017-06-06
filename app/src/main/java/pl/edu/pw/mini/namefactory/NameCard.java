@@ -39,12 +39,12 @@ public class NameCard extends AppCompatActivity {
         TextView descriptionBlock = (TextView) findViewById(R.id.nameDescription);
         descriptionBlock.setText(desc);
 
-        if (nameDetails[2] == "true") male = true;
+        if (nameDetails[2].equals("true")) male = true;
         else male = false;
         setTitle((CharSequence)nameDetails[0]);
 
         CollapsingToolbarLayout colToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        if(male)
+        if(!male)
         {
             colToolbar.setBackgroundColor(getResources().getColor(R.color.colorGirl));
             //colToolbar.setBackground(getResources().getDrawable(R.drawable.tlo_girl));

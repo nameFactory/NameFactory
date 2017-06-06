@@ -13,6 +13,11 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/title_activity_ranking_joining" />
 
+        <item android:title="@string/navigation_drawer_inbox"
+            android:id="@+id/nav_inbox"
+            android:icon="@drawable/ic_mail_outline_black_24dp"/>
+
+
     </group>
 
     <item android:title="Other">
