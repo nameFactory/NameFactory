@@ -37,6 +37,8 @@ import java.util.concurrent.Executors;
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseNameFragment;
 import pl.edu.pw.mini.namefactory.Dialogs.ChooseRankingFragment;
+import pl.edu.pw.mini.namefactory.JoinPackage.JoinRequest;
+import pl.edu.pw.mini.namefactory.JoinPackage.JoinRequestFragment;
 import pl.edu.pw.mini.namefactory.Names.ShowNamesFragment;
 import pl.edu.pw.mini.namefactory.Rankings.*;
 import pl.edu.pw.mini.namefactory.User.UserAccount;
@@ -47,7 +49,8 @@ public class RankingsListMain extends AppCompatActivity
         ChooseRankingFragment.ChooseRankingDialogListener, RankingsJoiningRequestFragment.OnRankingsJoiningRequestFragmentInteractionListener,
         EvaluationFragment.OnEvaluationFragmentInteractionListener, FiltersFragment.OnFiltersFragmentInteractionListener,
         ShowRankingsFragment.OnRankingsListFragmentInteractionListener, ShowNamesFragment.OnNamesListFragmentInteractionListener,
-        NewRankingNameFragment.OnNewRankingFragmentInteractionListener, UserProfileFragment.OnUserFragmentInteractionListener {
+        NewRankingNameFragment.OnNewRankingFragmentInteractionListener, UserProfileFragment.OnUserFragmentInteractionListener,
+        JoinRequestFragment.OnRequestListFragmentInteractionListener{
 
     public static DatabaseHandler dbh;
     public static ApiWrapper apiWrapper;
@@ -60,11 +63,13 @@ public class RankingsListMain extends AppCompatActivity
     public static ArrayList<Integer> GlobalIDs = new ArrayList<>();
 
     ProgressDialog loadDialog;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        RankingsListMain.context = this;
         Log.i("MAIN","weszlo do onCreate RankingsListMain.");
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
@@ -338,6 +343,14 @@ public class RankingsListMain extends AppCompatActivity
             DialogFragment dialog = new ChooseRankingFragment();
             dialog.setArguments(bundel);
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
+
+        } else if(id == R.id.nav_inbox){
+
+            JoinRequestFragment setFragment= JoinRequestFragment.newInstance(1);
+            fm.beginTransaction()
+                    .replace(R.id.fragmentFrame, setFragment, null)
+                    .addToBackStack(null)
+                    .commit();
 
         }
 
