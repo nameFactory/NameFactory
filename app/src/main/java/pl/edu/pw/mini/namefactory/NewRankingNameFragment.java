@@ -74,7 +74,7 @@ public class NewRankingNameFragment extends Fragment {
         view.setClickable(true);
         mListener.setTitleName("Change ranking name");
         textBox = (EditText) view.findViewById(R.id.rankingName);
-        textBox.setHint(rankingName);
+        textBox.setText(rankingName);
 
         final Button bt= (Button) view.findViewById(R.id.changeBt);
         bt.setOnClickListener(new View.OnClickListener()

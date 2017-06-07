@@ -9,19 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/tlo">
+        android:background="@drawable/tlo"
+        android:gravity="center">
 
-        <TextView
+<!--        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Give a name to your new ranking"
             android:textSize="20sp"
-            android:gravity="center"/>
+            android:gravity="center"/>-->
+<!--        <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:src="@drawable/logo" />-->
 
-        <Space
+<!--        <Space
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="40dp" />-->
 
         <EditText
             android:id="@+id/rankingName"
@@ -31,8 +37,7 @@
             android:textSize="25sp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Name"
-            android:layout_margin="15dp"/>
+            android:layout_margin="25dp"/>
 
         <Space
             android:layout_width="match_parent"
@@ -49,6 +54,7 @@
             android:paddingRight="25dp"
             android:text="Change"
             android:textSize="22sp"
+            android:textColor="@color/backgroundColor"
             android:onClick="changeName"
             android:background="@color/colorGirlDark"/>
 
