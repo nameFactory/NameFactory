@@ -29,6 +29,8 @@ public class GenderPreference extends Preference {
         holder.itemView.setClickable(false); // disable parent click
         final View bbutton = holder.findViewById(R.id.boyGender);
         final View gbutton = holder.findViewById(R.id.girldGender);
+        bbutton.setAlpha(.5f);
+        gbutton.setAlpha(1);
         bbutton.setClickable(true); // enable custom view click
         bbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,8 +42,8 @@ public class GenderPreference extends Preference {
                 editor.commit();
                 bbutton.setClickable(false);
                 gbutton.setClickable(true);
-                bbutton.setAlpha(.5f);
-                gbutton.setAlpha(1);
+                gbutton.setAlpha(.5f);
+                bbutton.setAlpha(1);
             }
         });
 
@@ -56,8 +58,8 @@ public class GenderPreference extends Preference {
                 editor.commit();
                 gbutton.setClickable(false);
                 bbutton.setClickable(true);
-                gbutton.setAlpha(.5f);
-                bbutton.setAlpha(1);
+                bbutton.setAlpha(.5f);
+                gbutton.setAlpha(1);
             }
         });
         // the rest of the click binding
