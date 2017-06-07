@@ -1,6 +1,8 @@
 package pl.edu.pw.mini.namefactory;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
 import pl.edu.pw.mini.namefactory.Names.Name;
 
@@ -30,17 +37,17 @@ public class EvaluationFragment extends Fragment {
 
     private TextSwitcher n1Switcher;
     private TextSwitcher n2Switcher;
-    private int addedScore = 100;
     private String rankingName;
     private int rankingID;
     private DatabaseHandler dbh;
     private boolean isGirl;
+    private List<ApiMatch> predictedNames = new ArrayList<ApiMatch>();
+    private Boolean isPredicted = false;
+    private Runnable newPredictionsTask;
 
     // Array of String to Show In TextSwitcher
     private pl.edu.pw.mini.namefactory.Names.Name[] namesToShow;
     int messageCount;
-    // to keep current Index of text
-    int currentIndex=-1;
     int ind1;
     int ind2;
 
@@ -69,6 +76,17 @@ public class EvaluationFragment extends Fragment {
 
             rankingID = getArguments().getInt(ARG_ID);
             rankingName = dbh.getRankingName(rankingID);
+            newPredictionsTask = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        predictedNames = RankingsListMain.apiWrapper.getMatches(rankingID).result;
+                    } catch (IOException e) {
+                        Log.i("predictedNames", e.getMessage());
+                    }
+                }
+            };
+            RankingsListMain.fixedPool.submit(newPredictionsTask);
             namesToShow = dbh.getNameList(rankingID).toArray(new Name[0]);
             if(namesToShow[0].getIsGirl())
                 isGirl = true;
@@ -86,18 +104,31 @@ public class EvaluationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_evaluation, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
 
-        n1Switcher = (TextSwitcher) view.findViewById(R.id.name1);
-        n2Switcher = (TextSwitcher) view.findViewById(R.id.name2);
+        SetupView(view);
+
+        return view;
+    }
+
+    //@TargetApi(16)
+    void SetupView(View _view)
+    {
+        mListener.hideFloatingButton();
+        mListener.setTitleName(rankingName);
+
+
+        n1Switcher = (TextSwitcher) _view.findViewById(R.id.name1);
+        n2Switcher = (TextSwitcher) _view.findViewById(R.id.name2);
         if(isGirl)
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirl));
+            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirlDark));
         }
         else
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoy));
+            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_boy));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoyDark));
         }
 
@@ -159,26 +190,62 @@ public class EvaluationFragment extends Fragment {
                 switchNames(n2Switcher);
             }
         });
+    }
 
-        return view;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        populateViewForOrientation(inflater, (ViewGroup) getView());
+    }
+
+    private void populateViewForOrientation(LayoutInflater inflater, ViewGroup viewGroup) {
+        viewGroup.removeAllViewsInLayout();
+        View subview = inflater.inflate(R.layout.fragment_evaluation, viewGroup);
+
+        subview.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        subview.setClickable(true);
+
+        SetupView(subview);
     }
 
     private void ChooseDataForSwitchers()
     {
-        //LOSOWANIE _-------------------------------------
-        currentIndex++;
-        // If index reaches maximum reset it
-        if(currentIndex==messageCount)
-            currentIndex=0;
-        ind1=currentIndex;
-        n1Switcher.setText(namesToShow[currentIndex].getName());
+        if(predictedNames.size() != 0){
+            String name1 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id1())[0];
+            n1Switcher.setText(name1);
+            for(int i = 0; i < namesToShow.length; i++) {
+                if(namesToShow[i].getName() == name1) {
+                    ind1 = i;
+                    break;
+                }
+            }
+            String name2 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id2())[0];
+            n2Switcher.setText(name2);
+            for(int i = 0; i < namesToShow.length; i++) {
+                if(namesToShow[i].getName() == name2) {
+                    ind2 = i;
+                    break;
+                }
+            }
+            predictedNames.remove(0);
+            isPredicted = true;
+            if(predictedNames.size() < 5) RankingsListMain.fixedPool.submit(newPredictionsTask);
+        }
+        else {
+            //Toast.makeText(getContext(), "random names", Toast.LENGTH_LONG).show();
+            isPredicted = false;
+            Random random = new Random();
+            ind1 = random.nextInt(messageCount);
+            n1Switcher.setText(namesToShow[ind1].getName());
 
-        currentIndex++;
-        // If index reaches maximum reset it
-        if(currentIndex==messageCount)
-            currentIndex=0;
-        ind2 = currentIndex;
-        n2Switcher.setText(namesToShow[currentIndex].getName());
+            do {
+                ind2 = random.nextInt(messageCount);
+            } while (ind1 == ind2);
+            n2Switcher.setText(namesToShow[ind2].getName());
+
+        }
     }
 
 
@@ -212,7 +279,9 @@ public class EvaluationFragment extends Fragment {
      */
     public interface OnEvaluationFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction();
+        //void onFragmentInteraction();
+        void hideFloatingButton();
+        void setTitleName(String name);
     }
 
     //nacisniecie pierwszego imienia (ind1)
@@ -221,26 +290,51 @@ public class EvaluationFragment extends Fragment {
         if(v.getId()==n1Switcher.getId())
         {
             //wybrane imie ma tutaj ind1
-            int currentScore = 0;
-            try {
-                currentScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
-                dbh.changeNamesScore(rankingID, namesToShow[ind1].getID(), currentScore, addedScore);
-            }
-            catch (Exception e){
-                Toast.makeText(getActivity(), "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind1].getID()), Toast.LENGTH_LONG).show();
-            }
+            Runnable newEvoTask = new Runnable() {
+                @Override
+                public void run() {
+                    double currentWinnerScore = 0, currentLoserScore = 0;
+                    try {
+                        currentWinnerScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+                        currentLoserScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
+
+                        EloUpdatedPair newScores = Elo.getUpdatedScore(currentWinnerScore, currentLoserScore);
+
+                        dbh.changeNamesScore(rankingID, namesToShow[ind1].getID(), newScores.getWinnerPoints());
+                        dbh.changeNamesScore(rankingID, namesToShow[ind2].getID(), newScores.getLoserPoints());
+
+                        RankingsListMain.apiWrapper.createNewMatch(rankingID, namesToShow[ind1].getID(), namesToShow[ind2].getID());
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind1].getID()), Toast.LENGTH_LONG).show();
+                    }
+                }
+            };
+            RankingsListMain.fixedPool.submit(newEvoTask);
+
         }
         else if (v.getId() == n2Switcher.getId())
         {
             //wybrane imie ma tutaj ind2
-            int currentScore = 0;
-            try{
-                currentScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
-                dbh.changeNamesScore(rankingID,namesToShow[ind2].getID(), currentScore, addedScore);
-            }
-            catch(Exception e){
-                Toast.makeText(getActivity(), "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind2].getID()), Toast.LENGTH_LONG).show();
-            }
+            Runnable newEvoTask = new Runnable() {
+                @Override
+                public void run() {
+                    double currentWinnerScore = 0, currentLoserScore = 0;
+                    try {
+                        currentWinnerScore = dbh.getNamesScore(rankingID, namesToShow[ind2].getID());
+                        currentLoserScore = dbh.getNamesScore(rankingID, namesToShow[ind1].getID());
+
+                        EloUpdatedPair newScores = Elo.getUpdatedScore(currentWinnerScore, currentLoserScore);
+
+                        dbh.changeNamesScore(rankingID, namesToShow[ind2].getID(), newScores.getWinnerPoints());
+                        dbh.changeNamesScore(rankingID, namesToShow[ind1].getID(), newScores.getLoserPoints());
+
+                        RankingsListMain.apiWrapper.createNewMatch(rankingID, namesToShow[ind2].getID(), namesToShow[ind1].getID());
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "ranking: " + Integer.toString(rankingID) + " imie: " + Integer.toString(namesToShow[ind2].getID()), Toast.LENGTH_LONG).show();
+                    }
+                }
+            };
+            RankingsListMain.fixedPool.submit(newEvoTask);
         }
 
         ChooseDataForSwitchers();

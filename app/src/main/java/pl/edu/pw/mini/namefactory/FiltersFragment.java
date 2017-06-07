@@ -1,26 +1,27 @@
 package pl.edu.pw.mini.namefactory;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.preference.PreferenceFragmentCompat;
+
+import java.util.prefs.Preferences;
 
 
-public class FiltersFragment extends PreferenceFragment {
+public class FiltersFragment extends PreferenceFragmentCompat {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //protected SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -55,10 +56,12 @@ public class FiltersFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.pref_filters);
-        setHasOptionsMenu(true);
-        //fm = getActivity().getSupportFragmentManager();
+        setPreferencesFromResource(R.xml.pref_filters, rootKey);
     }
 
     @Override
@@ -67,22 +70,24 @@ public class FiltersFragment extends PreferenceFragment {
 
         getView().setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         getView().setClickable(true);
+/*        mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                Preferences.sync(getPreferenceManager(), key);
+                if (key.equals("gender") || key.equals("origin"))
+                    AppUtils.restart(getActivity());
+            }
+        };*/
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_filters, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Choose filters");
+        View view = super.onCreateView(inflater,container,savedInstanceState);
+        mListener.setTitleName("Choose filters");
+        mListener.changeFloatingButtonDone();
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFiltersFragmentInteraction();
-        }
     }
 
     @Override
@@ -114,37 +119,9 @@ public class FiltersFragment extends PreferenceFragment {
      */
     public interface OnFiltersFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFiltersFragmentInteraction();
+        //void onFiltersFragmentInteraction();
+        void changeFloatingButtonDone();
+        void setTitleName(String name);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.filters, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_create) {
-
-            //przejdz do nazwania nowego rankingu
-            NewRankingFragment setFragment= new NewRankingFragment();
-            getActivity().getFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentFrame, setFragment, null)
-                    .addToBackStack(null)
-                    .commit();
-
-            //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

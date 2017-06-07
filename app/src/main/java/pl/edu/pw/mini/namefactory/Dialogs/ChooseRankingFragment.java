@@ -17,8 +17,14 @@ import pl.edu.pw.mini.namefactory.R;
 
 public class ChooseRankingFragment extends DialogFragment {
 
+    public enum RankingDialogType{
+        CONNECTION,
+        EVALUATION,
+        SHOWGLOBAL,
+    }
+
     public interface ChooseRankingDialogListener {
-        public void onDialogRankingPositiveClick(DialogFragment dialog, String name);
+        public void onDialogRankingPositiveClick(DialogFragment dialog, Integer id, RankingDialogType operationType);
         public void onDialogRankingNegativeClick(DialogFragment dialog);
     }
 
@@ -26,11 +32,16 @@ public class ChooseRankingFragment extends DialogFragment {
     {
         // get the Bundle that stores the data of this Activity
         ArrayList<String> rNames = (ArrayList<String>) b.get("rankings");
+        rIDS = (ArrayList<Integer>) b.get("rankingsID");
         rankingsNames =rNames.toArray(new CharSequence[rNames.size()]);
+
+        operationType = (RankingDialogType) b.get("type");
     }
 
 
     CharSequence[] rankingsNames;
+    ArrayList<Integer> rIDS;
+    RankingDialogType operationType;
     int ranking;
 
     // Use this instance of the interface to deliver action events
@@ -72,7 +83,7 @@ public class ChooseRankingFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // ADD NEW ELEMENT
 
-                            mListener.onDialogRankingPositiveClick(ChooseRankingFragment.this, (String)rankingsNames[ranking]);
+                            mListener.onDialogRankingPositiveClick(ChooseRankingFragment.this, rIDS.get(ranking), operationType);
 
                     }
                 })

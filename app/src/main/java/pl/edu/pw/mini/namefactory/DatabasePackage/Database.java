@@ -27,7 +27,7 @@ public class Database extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         createColumnsList();
 
-        //onUpgrade(db, 1, 2);
+        onUpgrade(db, 1, 2);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL("create table RANKINGS (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
 
-        db.execSQL("create table NAMES2RANKING (id_name INTEGER, id_ranking INTEGER, score INTEGER," +
+        db.execSQL("create table NAMES2RANKING (id_name INTEGER, id_ranking INTEGER, score REAL," +
                 "FOREIGN KEY(id_ranking) REFERENCES RANKINGS(id), FOREIGN KEY(id_name) REFERENCES NAMES(id), PRIMARY KEY (id_name, id_ranking))");
 
         db.execSQL("create table TAGS2RANKING (id_tag INTEGER, id_ranking INTEGER," +
@@ -134,8 +134,18 @@ public class Database extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getNamesIDs(boolean gender){
+        Cursor res = db.rawQuery("SELECT id FROM NAMES WHERE male = ?", new String[] {Boolean.toString(gender)});
+        return res;
+    }
+
     public Cursor getRankingName(int rankingID){
         Cursor res = db.rawQuery("SELECT name FROM RANKINGS WHERE id = ?", new String[] {Integer.toString(rankingID)});
+        return res;
+    }
+
+    public Cursor getRankingsID(String name){
+        Cursor res = db.rawQuery("SELECT id FROM RANKINGS WHERE name = ?", new String[] {name});
         return res;
     }
 
@@ -160,7 +170,7 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean updateNamesScore(int idName, int idRanking, int newScore){
+    public boolean updateNamesScore(int idName, int idRanking, double newScore){
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("id_name", idName);
@@ -173,6 +183,11 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getNameScore(int idName, int idRanking){
         Cursor res = db.rawQuery("SELECT score FROM NAMES2RANKING WHERE id_name = ? AND id_ranking = ?", new String[] {Integer.toString(idName), Integer.toString(idRanking)});
+        return res;
+    }
+
+    public Cursor getNamesID(String name){
+        Cursor res = db.rawQuery("SELECT id FROM NAMES WHERE name = ?", new String[] {name});
         return res;
     }
 

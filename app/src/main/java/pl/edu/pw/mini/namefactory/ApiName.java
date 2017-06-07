@@ -1,9 +1,9 @@
 package pl.edu.pw.mini.namefactory;
 
-class ApiName {
-    String description;
+public class ApiName {
+    public String description;
     int id;
-    boolean is_male;
-    String name;
+    public boolean is_male;
+    public String name;
     int tags[];
 }
