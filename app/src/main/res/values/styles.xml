@@ -3,10 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorGirl</item>
-        <item name="colorPrimaryDark">@color/colorGirlDark</item>
+        <item name="colorPrimary">@color/colorToolbar</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryLight</item>
         <item name="colorAccent">@color/colorGirlDark</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:textColorPrimary">@color/fontColor</item>
+        <item name="android:textColorSecondary">@color/fontColor</item>
+        <item name="actionMenuTextColor">@color/fontColor</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

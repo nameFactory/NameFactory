@@ -1,6 +1,7 @@
 package pl.edu.pw.mini.namefactory;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.FragmentManager;
@@ -12,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
+import java.util.prefs.Preferences;
+
 
 public class FiltersFragment extends PreferenceFragmentCompat {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //protected SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,6 +70,14 @@ public class FiltersFragment extends PreferenceFragmentCompat {
 
         getView().setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         getView().setClickable(true);
+/*        mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                Preferences.sync(getPreferenceManager(), key);
+                if (key.equals("gender") || key.equals("origin"))
+                    AppUtils.restart(getActivity());
+            }
+        };*/
     }
 
     @Override
