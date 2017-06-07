@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
@@ -38,6 +41,9 @@ public class EvaluationFragment extends Fragment {
     private int rankingID;
     private DatabaseHandler dbh;
     private boolean isGirl;
+    private List<ApiMatch> predictedNames = new ArrayList<ApiMatch>();
+    private Boolean isPredicted = false;
+    private Runnable newPredictionsTask;
 
     // Array of String to Show In TextSwitcher
     private pl.edu.pw.mini.namefactory.Names.Name[] namesToShow;
@@ -70,6 +76,17 @@ public class EvaluationFragment extends Fragment {
 
             rankingID = getArguments().getInt(ARG_ID);
             rankingName = dbh.getRankingName(rankingID);
+            newPredictionsTask = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        predictedNames = RankingsListMain.apiWrapper.getMatches(rankingID).result;
+                    } catch (IOException e) {
+                        Log.i("predictedNames", e.getMessage());
+                    }
+                }
+            };
+            RankingsListMain.fixedPool.submit(newPredictionsTask);
             namesToShow = dbh.getNameList(rankingID).toArray(new Name[0]);
             if(namesToShow[0].getIsGirl())
                 isGirl = true;
@@ -195,14 +212,40 @@ public class EvaluationFragment extends Fragment {
 
     private void ChooseDataForSwitchers()
     {
-        Random random = new Random();
-        ind1 = random.nextInt(messageCount);
-        n1Switcher.setText(namesToShow[ind1].getName());
+        if(predictedNames.size() != 0){
+            String name1 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id1())[0];
+            n1Switcher.setText(name1);
+            for(int i = 0; i < namesToShow.length; i++) {
+                if(namesToShow[i].getName() == name1) {
+                    ind1 = i;
+                    break;
+                }
+            }
+            String name2 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id2())[0];
+            n2Switcher.setText(name2);
+            for(int i = 0; i < namesToShow.length; i++) {
+                if(namesToShow[i].getName() == name2) {
+                    ind2 = i;
+                    break;
+                }
+            }
+            predictedNames.remove(0);
+            isPredicted = true;
+            if(predictedNames.size() < 5) RankingsListMain.fixedPool.submit(newPredictionsTask);
+        }
+        else {
+            //Toast.makeText(getContext(), "random names", Toast.LENGTH_LONG).show();
+            isPredicted = false;
+            Random random = new Random();
+            ind1 = random.nextInt(messageCount);
+            n1Switcher.setText(namesToShow[ind1].getName());
 
-        do {
-            ind2 = random.nextInt(messageCount);
-        } while(ind1 == ind2);
-        n2Switcher.setText(namesToShow[ind2].getName());
+            do {
+                ind2 = random.nextInt(messageCount);
+            } while (ind1 == ind2);
+            n2Switcher.setText(namesToShow[ind2].getName());
+
+        }
     }
 
 
