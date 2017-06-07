@@ -55,11 +55,13 @@ public class RankingsListMain extends AppCompatActivity
     private UserAccount User;
     public static int rankingNumber=0;
     ProgressDialog loadDialog;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        RankingsListMain.context = this;
         Log.i("MAIN","weszlo do onCreate RankingsListMain.");
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
