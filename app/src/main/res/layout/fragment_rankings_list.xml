@@ -7,7 +7,7 @@
     android:name="pl.edu.pw.mini.namefactory.Rankings.ShowRankingsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
+    android:background="@drawable/tlo"
     android:scrollbars="vertical"
     app:layoutManager="LinearLayoutManager"
     tools:context="pl.edu.pw.mini.namefactory.Rankings.ShowRankingsFragment"

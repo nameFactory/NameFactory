@@ -58,11 +58,13 @@ public class RankingsListMain extends AppCompatActivity
     private UserAccount User;
     public static int rankingNumber=0;
     ProgressDialog loadDialog;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        RankingsListMain.context = this;
         Log.i("MAIN","weszlo do onCreate RankingsListMain.");
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
@@ -311,9 +313,31 @@ public class RankingsListMain extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
+            //pobieranie rankingów gloablnych
+            final ArrayList<String> rankingsNames = new ArrayList<>();
+            final ArrayList<Integer> rankingsIds = new ArrayList<>();
+            Runnable newGlobalRankingsTask = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        List<ApiTopNames> topNamesList = ApiWrapper.getTop50().result;
+                        for (ApiTopNames namesArray : topNamesList) {
+                            String rankingName = Boolean.toString(namesArray.is_male());
+                            int globalRankingID = dbh.createRanking(rankingName);
+                            rankingsIds.add(globalRankingID);
+                            rankingsNames.add(rankingName);
+                            dbh.addNames2Ranking(globalRankingID, namesArray.getTop50());
+                        }
+
+                    } catch (IOException e) {
+                        Log.i("globalRanking", e.getMessage());
+                        return;
+                    }
+                }
+            };
+            fixedPool.submit(newGlobalRankingsTask);
+
             //globalne rankinig ___________________________________________________________
-            ArrayList<String> rankingsNames = new ArrayList<>();
-            ArrayList<Integer> rankingsIds = new ArrayList<>();
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", rankingsNames);

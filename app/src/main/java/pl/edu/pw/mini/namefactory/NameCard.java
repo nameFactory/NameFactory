@@ -35,6 +35,7 @@ public class NameCard extends AppCompatActivity {
         String[] nameDetails = dbh.getNameDetails(nameID);
         name = nameDetails[0];
         desc = nameDetails[1];
+        String paragraphs[] = desc.split("[\\r\\n]{2}");
 
         TextView descriptionBlock = (TextView) findViewById(R.id.nameDescription);
         descriptionBlock.setText(desc);

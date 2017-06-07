@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/boyGender"
+            android:layout_height="fill_parent"
+            android:textAlignment="center"
+            android:text="BOY"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:background="@color/colorBoyDark"/>
+        <Button android:id="@+id/girldGender"
+            android:layout_height="fill_parent"
+            android:textAlignment="center"
+            android:text="GIRL"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:background="@color/colorGirlDark"/>
+
+    </LinearLayout>
+
+</LinearLayout>
