@@ -4,12 +4,12 @@
     <color name="colorPrimaryDark">#949494</color>
     <color name="colorPrimaryLight">#e7e7e7</color>
     <color name="colorAccent">#949494</color>
-    <color name="colorGirlLight">#ffddf9</color>
-    <color name="colorGirl">#ff97ed</color>
-    <color name="colorGirlDark">#ff51e0</color>
-    <color name="colorBoyLight">#cee9ff</color>
-    <color name="colorBoy">#a8d8ff</color>
-    <color name="colorBoyDark">#62b8ff</color>
+    <color name="colorGirlLight">#ffe8f4</color>
+    <color name="colorGirl">#ffcee7</color>
+    <color name="colorGirlDark">#ffa9d6</color>
+    <color name="colorBoyLight">#e3f2ff</color>
+    <color name="colorBoy">#d0e9ff</color>
+    <color name="colorBoyDark">#a4d5ff</color>
 
     <color name="backgroundColor">#FFFFFF</color>
 </resources>
