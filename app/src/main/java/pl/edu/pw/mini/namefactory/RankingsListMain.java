@@ -299,7 +299,7 @@ public class RankingsListMain extends AppCompatActivity
             dialog.show(getSupportFragmentManager(), "ChooseNameFragment");
 
 
-        } else if (id == R.id.nav_share) {
+        } /*else if (id == R.id.nav_share) {
             //wybierz najpierw ktory ranking - dialog - lista
             // Creating Bundle object
             Bundle bundel = new Bundle();
@@ -325,7 +325,7 @@ public class RankingsListMain extends AppCompatActivity
                     .replace(R.id.fragmentFrame, setFragment, null)
                     .addToBackStack(null)
                     .commit();
-        }
+        }*/
         else if(id == R.id.nav_global)
         {
             // Creating Bundle object
@@ -344,7 +344,7 @@ public class RankingsListMain extends AppCompatActivity
             dialog.setArguments(bundel);
             dialog.show(getSupportFragmentManager(), "ChooseRankingFragment");
 
-        } else if(id == R.id.nav_inbox){
+        } /*else if(id == R.id.nav_inbox){
 
             JoinRequestFragment setFragment= JoinRequestFragment.newInstance(1);
             fm.beginTransaction()
@@ -352,7 +352,7 @@ public class RankingsListMain extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

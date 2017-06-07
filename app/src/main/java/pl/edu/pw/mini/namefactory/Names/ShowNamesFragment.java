@@ -194,7 +194,7 @@ public class ShowNamesFragment extends Fragment {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_connecting) {
+        /*if (id == R.id.action_connecting) {
 
             //przejdz do rankingjoiningrequest
             RankingsJoiningRequestFragment fragment = RankingsJoiningRequestFragment.newInstance(rankingID);
@@ -207,7 +207,7 @@ public class ShowNamesFragment extends Fragment {
 
             return true;
         }
-        else if (id == R.id.action_namechaning)
+        else*/ if (id == R.id.action_namechaning)
         {
             //przejdz do nazwania nowego rankingu
             NewRankingNameFragment setFragment= NewRankingNameFragment.newInstance(rankingName, rankingID);
