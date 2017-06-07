@@ -408,6 +408,11 @@ public class RankingsListMain extends AppCompatActivity
 
         int id = dbh.getNamesID(name);
 
+        if(id==-1)
+        {
+            Toast.makeText(context, "No such name in base", Toast.LENGTH_LONG).show();
+            return;
+        }
         // Storing data into bundle
         bundel.putInt("name", id);
 
