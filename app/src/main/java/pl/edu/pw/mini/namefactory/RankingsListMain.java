@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -54,6 +55,10 @@ public class RankingsListMain extends AppCompatActivity
     private FragmentManager fm;
     private UserAccount User;
     public static int rankingNumber=0;
+    //pobieranie rankingów gloablnych
+    static ArrayList<String> GlobalNames = new ArrayList<>();
+    public static ArrayList<Integer> GlobalIDs = new ArrayList<>();
+
     ProgressDialog loadDialog;
 
     @Override
@@ -129,7 +134,7 @@ public class RankingsListMain extends AppCompatActivity
         int currentVersionCode = BuildConfig.VERSION_CODE;
         // Get saved version code
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        //prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
+        prefs.edit().remove(PREF_VERSION_CODE_KEY).commit();
 
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
 
@@ -191,7 +196,6 @@ public class RankingsListMain extends AppCompatActivity
                         //Toast.makeText(context, "Creating user unsuccessful", Toast.LENGTH_LONG).show();
                         return;
                     }
-
                     //dodawanie imion
                     try
                     {
@@ -204,6 +208,20 @@ public class RankingsListMain extends AppCompatActivity
                     {
                         Log.i("suc", "Downloading names unsuccessful");
                         //Toast.makeText(context, "Downloading names unsuccessful", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    try {
+                        List<ApiTopNames> topNamesList = ApiWrapper.getTop50().result;
+                        for (ApiTopNames namesArray : topNamesList) {
+                            String rankingName = namesArray.is_male() ? "chłopiec" : "dziewczynka";
+                            int globalRankingID = dbh.createRanking(rankingName);
+                            GlobalIDs.add(globalRankingID);
+                            GlobalNames.add(rankingName);
+                            dbh.addNames2Ranking(globalRankingID, namesArray.getTop50());
+                        }
+
+                    } catch (IOException e) {
+                        Log.i("globalRanking", e.getMessage());
                         return;
                     }
                     handler.sendEmptyMessage(0);
@@ -308,35 +326,11 @@ public class RankingsListMain extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            //pobieranie rankingów gloablnych
-            final ArrayList<String> rankingsNames = new ArrayList<>();
-            final ArrayList<Integer> rankingsIds = new ArrayList<>();
-            Runnable newGlobalRankingsTask = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        List<ApiTopNames> topNamesList = ApiWrapper.getTop50().result;
-                        for (ApiTopNames namesArray : topNamesList) {
-                            String rankingName = Boolean.toString(namesArray.is_male());
-                            int globalRankingID = dbh.createRanking(rankingName);
-                            rankingsIds.add(globalRankingID);
-                            rankingsNames.add(rankingName);
-                            dbh.addNames2Ranking(globalRankingID, namesArray.getTop50());
-                        }
-
-                    } catch (IOException e) {
-                        Log.i("globalRanking", e.getMessage());
-                        return;
-                    }
-                }
-            };
-            fixedPool.submit(newGlobalRankingsTask);
-
             //globalne rankinig ___________________________________________________________
 
             // Storing data into bundle
-            bundel.putStringArrayList("rankings", rankingsNames);
-            bundel.putIntegerArrayList("rankingsID", rankingsIds);
+            bundel.putStringArrayList("rankings", GlobalNames);
+            bundel.putIntegerArrayList("rankingsID", GlobalIDs);
             bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.SHOWGLOBAL);
 
             //wybierz najpierw ktory ranking - dialog - lista

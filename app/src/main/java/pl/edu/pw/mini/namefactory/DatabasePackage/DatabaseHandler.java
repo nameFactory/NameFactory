@@ -9,6 +9,7 @@ import java.util.List;
 
 import pl.edu.pw.mini.namefactory.ApiName;
 import pl.edu.pw.mini.namefactory.DatabasePackage.Database;
+import pl.edu.pw.mini.namefactory.RankingsListMain;
 
 /**
  * Created by Piotr on 17.04.2017.
@@ -152,8 +153,11 @@ public class DatabaseHandler {
             if (c.moveToFirst()) {
                 do {
                     int id = c.getInt(c.getColumnIndex("id"));
-                    String name = c.getString(c.getColumnIndex("name"));
-                    results.add(new pl.edu.pw.mini.namefactory.Rankings.Ranking(name, id));
+                    if(!RankingsListMain.GlobalIDs.contains(id))
+                    {
+                        String name = c.getString(c.getColumnIndex("name"));
+                        results.add(new pl.edu.pw.mini.namefactory.Rankings.Ranking(name, id));
+                    }
                 } while (c.moveToNext());
             }
         }
