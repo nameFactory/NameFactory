@@ -14,11 +14,16 @@
         android:title="@string/pref_title_origin"
         android:summary="@string/pref_description_origin"/>
 
-    <SwitchPreferenceCompat
+    <pl.edu.pw.mini.namefactory.GenderPreference
+        android:key="gender"
+        android:title="Gender:"
+        android:defaultValue="true" />
+
+<!--    <SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="gender"
         android:summary="@string/pref_description_gender"
-        android:title="@string/pref_title_gender" />
+        android:title="@string/pref_title_gender" />-->
     <!---->
     <!--<SwitchPreferenceCompat-->
         <!--android:defaultValue="true"-->
