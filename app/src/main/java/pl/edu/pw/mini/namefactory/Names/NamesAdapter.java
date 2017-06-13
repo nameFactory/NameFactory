@@ -112,6 +112,11 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorBoy));
             holder.img.setImageResource(R.drawable.trophy_48);
         }
+        else
+        {
+            holder.img.setImageResource(android.R.color.transparent);
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
+        }
 
         //MOZE TO JEST NIEPOTRZEBNE _________________________________
        /* holder.mView.setOnClickListener(new View.OnClickListener() {
