@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -134,6 +135,11 @@ public class NewRankingNameFragment extends Fragment {
         //powrot do poprzedniego fragmentu
         //TextView
         //dbh.editRankingName(rankingID, String newRankingName)
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
         getActivity().getSupportFragmentManager().popBackStackImmediate();
 
     }
