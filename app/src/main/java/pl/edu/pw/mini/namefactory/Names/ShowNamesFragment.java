@@ -1,9 +1,11 @@
 package pl.edu.pw.mini.namefactory.Names;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -90,6 +92,7 @@ public class ShowNamesFragment extends Fragment {
         //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
         Log.i("FRAG", "weszlo do onCreateView");
         mListener.hideFloatingButton();
+        rankingName = dbh.getRankingName(rankingID);
         mListener.setTitleName(rankingName);
         recyclerView = (RecyclerView) view;
         // Set the adapter
