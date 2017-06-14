@@ -67,7 +67,7 @@ public class RankingsJoiningRequestFragment extends Fragment {
 
     void SetupView(View _view)
     {
-        mListener.setTitleName("Join your ranking");
+        mListener.setTitleName(getString(R.string.title_activity_ranking_joining));
         textName = (TextView) _view.findViewById(R.id.rankingNameText);
         textName.setText(rankingName);
         mListener.hideFloatingButton();

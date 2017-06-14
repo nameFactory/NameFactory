@@ -12,23 +12,6 @@
         android:background="@drawable/main_background"
         android:gravity="center">
 
-<!--        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Give a name to your new ranking"
-            android:textSize="20sp"
-            android:gravity="center"/>-->
-       <!-- <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:src="@drawable/logohelp" />-->
-
-<!--        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />-->
-
         <EditText
             android:id="@+id/rankingName"
             android:layout_width="match_parent"
@@ -53,7 +36,7 @@
             android:paddingTop="25dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:text="Change"
+            android:text="@string/button_change_name"
             android:textSize="22sp"
             android:textColor="@color/backgroundColor"
             android:onClick="changeName"

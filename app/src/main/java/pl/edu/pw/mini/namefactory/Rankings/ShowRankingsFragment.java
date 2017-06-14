@@ -50,7 +50,6 @@ public class ShowRankingsFragment extends Fragment {
     public ShowRankingsFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ShowRankingsFragment newInstance() {
 
@@ -69,7 +68,7 @@ public class ShowRankingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rankings_list, container, false);
         mListener.changeFloatingButtonAdd();
-        mListener.setTitleName("NameFactory");
+        mListener.setTitleName(getString(R.string.title_activity_ranking_list));
         recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -154,7 +153,6 @@ public class ShowRankingsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnRankingsListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void changeFloatingButtonAdd();
         void setTitleName(String name);
     }

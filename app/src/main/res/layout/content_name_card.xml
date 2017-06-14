@@ -19,7 +19,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_margin="@dimen/text_margin"
-            android:text="Description" />
+            android:text="@string/description_title" />
 
         <TextView
             android:id="@+id/nameDescription"
@@ -28,48 +28,6 @@
             android:layout_margin="@dimen/text_margin"
             android:textSize="20sp"
             />
-
-      <!--  <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/section_meaning" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/section_people" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/section_date" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text" />-->
 
     </LinearLayout>
 

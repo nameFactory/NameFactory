@@ -31,7 +31,7 @@ public class NameCard extends AppCompatActivity {
 
         // get the Bundle that stores the data of this Activity
         Bundle b = in.getExtras();
-        nameID =(int) b.get("name");
+        nameID =(int) b.get(getString(R.string.name_tag));
         String[] nameDetails = dbh.getNameDetails(nameID);
         name = nameDetails[0];
         desc = nameDetails[1];

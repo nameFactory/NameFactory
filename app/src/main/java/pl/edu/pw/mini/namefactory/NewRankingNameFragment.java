@@ -72,7 +72,7 @@ public class NewRankingNameFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_ranking, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        mListener.setTitleName("Change ranking name");
+        mListener.setTitleName(getString(R.string.title_fragmet_change_name));
         textBox = (EditText) view.findViewById(R.id.rankingName);
         textBox.setText(rankingName);
 

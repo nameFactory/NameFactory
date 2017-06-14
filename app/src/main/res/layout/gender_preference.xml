@@ -13,14 +13,14 @@
         <Button android:id="@+id/boyGender"
             android:layout_height="fill_parent"
             android:textAlignment="center"
-            android:text="BOY"
+            android:text="@string/filters_gender_b"
             android:layout_weight="1"
             android:layout_width="fill_parent"
             android:background="@color/colorBoyDark"/>
         <Button android:id="@+id/girldGender"
             android:layout_height="fill_parent"
             android:textAlignment="center"
-            android:text="GIRL"
+            android:text="@string/filters_gender_g"
             android:layout_weight="1"
             android:layout_width="fill_parent"
             android:background="@color/colorGirlDark"/>

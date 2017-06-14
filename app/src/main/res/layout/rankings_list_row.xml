@@ -14,11 +14,9 @@
     android:background="@color/backgroundColor"
     >
 
-   <!--android:background="?android:attr/selectableItemBackground"  -->
-
     <TextView
         android:id="@+id/ranking"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

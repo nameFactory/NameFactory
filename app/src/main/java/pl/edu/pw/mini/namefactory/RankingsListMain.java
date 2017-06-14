@@ -71,7 +71,6 @@ public class RankingsListMain extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         RankingsListMain.context = this;
-        Log.i("MAIN","weszlo do onCreate RankingsListMain.");
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
 
@@ -289,9 +288,9 @@ public class RankingsListMain extends AppCompatActivity
             //globalne rankinig
 
             // Storing data into bundle
-            bundel.putStringArrayList("rankings", GlobalNames);
-            bundel.putIntegerArrayList("rankingsID", GlobalIDs);
-            bundel.putSerializable("type", ChooseRankingFragment.RankingDialogType.SHOWGLOBAL);
+            bundel.putStringArrayList(getString(R.string.rankings_tag), GlobalNames);
+            bundel.putIntegerArrayList(getString(R.string.rankings_id_tag), GlobalIDs);
+            bundel.putSerializable(getString(R.string.type_tag), ChooseRankingFragment.RankingDialogType.SHOWGLOBAL);
 
             //wybierz najpierw ktory ranking - dialog - lista
             // Create an instance of the dialog fragment and show it
@@ -366,7 +365,7 @@ public class RankingsListMain extends AppCompatActivity
             return;
         }
         // Storing data into bundle
-        bundel.putInt("name", id);
+        bundel.putInt(getString(R.string.name_tag), id);
 
         //przejdz do aktywnosci namecard
         Intent in = new Intent(getApplicationContext(), NameCard.class);
@@ -399,7 +398,7 @@ public class RankingsListMain extends AppCompatActivity
 
                 //dodawanie nowego rankingu
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-                final boolean gender =sharedPref.getBoolean("gender",false);
+                final boolean gender =sharedPref.getBoolean(getString(R.string.gender_tag),false);
                 final int rankingID = dbh.createRanking(nameRanking);
                 //TODO tymczasowo dodajemy wszystkie imiona z bazy, dlatego przesyłamy null
                 dbh.addNames2Ranking(rankingID, gender);
@@ -455,7 +454,6 @@ public class RankingsListMain extends AppCompatActivity
         p.setAnchorId(View.NO_ID);
         fab.setLayoutParams(p);
         fab.setVisibility(View.GONE);
-        Log.i("MAIN","button hidden.");
     }
 
     @Override

@@ -50,7 +50,7 @@ public class FiltersFragment extends PreferenceFragmentCompat {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = super.onCreateView(inflater,container,savedInstanceState);
-        mListener.setTitleName("Choose filters");
+        mListener.setTitleName(getString(R.string.title_filters));
         mListener.changeFloatingButtonDone();
         return view;
     }

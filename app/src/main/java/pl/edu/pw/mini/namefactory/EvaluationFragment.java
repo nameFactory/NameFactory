@@ -31,7 +31,6 @@ import pl.edu.pw.mini.namefactory.Names.Name;
 
 
 public class EvaluationFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ID = "rankingID";
 
@@ -59,7 +58,6 @@ public class EvaluationFragment extends Fragment {
 
     public static EvaluationFragment newInstance(int id) {
 
-        Log.i("FRAG", "weszlo do newInstance");
         EvaluationFragment fragment = new EvaluationFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
@@ -135,7 +133,6 @@ public class EvaluationFragment extends Fragment {
         n1Switcher.setFactory(new ViewSwitcher.ViewFactory() {
 
             public View makeView() {
-                // TODO Auto-generated method stub
                 // create new textView and set the properties like clolr, size etc
                 TextView myText = new TextView(getActivity());
                 myText.setGravity(Gravity.CENTER);
@@ -148,7 +145,6 @@ public class EvaluationFragment extends Fragment {
         n2Switcher.setFactory(new ViewSwitcher.ViewFactory() {
 
             public View makeView() {
-                // TODO Auto-generated method stub
                 // create new textView and set the properties like clolr, size etc
                 TextView myText = new TextView(getActivity());
                 myText.setGravity(Gravity.CENTER);
@@ -170,7 +166,6 @@ public class EvaluationFragment extends Fragment {
         n2Switcher.setOutAnimation(out);
 
         ChooseDataForSwitchers();
-        Log.i("FRAG", "weszlo do onCreateView");
 
         n1Switcher.setOnClickListener(new View.OnClickListener()
         {
@@ -276,7 +271,6 @@ public class EvaluationFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnEvaluationFragmentInteractionListener {
-        // TODO: Update argument type and name
         void hideFloatingButton();
         void setTitleName(String name);
     }

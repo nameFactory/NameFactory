@@ -42,7 +42,6 @@ import java.util.List;
 public class ShowNamesFragment extends Fragment {
 
     private static final String ARG_ID = "rankingID";
-    // TODO: Customize parameters
     private OnNamesListFragmentInteractionListener mListener;
 
     private List<Name> namesList  = new ArrayList<>();
@@ -59,11 +58,9 @@ public class ShowNamesFragment extends Fragment {
     public ShowNamesFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ShowNamesFragment newInstance(int id) {
 
-        Log.i("FRAG", "weszlo do newInstance w shownames");
         ShowNamesFragment fragment = new ShowNamesFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
@@ -116,7 +113,7 @@ public class ShowNamesFragment extends Fragment {
 
                     // Storing data into bundle
                     Name element = namesList.get(position);
-                    bundel.putInt("name", element.getID());
+                    bundel.putInt(getString(R.string.name_tag), element.getID());
 
                     //przejdz do aktywnosci namecard
                     Intent in = new Intent(getActivity().getApplicationContext(), NameCard.class);
@@ -172,8 +169,6 @@ public class ShowNamesFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnNamesListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void OnNamesListFragmentInteractionListener(Name item);
         void hideFloatingButton();
         void setTitleName(String name);
     }

@@ -3,7 +3,27 @@
     <string name="authors">Adrian, Piotr, Marta</string>
 
 
+    <string name="choose_name_hint">Name</string>
+    <string name="description_title">Description</string>
+    <string name="button_change_name">Change</string>
+    <string name="filters_gender_b">BOY</string>
+    <string name="filters_gender_g">GIRL</string>
+    <string name="username_title">Username</string>
+    <string name="email_title">Email</string>
+    <string name="join_ranking_title">Join ranking </string>
+    <string name="with_user"> with user</string>
+    <string name="username_hint">Give username</string>
+    <string name="button_send_request">Send request</string>
+
+    <string name="rankings_tag">rankings</string>
+    <string name="rankings_id_tag">rankingsID</string>
+    <string name="type_tag">type</string>
+    <string name="name_tag">name</string>
+    <string name="gender_tag">gender</string>
+
     <string name="title_activity_ranking_list">Name Factory</string>
+    <string name="title_filters">Choose filters</string>
+    <string name="title_fragmet_change_name">Change ranking name</string>
     <string name="title_activity_evaluation">Continue ranking</string>
     <string name="title_activity_ranking_joining">Join your ranking</string>
     <string name="title_activity_new_ranking">New ranking</string>
