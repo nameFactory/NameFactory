@@ -75,8 +75,6 @@ public class RankingsListMain extends AppCompatActivity
         //sprawdzanie czy appka jest otwierana pierwszy raz i tworzenie na tej podstawie bazy danych
         databaseCheckFirstRun();
 
-
-
         //ustawienie Usera
         User = new UserAccount();
         User.setEmail("marta@ja.pl");
@@ -86,20 +84,6 @@ public class RankingsListMain extends AppCompatActivity
         setContentView(R.layout.activity_rankings_list_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //PRZEJSCIE DO FRAGMENTU FILTERS ________________________________________________________________
-                FiltersFragment setFragment= new FiltersFragment();
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentFrame, setFragment, null)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -111,14 +95,6 @@ public class RankingsListMain extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fm = getSupportFragmentManager();
- /*       fm.addOnBackStackChangedListener(
-                new FragmentManager.OnBackStackChangedListener() {
-                    public void onBackStackChanged() {
-                        ((FloatingActionButton)findViewById(R.id.fab)).show();
-                    }
-                });*/
-
-
 
         //wyswietlenie fragmentu z lista rankingow
         //przejdz do rankingjoiningrequest
@@ -265,28 +241,6 @@ public class RankingsListMain extends AppCompatActivity
         }
     }
 
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.rankings_list_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -332,7 +286,7 @@ public class RankingsListMain extends AppCompatActivity
             // Creating Bundle object
             Bundle bundel = new Bundle();
 
-            //globalne rankinig ___________________________________________________________
+            //globalne rankinig
 
             // Storing data into bundle
             bundel.putStringArrayList("rankings", GlobalNames);
@@ -391,8 +345,6 @@ public class RankingsListMain extends AppCompatActivity
                     .commit();
         }
 
-
-        //((FloatingActionButton)findViewById(R.id.fab)).hide();
     }
 
     @Override
@@ -403,7 +355,6 @@ public class RankingsListMain extends AppCompatActivity
     @Override
     public void onDialogNamePositiveClick(DialogFragment dialog, String name) {
 
-        //((FloatingActionButton)findViewById(R.id.fab)).hide();
         // Creating Bundle object
         Bundle bundel = new Bundle();
 
@@ -428,10 +379,6 @@ public class RankingsListMain extends AppCompatActivity
         dialog.dismiss();
     }
 
-    @Override
-    public void onFragmentInteraction() {
-
-    }
 
     @Override
     public void changeFloatingButtonDone() {

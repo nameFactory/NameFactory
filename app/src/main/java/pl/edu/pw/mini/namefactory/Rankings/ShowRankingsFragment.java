@@ -42,7 +42,6 @@ public class ShowRankingsFragment extends Fragment {
     private OnRankingsListFragmentInteractionListener mListener;
     private RankingsAdapter rAdapter;
     private DatabaseHandler dbh;
-    //private FragmentManager fm;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,22 +55,13 @@ public class ShowRankingsFragment extends Fragment {
     public static ShowRankingsFragment newInstance() {
 
         ShowRankingsFragment fragment = new ShowRankingsFragment();
-       /* Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);*/
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-/*        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }*/
         this.dbh = RankingsListMain.dbh;
-        //fm = getActivity().getSupportFragmentManager();
-
     }
 
     @Override
@@ -86,16 +76,8 @@ public class ShowRankingsFragment extends Fragment {
             Context context = view.getContext();
             rankingsList = dbh.getRankingList();
             rAdapter = new RankingsAdapter(rankingsList, context, mListener);
-            //RecyclerView recyclerView = (RecyclerView) view;
-
-            //if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new GridLayoutManager(context,2));
-            //} else {
-            //    recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            //}
-
+            recyclerView.setLayoutManager(new GridLayoutManager(context,2));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            //recyclerView.addItemDecoration(new DividerItem(context, LinearLayoutManager.VERTICAL));
             ItemTouchHelper.Callback callback =
                     new SwipeHelperCallback(rAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -115,8 +97,6 @@ public class ShowRankingsFragment extends Fragment {
                             .addToBackStack(null)
                             .commit();
 
-                    //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
-
                 }
 
                 @Override
@@ -130,13 +110,10 @@ public class ShowRankingsFragment extends Fragment {
                             .replace(R.id.fragmentFrame, setFragment, null)
                             .addToBackStack(null)
                             .commit();
-
-                    //((FloatingActionButton)getView().findViewById(R.id.fab)).hide();
                 }
 
             }));
 
-           // prepareRankingsList();
         }
         return recyclerView;
     }

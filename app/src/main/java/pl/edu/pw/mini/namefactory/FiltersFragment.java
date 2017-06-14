@@ -17,39 +17,12 @@ import java.util.prefs.Preferences;
 
 
 public class FiltersFragment extends PreferenceFragmentCompat {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    //protected SharedPreferences.OnSharedPreferenceChangeListener prefListener;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFiltersFragmentInteractionListener mListener;
     private FragmentManager fm;
 
     public FiltersFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FiltersFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FiltersFragment newInstance(String param1, String param2) {
-        FiltersFragment fragment = new FiltersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -70,14 +43,6 @@ public class FiltersFragment extends PreferenceFragmentCompat {
 
         getView().setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         getView().setClickable(true);
-/*        mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                Preferences.sync(getPreferenceManager(), key);
-                if (key.equals("gender") || key.equals("origin"))
-                    AppUtils.restart(getActivity());
-            }
-        };*/
     }
 
     @Override
@@ -118,8 +83,6 @@ public class FiltersFragment extends PreferenceFragmentCompat {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFiltersFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void onFiltersFragmentInteraction();
         void changeFloatingButtonDone();
         void setTitleName(String name);
     }

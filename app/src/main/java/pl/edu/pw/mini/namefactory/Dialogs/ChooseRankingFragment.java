@@ -66,10 +66,6 @@ public class ChooseRankingFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-       // LayoutInflater inflater = getActivity().getLayoutInflater();
-       // final View dialogView = inflater.inflate(R.layout.choose_name, null);
-       // final EditText nameView = (EditText) dialogView.findViewById(R.id.name);
 
         builder.setTitle(R.string.choose_ranking_dialog)
                 .setSingleChoiceItems(rankingsNames,-1, new DialogInterface.OnClickListener(){

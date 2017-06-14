@@ -122,13 +122,11 @@ public class EvaluationFragment extends Fragment {
         if(isGirl)
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirl));
-            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirlDark));
         }
         else
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoy));
-            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_boy));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoyDark));
         }
 
@@ -216,7 +214,7 @@ public class EvaluationFragment extends Fragment {
             String name1 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id1())[0];
             n1Switcher.setText(name1);
             for(int i = 0; i < namesToShow.length; i++) {
-                if(namesToShow[i].getName() == name1) {
+                if(namesToShow[i].getName().equals(name1)) {
                     ind1 = i;
                     break;
                 }
@@ -224,7 +222,7 @@ public class EvaluationFragment extends Fragment {
             String name2 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id2())[0];
             n2Switcher.setText(name2);
             for(int i = 0; i < namesToShow.length; i++) {
-                if(namesToShow[i].getName() == name2) {
+                if(namesToShow[i].getName().equals(name2)) {
                     ind2 = i;
                     break;
                 }
@@ -234,7 +232,7 @@ public class EvaluationFragment extends Fragment {
             if(predictedNames.size() < 5) RankingsListMain.fixedPool.submit(newPredictionsTask);
         }
         else {
-            //Toast.makeText(getContext(), "random names", Toast.LENGTH_LONG).show();
+
             isPredicted = false;
             Random random = new Random();
             ind1 = random.nextInt(messageCount);
@@ -279,7 +277,6 @@ public class EvaluationFragment extends Fragment {
      */
     public interface OnEvaluationFragmentInteractionListener {
         // TODO: Update argument type and name
-        //void onFragmentInteraction();
         void hideFloatingButton();
         void setTitleName(String name);
     }

@@ -68,7 +68,6 @@ public class RankingsJoiningRequestFragment extends Fragment {
     void SetupView(View _view)
     {
         mListener.setTitleName("Join your ranking");
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join your ranking");
         textName = (TextView) _view.findViewById(R.id.rankingNameText);
         textName.setText(rankingName);
         mListener.hideFloatingButton();
@@ -118,8 +117,6 @@ public class RankingsJoiningRequestFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnRankingsJoiningRequestFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void onFragmentInteraction();
         void hideFloatingButton();
         void setTitleName(String name);
     }

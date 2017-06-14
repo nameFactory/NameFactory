@@ -48,7 +48,6 @@ public class NameCard extends AppCompatActivity {
         if(!male)
         {
             colToolbar.setBackgroundColor(getResources().getColor(R.color.colorGirl));
-            //colToolbar.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             colToolbar.setContentScrimColor(getResources().getColor(R.color.colorGirl));
             colToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorGirl));
         }
@@ -59,14 +58,5 @@ public class NameCard extends AppCompatActivity {
             colToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorBoy));
         }
 
-
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 }

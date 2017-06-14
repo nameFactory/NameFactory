@@ -24,7 +24,6 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
     private List<Ranking> rankingsList;
     private final Context context;
     private DatabaseHandler dbh;
-   // SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -65,27 +64,6 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
         this.rankingsList = rankingsList;
         this.context = context;
         this.dbh = RankingsListMain.dbh;
-
-       /* SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-
-        listener =
-                new SharedPreferences.OnSharedPreferenceChangeListener() {
-                    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                       *//* if (key.equals("checkbox_edit_preference")) {
-                        }
-                        else if(key.equals("checkbox_mark_preference"))
-                        {
-
-                        }
-                        else if(key.equals("checkbox_mark_color_preference"))
-                        {
-                            elemColor = prefs.getInt("checkbox_mark_color_preference",0);
-                            for(ListPoint product:productsList)
-                                mark(product, product.getisBought());
-                        }*//*
-                    }
-                };
-        sharedPref.registerOnSharedPreferenceChangeListener(listener);*/
     }
 
     @Override
@@ -99,7 +77,6 @@ public class RankingsAdapter extends RecyclerView.Adapter<RankingsAdapter.ViewHo
     @Override
     public void onBindViewHolder(RankingsAdapter.ViewHolder holder, int position) {
 
-        //ROZWIAZ SPRYTNIEJ_____________________________________________________________
         Ranking ranking = rankingsList.get(position);
         holder.ranking.setText(ranking.getRankingName());
         holder.name1.setText(ranking.getNames().get(0).getName());

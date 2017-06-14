@@ -89,8 +89,6 @@ public class ShowNamesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_names_list, container, false);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(rankingName);
-        Log.i("FRAG", "weszlo do onCreateView");
         mListener.hideFloatingButton();
         rankingName = dbh.getRankingName(rankingID);
         mListener.setTitleName(rankingName);
@@ -134,9 +132,6 @@ public class ShowNamesFragment extends Fragment {
 
             }));
 
-            //Log.i("FRAG", "ustawiony adapter");
-            //prepareNamesList();
-            //Log.i("FRAG", "przygotowana lista");
         }
         return recyclerView;
     }
