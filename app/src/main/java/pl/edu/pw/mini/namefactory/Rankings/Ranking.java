@@ -22,6 +22,12 @@ public class Ranking {
         this.ID = id;
     }
 
+    public Ranking(DatabaseHandler dbh, String name, int id) {
+        this.dbh = dbh;
+        this.name = name;
+        this.ID = id;
+    }
+
     public int getID() {return ID;}
 
     public String getRankingName() {
