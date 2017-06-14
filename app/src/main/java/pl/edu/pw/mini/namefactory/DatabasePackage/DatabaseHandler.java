@@ -67,7 +67,7 @@ public class DatabaseHandler {
         myDb.updateData("RANKINGS", rankingID, new String[]{newRankingName});
     }
 
-    //dodawanie imion z danej listy id imion do danego rankingu
+    //dodawanie wszystkich imion o okreslonej plci do danego rankingu
     public void addNames2Ranking(int rankingID, boolean gender)
     {
         List<Integer> namesFromServer = new ArrayList<Integer>();
@@ -87,6 +87,7 @@ public class DatabaseHandler {
 
     }
 
+    //dodawanie danych imion do danego rankingu
     public void addNames2Ranking(int rankingID, int[] namesFromServer)
     {
         for (Integer id : namesFromServer)
@@ -94,7 +95,7 @@ public class DatabaseHandler {
 
     }
 
-    //usuwanie rankingu
+    //usuwanie danego rankingu
     public void deleteRanking(int rankingID){
         myDb.deleteRanking(rankingID);
     }
@@ -132,7 +133,7 @@ public class DatabaseHandler {
         return results;
     }
 
-    //pobieranie id rankigu
+    //pobieranie id rankigu - uwaga uzywanie tej metody jest niezalecane
     public int getRankingsID(String name){
         Cursor c = myDb.getRankingsID(name);
         int id = -1;

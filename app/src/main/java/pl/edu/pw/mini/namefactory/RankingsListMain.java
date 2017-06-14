@@ -125,18 +125,18 @@ public class RankingsListMain extends AppCompatActivity
             // This is just a normal run
             dbh = new DatabaseHandler(this);
             String login, password;
-            try{
+            try
+            {
                 Set<String> set = prefs.getStringSet("USER", null);
                 if (set == null) throw new Exception();
                 login = set.toArray(new String[2])[0];
                 password = set.toArray(new String[2])[1];
                 apiWrapper = new ApiWrapper(login, password);
             }
-            catch(Exception e) {
-                Toast.makeText(this, "No user was found", Toast.LENGTH_LONG).show();
+            catch(Exception e)
+            {
                 return;
             }
-            Toast.makeText(this, "not a first run", Toast.LENGTH_LONG).show();
             return;
 
         } else if (savedVersionCode == DOESNT_EXIST) {
@@ -174,7 +174,6 @@ public class RankingsListMain extends AppCompatActivity
                     catch(IOException e)
                     {
                         Log.i("suc", "Creating user unsuccessful");
-                        //Toast.makeText(context, "Creating user unsuccessful", Toast.LENGTH_LONG).show();
                         return;
                     }
                     //dodawanie imion
@@ -183,7 +182,6 @@ public class RankingsListMain extends AppCompatActivity
                         List<ApiName> names = ApiWrapper.getNamesDB().names;
                         RankingsListMain.dbh.pushNames(names);
                         Log.i("suc", "Creating user successful");
-                        //Toast.makeText(context, "Creating user successful", Toast.LENGTH_LONG).show();
                     }
                     catch(IOException e)
                     {
@@ -212,8 +210,6 @@ public class RankingsListMain extends AppCompatActivity
 
 
             fixedPool.submit(newUserTask);
-            Toast.makeText(this, "first run!", Toast.LENGTH_LONG).show();
-
 
         } else if (currentVersionCode > savedVersionCode) {
 
