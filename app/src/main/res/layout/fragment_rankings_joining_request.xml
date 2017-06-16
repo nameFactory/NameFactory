@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
             android:textSize="23sp"
-            android:text="Join ranking "/>
+            android:text="@string/join_ranking_title"/>
 
         <TextView
             android:id="@+id/rankingNameText"
@@ -32,7 +32,7 @@
             android:layout_gravity="center"
             android:textSize="23sp"
             android:layout_marginTop="15dp"
-            android:text=" with user"/>
+            android:text="@string/with_user"/>
 
 
         <Space
@@ -47,7 +47,7 @@
             android:textSize="25sp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Give username" />
+            android:hint="@string/username_hint" />
 
         <Space
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:paddingTop="25dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:text="Send request"
+            android:text="@string/button_send_request"
             android:textSize="22sp"
             android:onClick="sendRequest"/>
 

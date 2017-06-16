@@ -24,8 +24,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
 
     private List<Name> namesList;
     private final Context context;
-    //SharedPreferences.OnSharedPreferenceChangeListener listener;
-    //private final RankingViewFragment.OnRankingsListFragmentInteractionListener mListener;
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
@@ -67,27 +65,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
     public NamesAdapter(final List<Name> namesList, Context context, ShowNamesFragment.OnNamesListFragmentInteractionListener _mlistener) {
         this.namesList = namesList;
         this.context = context;
-        //mListener = _mlistener;
-        /*SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-
-        listener =
-                new SharedPreferences.OnSharedPreferenceChangeListener() {
-                    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                       *//* if (key.equals("checkbox_edit_preference")) {
-                        }
-                        else if(key.equals("checkbox_mark_preference"))
-                        {
-
-                        }
-                        else if(key.equals("checkbox_mark_color_preference"))
-                        {
-                            elemColor = prefs.getInt("checkbox_mark_color_preference",0);
-                            for(ListPoint product:productsList)
-                                mark(product, product.getisBought());
-                        }*//*
-                    }
-                };
-        sharedPref.registerOnSharedPreferenceChangeListener(listener);*/
     }
 
     @Override
@@ -117,18 +94,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
             holder.img.setImageResource(android.R.color.transparent);
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.backgroundColor));
         }
-
-        //MOZE TO JEST NIEPOTRZEBNE _________________________________
-       /* holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(name);
-                }
-            }
-        });*/
     }
 
     @Override
@@ -139,7 +104,6 @@ public class NamesAdapter extends RecyclerView.Adapter<NamesAdapter.ViewHolder> 
 
     // Remove a RecyclerView item containing a specified Data object
     public void remove(Name data) {
-        //ZMIEN-----------------------------------------------------------------------------------------
         int position = namesList.indexOf(data);
         namesList.remove(position);
         notifyItemRemoved(position);

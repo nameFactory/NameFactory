@@ -42,7 +42,6 @@ public class ShowRankingsFragment extends Fragment {
     private OnRankingsListFragmentInteractionListener mListener;
     private RankingsAdapter rAdapter;
     private DatabaseHandler dbh;
-    //private FragmentManager fm;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -51,27 +50,17 @@ public class ShowRankingsFragment extends Fragment {
     public ShowRankingsFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ShowRankingsFragment newInstance() {
 
         ShowRankingsFragment fragment = new ShowRankingsFragment();
-       /* Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);*/
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-/*        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }*/
         this.dbh = RankingsListMain.dbh;
-        //fm = getActivity().getSupportFragmentManager();
-
     }
 
     @Override
@@ -79,23 +68,15 @@ public class ShowRankingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rankings_list, container, false);
         mListener.changeFloatingButtonAdd();
-        mListener.setTitleName("NameFactory");
+        mListener.setTitleName(getString(R.string.title_activity_ranking_list));
         recyclerView = (RecyclerView) view;
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             rankingsList = dbh.getRankingList();
             rAdapter = new RankingsAdapter(rankingsList, context, mListener);
-            //RecyclerView recyclerView = (RecyclerView) view;
-
-            //if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new GridLayoutManager(context,2));
-            //} else {
-            //    recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            //}
-
+            recyclerView.setLayoutManager(new GridLayoutManager(context,2));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            //recyclerView.addItemDecoration(new DividerItem(context, LinearLayoutManager.VERTICAL));
             ItemTouchHelper.Callback callback =
                     new SwipeHelperCallback(rAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -115,8 +96,6 @@ public class ShowRankingsFragment extends Fragment {
                             .addToBackStack(null)
                             .commit();
 
-                    //((FloatingActionButton) getView().findViewById(R.id.fab)).hide();
-
                 }
 
                 @Override
@@ -130,13 +109,10 @@ public class ShowRankingsFragment extends Fragment {
                             .replace(R.id.fragmentFrame, setFragment, null)
                             .addToBackStack(null)
                             .commit();
-
-                    //((FloatingActionButton)getView().findViewById(R.id.fab)).hide();
                 }
 
             }));
 
-           // prepareRankingsList();
         }
         return recyclerView;
     }
@@ -177,7 +153,6 @@ public class ShowRankingsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnRankingsListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void changeFloatingButtonAdd();
         void setTitleName(String name);
     }

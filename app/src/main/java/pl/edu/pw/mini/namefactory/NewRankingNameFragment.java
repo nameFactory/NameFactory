@@ -29,13 +29,11 @@ import pl.edu.pw.mini.namefactory.DatabasePackage.DatabaseHandler;
  * create an instance of this fragment.
  */
 public class NewRankingNameFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_RNAME = "rankingName";
     private static final String ARG_RID = "rankingID";
 
-    // TODO: Rename and change types of parameters
-    //private String mParam1;
+
     private String rankingName;
     private int rankingID;
 
@@ -74,7 +72,7 @@ public class NewRankingNameFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_ranking, container, false);
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         view.setClickable(true);
-        mListener.setTitleName("Change ranking name");
+        mListener.setTitleName(getString(R.string.title_fragmet_change_name));
         textBox = (EditText) view.findViewById(R.id.rankingName);
         textBox.setText(rankingName);
 
@@ -120,21 +118,17 @@ public class NewRankingNameFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnNewRankingFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction();
         void setTitleName(String name);
     }
 
     public void change(View v)
     {
-
-        //zmiana nazwy rankingu__________________________________
+        //zmiana nazwy rankingu
 
         String rankingNewName = textBox.getText().toString();
         RankingsListMain.dbh.editRankingName(rankingID, rankingNewName);
+
         //powrot do poprzedniego fragmentu
-        //TextView
-        //dbh.editRankingName(rankingID, String newRankingName)
         InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),

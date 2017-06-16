@@ -31,7 +31,6 @@ import pl.edu.pw.mini.namefactory.Names.Name;
 
 
 public class EvaluationFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_ID = "rankingID";
 
@@ -59,7 +58,6 @@ public class EvaluationFragment extends Fragment {
 
     public static EvaluationFragment newInstance(int id) {
 
-        Log.i("FRAG", "weszlo do newInstance");
         EvaluationFragment fragment = new EvaluationFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
@@ -122,13 +120,11 @@ public class EvaluationFragment extends Fragment {
         if(isGirl)
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirl));
-            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_girl));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorGirlDark));
         }
         else
         {
             n1Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoy));
-            //n1Switcher.setBackground(getResources().getDrawable(R.drawable.tlo_boy));
             n2Switcher.setBackgroundColor(getResources().getColor(R.color.colorBoyDark));
         }
 
@@ -137,7 +133,6 @@ public class EvaluationFragment extends Fragment {
         n1Switcher.setFactory(new ViewSwitcher.ViewFactory() {
 
             public View makeView() {
-                // TODO Auto-generated method stub
                 // create new textView and set the properties like clolr, size etc
                 TextView myText = new TextView(getActivity());
                 myText.setGravity(Gravity.CENTER);
@@ -150,7 +145,6 @@ public class EvaluationFragment extends Fragment {
         n2Switcher.setFactory(new ViewSwitcher.ViewFactory() {
 
             public View makeView() {
-                // TODO Auto-generated method stub
                 // create new textView and set the properties like clolr, size etc
                 TextView myText = new TextView(getActivity());
                 myText.setGravity(Gravity.CENTER);
@@ -172,7 +166,6 @@ public class EvaluationFragment extends Fragment {
         n2Switcher.setOutAnimation(out);
 
         ChooseDataForSwitchers();
-        Log.i("FRAG", "weszlo do onCreateView");
 
         n1Switcher.setOnClickListener(new View.OnClickListener()
         {
@@ -216,7 +209,7 @@ public class EvaluationFragment extends Fragment {
             String name1 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id1())[0];
             n1Switcher.setText(name1);
             for(int i = 0; i < namesToShow.length; i++) {
-                if(namesToShow[i].getName() == name1) {
+                if(namesToShow[i].getName().equals(name1)) {
                     ind1 = i;
                     break;
                 }
@@ -224,7 +217,7 @@ public class EvaluationFragment extends Fragment {
             String name2 = RankingsListMain.dbh.getNameDetails(predictedNames.get(0).getName_id2())[0];
             n2Switcher.setText(name2);
             for(int i = 0; i < namesToShow.length; i++) {
-                if(namesToShow[i].getName() == name2) {
+                if(namesToShow[i].getName().equals(name2)) {
                     ind2 = i;
                     break;
                 }
@@ -234,7 +227,7 @@ public class EvaluationFragment extends Fragment {
             if(predictedNames.size() < 5) RankingsListMain.fixedPool.submit(newPredictionsTask);
         }
         else {
-            //Toast.makeText(getContext(), "random names", Toast.LENGTH_LONG).show();
+
             isPredicted = false;
             Random random = new Random();
             ind1 = random.nextInt(messageCount);
@@ -278,8 +271,6 @@ public class EvaluationFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnEvaluationFragmentInteractionListener {
-        // TODO: Update argument type and name
-        //void onFragmentInteraction();
         void hideFloatingButton();
         void setTitleName(String name);
     }
